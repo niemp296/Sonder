@@ -6,7 +6,6 @@ class SearchBar extends Component {
         this.state = {
             filtered: []
         }
-        console.log(props);
     }
     componentDidMount() {
         this.setState({
@@ -19,48 +18,41 @@ class SearchBar extends Component {
           filtered: nextProps.items
         });
       }
+
       handleChange = (e) => {
         let currentList = [];
         let newList = [];
         
-        if (e.target.value !== "") {
-            // Assign the original list to currentList
+        let search = e.target.value;
+        if (search !== "") {
             currentList = this.props.items;
-            
-            // Use .filter() to determine which items should be displayed
-            // based on the search terms
             newList = currentList.filter(item => {
-            // change current item to lowercase
-            const lc = item.toLowerCase();
-            // change search term to lowercase
-            const filter = e.target.value.toLowerCase();
-            // check to see if the current list item includes the search term
-            // If it does, it will be added to newList. Using lowercase eliminates
-            // issues with capitalization in search terms and search content
-            return lc.includes(filter);
+            //convert list of items and search to lowercase so capitalization doesn't matter
+            return item.toLowerCase().includes(search.toLowerCase());
             });
         } else {
-            // If the search bar is empty, set newList to original task list
             newList = this.props.items;
             }
-            // Set the filtered state based on what our rules added to newList
             this.setState({
-            filtered: newList
+                filtered: newList
             });
         }
     
     render() {
         return (
             <div>
-                <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
-                    <ul>
+                <form className="form-inline d-flex justify-content-center md-form form-sm mt-0">
+                <input className="form-control form-control-sm w-75" type="text" onChange={this.handleChange} placeholder="Search"
+                    aria-label="Search" />
+                </form>
+                    <ul className="list-group list-group-flush">
                         {this.state.filtered.map(item => (
-                            <li key={item}>
-                                {item}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                        <li className="list-group-item" key={item}>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+            </div>
         )
     }
 }
