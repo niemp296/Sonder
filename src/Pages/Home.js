@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './Components/Header';
+import Main from './Components/MainContent';
 
 export default class Home extends React.Component {
 
@@ -19,7 +20,10 @@ export default class Home extends React.Component {
 
     render() {
         return (
+            <div>
             <Header/>
+            <Main/>
+            </div>
         );
     }
 }
