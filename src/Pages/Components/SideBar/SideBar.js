@@ -1,17 +1,13 @@
-import React, { Component } from 'react';
-import SearchBar from './SearchBar'
+import React from 'react';
+import SearchBar from '../SearchBar/SearchBar'
 import './SideBar.css'
+import list from '../../../TestData/search.json'
 
 export default class SideBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          list: [
-            "omg it's 3 am",
-            "need sleep",
-            "super tuesday @ popeyes tomorrow",
-            "i mean today"
-          ]
+          list: list.entries
         };
       }
     render() {

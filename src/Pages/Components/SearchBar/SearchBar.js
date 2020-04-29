@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import SearchList from '../SearchList/SearchList';
+
 
 class SearchBar extends Component {
     constructor(props) {
@@ -28,7 +30,7 @@ class SearchBar extends Component {
             currentList = this.props.items;
             newList = currentList.filter(item => {
             //convert list of items and search to lowercase so capitalization doesn't matter
-            return item.toLowerCase().includes(search.toLowerCase());
+            return item.name.toLowerCase().includes(search.toLowerCase());
             });
         } else {
             newList = this.props.items;
@@ -41,17 +43,11 @@ class SearchBar extends Component {
     render() {
         return (
             <div>
-                <form className="form-inline d-flex justify-content-center md-form form-sm mt-0">
+                <form className="form-inline d-flex justify-content-center md-form form-md mt-0">
                 <input className="form-control form-control-sm w-75" type="text" onChange={this.handleChange} placeholder="Search"
                     aria-label="Search" />
                 </form>
-                    <ul className="list-group list-group-flush">
-                        {this.state.filtered.map(item => (
-                        <li className="list-group-item" key={item}>
-                            {item}
-                        </li>
-                    ))}
-                </ul>
+                <SearchList items={this.state.filtered} />
             </div>
         )
     }
