@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 //todo:replace this whole thing with a class
 function Main() {
