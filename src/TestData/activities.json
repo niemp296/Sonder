@@ -1,0 +1,16 @@
+{
+    "activities": [
+      {
+        "name": "first activity",
+        "cost": 1
+      },
+      {
+        "name": "second activity",
+        "cost": 2
+      },
+      {
+        "name": "third activity",
+        "cost": 3
+      }
+    ]
+}

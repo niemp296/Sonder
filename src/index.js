@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import Home from './Pages/Home';
+import Planner from './Pages/Planner';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
 
+//TODO: put home back to router
 ReactDOM.render(
   <React.StrictMode>
-    <Home />
+    <Planner />
   </React.StrictMode>,
   document.getElementById('root')
 );
