@@ -16,8 +16,8 @@ export default class Activity extends React.Component {
             <div className="card bg-light mb-3">   
                 <img className="card-img planner-activity-background" src="https://picsum.photos/100" alt="background" />  
                 <div className="card-img-overlay">    
-                    <h2 className="card-title text-center">{this.props.activity.name}</h2>
-                    <h2 className="card-text text-center">${this.props.activity.cost}</h2>
+                    <h2 className="card-title text-center planner-activity-text">{this.props.activity.name}</h2>
+                    <h2 className="card-text text-center planner-activity-text">${this.props.activity.cost}</h2>
                 </div>
             </div>
         );

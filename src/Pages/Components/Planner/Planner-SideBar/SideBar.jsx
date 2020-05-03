@@ -1,5 +1,8 @@
 import React from 'react';
 import './SideBar.css'
+import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
+import HotelIcon from '@material-ui/icons/Hotel';
+import DateRangeIcon from '@material-ui/icons/DateRange';
 
 export default class SideBar extends React.Component {
 
@@ -20,10 +23,14 @@ export default class SideBar extends React.Component {
     //TODO: return clicklable symbol for stay, flight, and calendar
     render() {
         return (
-            <ul id="planner-sidebar">
-                <li>Home</li>
-                <li>Flight</li>
-                <li>Dates</li>
+            <ul id="planner-sidebar" className="list-group">
+                <li>
+                    <HotelIcon fontSize="large"/>
+                </li>
+                <li><FlightTakeoffIcon fontSize="large"/></li>
+                <li>
+                    <DateRangeIcon fontSize="large"/>
+                </li>
             </ul>
         );
     }

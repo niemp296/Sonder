@@ -1,4 +1,12 @@
 #planner-sidebar{
     min-width:2rem;
     border-right: 2px solid black;
+    padding: 1rem;
+}
+#planner-sidebar li{
+    padding-bottom: 1rem;
+}
+#planner-sidebar li:hover{
+    padding-bottom: 1rem;
+    opacity:0.8;
 }

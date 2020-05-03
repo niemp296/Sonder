@@ -2,3 +2,6 @@
     filter: blur(3px);
     -webkit-filter: blur(3px);
 }
+.planner-activity-text{
+    font-size: 1.5rem;
+}
