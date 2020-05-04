@@ -1,0 +1,16 @@
+{
+    "entries": [
+      {
+        "name": "asia",
+        "type": "continent"
+      },
+      {
+        "name": "korea",
+        "type": "country"
+      },
+      {
+        "name": "tokyo",
+        "type": "city"
+      }
+    ]
+}

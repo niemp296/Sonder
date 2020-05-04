@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from './Components/Header';
-import Main from './Components/MainContent';
+import Header from './Components/Header/Header';
+import Main from './Components/Main/MainContent';
 
 export default class Home extends React.Component {
 
