@@ -2,15 +2,17 @@
     "activities": [
       {
         "name": "first activity",
-        "cost": 1
+        "coordinates": "0,0",
+        "hours": "9 AM - 5 PM",
+        "spending" : 1,
+        "Reviews" : 5
       },
       {
         "name": "second activity",
-        "cost": 2
-      },
-      {
-        "name": "third activity",
-        "cost": 3
+        "coordinates": "0,0",
+        "hours": "9 AM - 5 PM",
+        "spending" : 2,
+        "Reviews" : 4
       }
     ]
 }
