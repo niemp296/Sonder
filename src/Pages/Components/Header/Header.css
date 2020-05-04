@@ -15,16 +15,11 @@ li {
 
 li a {
     display: block;
-    color: black;
+    color: #1B1725;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     font-size: x-large;
-}
-
-li a:hover:not(.active) {
-    background-color: rgba(190, 187, 187, 0.185);
-    border-radius: 10%;
 }
 
 .Logo {
