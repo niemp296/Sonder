@@ -13,8 +13,8 @@ export default class Activity extends React.Component {
     //todo: change to react fragment instead?
     render() {
         return (
-            <div className="card bg-light mb-3">   
-                <img className="card-img planner-activity-background" src="https://picsum.photos/100" alt="background" />  
+            <div className="card bg-light border-dark mb-3 planner-activity-cards">   
+                <img className="card-img planner-activity-background" src="https://picsum.photos/300" alt="background" />  
                 <div className="card-img-overlay">    
                     <h2 className="card-title text-center planner-activity-text">{this.props.activity.name}</h2>
                     <h2 className="card-text text-center planner-activity-text">${this.props.activity.cost}</h2>

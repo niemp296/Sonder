@@ -12,6 +12,7 @@
     "babel-preset-react": "^6.24.1",
     "bootstrap": "^4.4.1",
     "bulma": "^0.8.2",
+    "jquery": "^3.5.0",
     "parcel": "^1.12.4",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
