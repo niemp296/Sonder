@@ -1,0 +1,20 @@
+#planner-sidebar{
+    padding: 1rem;
+    justify-content: left;
+    height: auto;
+}
+#planner-sidebar li{
+    padding-bottom: 1rem;
+}
+#planner-sidebar li:hover{
+    padding-bottom: 1rem;
+    opacity:0.8;
+}
+
+div#planner-date-range {
+    display: flex;
+}
+div#planner-days-icons {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,11 @@
+#day-estimated-cost{
+    font-size:2rem;
+    text-align: left;
+    margin-bottom:1rem;
+}
+#day-time{
+    font-size:2rem;
+}
+div#planner-flight, div#planner-stay{
+    height: 100vh;
+}
