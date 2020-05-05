@@ -34,11 +34,13 @@ class SignUp extends Component {
       advertiser: false,
       email: null,
       password: null,
+      confirmPassword: null,
       formErrors: {
         firstName: "",
         lastName: "",
         email: "",
-        password: ""
+        password: "",
+        confirmPassword: ""
       }
     };
   }
@@ -47,6 +49,8 @@ class SignUp extends Component {
     e.preventDefault();
 
     if (formValid(this.state)) {
+      //TODO: check if email or username already exists, 
+      //else push new info to server and direct to home page
       console.log(`
         --SUBMITTING--
         First Name: ${this.state.firstName}
@@ -85,6 +89,10 @@ class SignUp extends Component {
       case "password":
         formErrors.password =
           value.length < 6 ? "minimum 6 characaters required" : "";
+        break;
+      case "confirmPassword":
+        formErrors.confirmPassword =
+          (value !== this.state.password) ? "password does not match" : "";
         break;
       default:
         break;
@@ -182,20 +190,20 @@ class SignUp extends Component {
                 <div className="password">
                 <label htmlFor="password">Confirm Password</label>
                 <input
-                    className={formErrors.password.length > 0 ? "error" : null}
+                    className={formErrors.confirmPassword.length > 0 ? "error" : null}
                     placeholder="Confirm Password"
                     type="password"
-                    name="password"
+                    name="confirmPassword"
                     noValidate
                     onChange={this.handleChange}
                 />
-                {formErrors.password.length > 0 && (
-                    <span className="errorMessage">{formErrors.password}</span>
+                {formErrors.confirmPassword.length > 0 && (
+                    <span className="errorMessage">{formErrors.confirmPassword}</span>
                 )}
                 </div>
                 <div className="createAccount">
                 <button type="submit">Create Account</button>
-                <Link href="/log-in" variant="body">
+                <Link href="/sign-in" variant="body">
                     <small>  {"Already have an account? Sign in"} </small>
                 </Link>
                 </div>
