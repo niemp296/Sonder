@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import SignUp from './Pages/Components/SignUp/SignUp';
+import SignIn from './Pages/Components/SignIn/SignIn';
 import Home from './Pages/Home';
 import Planner from './Pages/Planner';
 import Stay from './Pages/Components/Planner/Planner-Stay/Stay';
@@ -21,6 +22,7 @@ ReactDOM.render(
       <div>
           <Route exact path="/" component={Home} />
           <Route path="/sign-up" component={SignUp} />
+          <Route path="/sign-in" component={SignIn} />
           <Route exact path="/plan-trip" component={Planner} />
           <Route exact path="/stay" component={Stay} />
       </div>
