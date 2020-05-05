@@ -1,0 +1,18 @@
+{
+    "activities": [
+      {
+        "name": "first activity",
+        "coordinates": "0,0",
+        "hours": "9 AM - 5 PM",
+        "spending" : 1,
+        "Reviews" : 5
+      },
+      {
+        "name": "second activity",
+        "coordinates": "0,0",
+        "hours": "9 AM - 5 PM",
+        "spending" : 2,
+        "Reviews" : 4
+      }
+    ]
+}

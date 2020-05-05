@@ -1,0 +1,20 @@
+.planner-header{
+    text-align:center;
+    font-family: sans-serif;
+}
+#planner-header{
+    margin-top:1rem;
+    border-bottom: 1px solid black;
+}
+#planner-title{
+    font-size: 2rem;
+}
+
+#planner-date{
+    font-size: 1rem;
+}
+
+#planner-total-cost{
+    font-size: 1rem;
+
+}
