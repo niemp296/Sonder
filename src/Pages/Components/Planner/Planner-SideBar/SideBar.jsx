@@ -32,6 +32,10 @@ export default class SideBar extends React.Component {
         this.setState({numDays: this.state.numDays + 1});
     }
 
+    decrementNumDays = () => {
+        if(this.state.numDays >0)
+            this.setState({numDays: this.state.numDays - 1});
+    }
 
     //TODO: make all symbols clickable, let user add days
     render() {
@@ -64,12 +68,17 @@ export default class SideBar extends React.Component {
                 <div className="collapse" id="planner-days-icons">
                     {this.renderPlannerDayButton()}
                     <button 
-                    type="button" 
                     className="btn btn-light btn-outline-dark planner-day-icon mb-2"
                     onClick = {() => {
                         this.incrementNumDays();
                     }}
                     >+</button>
+                     <button 
+                    className="btn btn-light btn-outline-dark planner-day-icon mb-2"
+                    onClick = {() => {
+                        this.decrementNumDays();
+                    }}
+                    >-</button>
                 </div>
             </div>
         );

@@ -39,7 +39,9 @@ export default class Planner extends React.Component {
             <PlannerHeader/>
             <div id ="Planner-container">
                 <PlannerSideBar handleClick = {this.selectComponent}/>
+                <div id="planner-main">
                 {this.renderSelectedComponent(this.state.selectedComponent)}
+                </div>
             </div>
             </div>
         );

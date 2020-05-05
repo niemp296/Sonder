@@ -31,7 +31,7 @@ export default class Main extends React.Component {
 
     render() {
         return (
-            <div id="planner-main">
+            <div>
                 <h1 id="day-estimated-cost">Estimated cost: </h1>
                 {this.state.time.map(time =>
                     <div>
