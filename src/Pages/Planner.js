@@ -1,10 +1,7 @@
 import React from 'react';
 import PlannerHeader from './Components/Planner/Planner-Header/Header';
 import PlannerSideBar from './Components/Planner/Planner-SideBar/SideBar';
-import Flight from './Components/Planner/Planner-Flight/Flight';
 import * as PlannerComponents from './Components/Planner/Planner-Router/Router';
-import Stay from './Components/Planner/Planner-Stay/Stay';
-import Main from './Components/Planner/Planner-Main/Main';
 import './Planner.css';
 
 //todo: make a function to handle total cost: flight (passed by sidebar) + stays (passed by sidebar) + activities (passed by Main)
@@ -30,14 +27,13 @@ export default class Planner extends React.Component {
     
     //this method renders Flight, Stays, or Activity based on users' choice
     renderSelectedComponent(selectedComponent){
-        if(!selectedComponent)
-            return <Flight />
-        const Com = PlannerComponents[selectedComponent];
+        //default option to stay
+        const Com = (!selectedComponent) ? PlannerComponents["Stay"]: PlannerComponents[selectedComponent];
         return <Com />
+
     }
 
     render() {
-        console.log(PlannerComponents);
         return (
             <div>
             <PlannerHeader/>

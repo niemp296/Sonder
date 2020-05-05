@@ -23,18 +23,13 @@ export default class SideBar extends React.Component {
     renderPlannerDayButton(){
         const buttons =[];
         for(var i = 1; i<= this.state.numDays; i++){
-            console.log(this.state.numDays);
-            console.log("day " + i);
             buttons.push(React.createElement('button', { class: "btn btn-light btn-outline-dark planner-day-icon mb-2"}, i));
-            //return <button type="button" className="btn btn-light btn-outline-dark planner-day-icon mb-2">{i}</button>;
         }
         return buttons;
     }
 
     incrementNumDays = () => {
-        console.log("incrementNumDays");
         this.setState({numDays: this.state.numDays + 1});
-        console.log(this.state.numDays);
     }
 
 
@@ -73,7 +68,6 @@ export default class SideBar extends React.Component {
                     className="btn btn-light btn-outline-dark planner-day-icon mb-2"
                     onClick = {() => {
                         this.incrementNumDays();
-                        console.log(this.state.numDays);
                     }}
                     >+</button>
                 </div>
