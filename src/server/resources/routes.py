@@ -1,7 +1,6 @@
 from .location import LocationsApi, LocationApi
 from .plan import PlansApi, PlanApi
 from .user import UsersApi, UserApi
-from .movie import MoviesApi, MovieApi
 
 # API endpoints to access Database
 def initialize_routes(api):
