@@ -1,0 +1,8 @@
+.planner-activity-background{
+    filter: blur(3px);
+    -webkit-filter: blur(3px);
+    min-block-size: -webkit-fill-available;
+}
+.planner-activity-text{
+    font-size: 1.5rem;
+}
