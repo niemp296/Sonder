@@ -1,19 +1,18 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user
+
 import sys
 sys.path.append('../')
 from database.models import User
-from database.db import db
 import app
 
-#login = LoginManager(app)
-'''
-@app.after_request
-def after_request(response):
-    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-    return response
-'''
+login = LoginManager(app)
+
+client= MongoClient(config['mongodbHost'])
+user_db = client.get_database('test')
+
+records = user_db.user
+
 #-----------ROUTING GOES HERE-------------------
 
 @app.route('/signup', methods = ['GET', 'POST'])
@@ -26,58 +25,56 @@ def register():
     print(data['advertiser'])
     print(data['email'])
     print(data['password'])
+    firstName = data['firstName']
+    lastName =data['lastName']
     email = data['email']
 
-    existing_user = email_already_exist(email)
+    existing_user = records.find_one({'email': data['email']}) 
     if existing_user is None:
         password = generate_password_hash(data['password'])
         print("no existing user. Password: ", password)
-        new_user = User(email, password).save()
-        login_user(new_user)
-        print("succesfully registered: ", email)
-        #TODO: send feedback to react
-    return data
+        records.insert_one({
+            'budget' : 0,
+            'email': email,
+            'password': password,
+            'firstname': firstName,
+            'lastName' : lastName,
+            'userType': 'traveler'
+        })
+        print("succesful sign up")
+        return("200")
 
-''' TODO: change the return so it pass something back to front-end '''
+    print("There's an error / User already exists")
+    return ("400")
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if(current_user.is_authenticated):
-        return "User is authenticated. Redirect to index.html"
+    #if(current_user.is_authenticated):
+    #    return "User is authenticated. Redirect to index.html"
     data = request.json
-    print(data['email'])
-    print(data['password'])
-    user = User.objects(email=form.email.data).first()
-    if user is None or not check_password_hash(data['password'], user['password']): 
-        return("Invalid username or password")
-    login_user(user) #remember??
-    return ("succesful login")
+    email = data['email']
+
+    user = records.find_one({'email': data['email']})
+    if user is None:
+        print("User does not exists")
+        return("404")
+    
+    input_password = data['password']
+    print(input_password)
+    print(user['password'])
+    if not check_password_hash(user['password'], input_password): 
+        print("Wrong password")
+        return("400")
+    
+    #login_user(user)
+    print("succesful login")
+    return "200"
 
 @app.route('/logout')
 def logout():
     logout_user()
     return "user is now logged out" 
-#----- This section handles user verification and session -----------
-
-class User(UserMixin, db.Document):
-    meta = {'collection': 'users'}
-    email = db.StringField(max_length=30)
-    password = db.StringField()
-
-# flask-login knows nothing about database
-# we need this method to keep track of user session
-# id is a string (as stored in the database)
-@login.user_loader
-def load_user(id):
-    return User.objects(pk=user_id).first()
-
-def email_already_exist(email):
-    user = User.query.filter_by(email).first()
-    if user is not None:
-        return False
-
-
-#------ This section contains the unused cose ------------------
-
 
 '''TODO:
 - authenticated user wanna view user-specific page: see https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-v-user-logins
