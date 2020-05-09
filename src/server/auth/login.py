@@ -4,15 +4,16 @@ import sys
 sys.path.append('../')
 from database.models import User
 from database.db import db
-from server import app
-login = LoginManager(app)
+import app
 
+#login = LoginManager(app)
+'''
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
     return response
-
+'''
 #-----------ROUTING GOES HERE-------------------
 
 @app.route('/signup', methods = ['GET', 'POST'])
@@ -76,23 +77,7 @@ def email_already_exist(email):
 
 
 #------ This section contains the unused cose ------------------
-''' UNUSED CODE HERE
 
-app.config['MONGO_DBNAME'] = 'mongologin'
-app.config['MONGO_URI'] = 'mongodb://placeholder'
-
-mongo = PyMongo(app)
-
-@app.route('/')
-def index():
-    if 'username' in session:
-        return 'You are logged in as ' + session['username']
-    return "Hello world!"
-'''
-
-#if __name__ == '__main__':
-#    app.secret_key = 'secretkey'
-#    app.run(debug=True)
 
 '''TODO:
 - authenticated user wanna view user-specific page: see https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-v-user-logins

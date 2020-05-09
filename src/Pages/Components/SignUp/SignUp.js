@@ -60,13 +60,17 @@ class SignUp extends Component {
       );
       if (this.state.firstName !== "") {
         axios.post('http://localhost:5000/signup', this.state)
-            .then(function(response){
-                console.log(response);
-       //Perform action based on response
+        .then(function(response){
+          if(response.data === 400){
+              console.log("User already exists");
+            }
+          else if(response.data === 200){
+            console.log("You are succesfully registered");
+          } 
         })
         .catch(function(error){
-            console.log(error);
-       //Perform action based on error
+          console.log("There's an error passing in data to the back-end")
+          console.log(error);
         });
     } else {
         alert("The search query cannot be empty")
@@ -124,7 +128,7 @@ class SignUp extends Component {
             <form action ="http://127.0.0.1:5000/signup" method ="post" onSubmit={this.handleSubmit} noValidate>
                 <div className="firstName">
                 <label htmlFor="firstName">First Name</label>
-                firstName: <input
+                <input
                     className={formErrors.firstName.length > 0 ? "error" : null}
                     placeholder="First Name"
                     type="text"

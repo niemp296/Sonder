@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./SignIn.css";
 import Link from '@material-ui/core/Link';
 import Header from '../Header/Header';
+import axios from 'axios';
+import { Redirect } from 'react-router-dom'
 
 const checkEmailFormat = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -47,6 +49,27 @@ class SignIn extends Component {
         Email: ${this.state.email}
         Password: ${this.state.password}
       `);
+
+      if (this.state.firstName !== "") {
+        axios.post('http://localhost:5000/login', this.state)
+            .then(function(response){
+                console.log(response);
+
+              if(response.data === 404){
+                console.log("User does not exists")
+              }
+              if(response.data === 400){
+                console.log("Wrong password")
+              }
+              if(response.data === 200){
+                console.log("Login is succesful");
+              }
+        })
+        .catch(function(error){
+          //Perform action based on error
+            console.log(error);
+        });
+      }
     } else {
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
     }
@@ -83,7 +106,7 @@ class SignIn extends Component {
                 <h1 className="title">
                     Welcome back!
                 </h1>
-            <form onSubmit={this.handleSubmit} noValidate>
+            <form action ="http://127.0.0.1:5000/login" method ="post" onSubmit={this.handleSubmit} noValidate>
                 <div className="email">
                 <label htmlFor="email">Email</label>
                 <input
