@@ -1,19 +1,17 @@
-from flask import Flask, render_template, url_for, request, session, redirect
-from flask_cors import CORS
-#from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user
-from app.models import User
-from flask_mongoengine import MongoEngine
-
-app = Flask(__name__)
-CORS(app) #this allows it to connect with react
-
-app.config.from_pyfile('the-config.cfg') #mongodb config
-db = MongoEngine(app)
-#app.config['SECRET_KEY'] = '<---YOUR_SECRET_FORM_KEY--->'
-
+import sys
+sys.path.append('../')
+from database.models import User
+from database.db import db
+from server import app
 login = LoginManager(app)
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    return response
 
 #-----------ROUTING GOES HERE-------------------
 
@@ -48,12 +46,12 @@ def login():
     print(data['email'])
     print(data['password'])
     user = User.objects(email=form.email.data).first()
-    if user is None or not check_password_hash(data['password'], user['password']) 
+    if user is None or not check_password_hash(data['password'], user['password']): 
         return("Invalid username or password")
-    login_user(user, remember = form.remember_me.data) #remember??
+    login_user(user) #remember??
     return ("succesful login")
 
-@app.route('/logout'):
+@app.route('/logout')
 def logout():
     logout_user()
     return "user is now logged out" 
@@ -69,12 +67,12 @@ class User(UserMixin, db.Document):
 # id is a string (as stored in the database)
 @login.user_loader
 def load_user(id):
-    return return User.objects(pk=user_id).first()
+    return User.objects(pk=user_id).first()
 
 def email_already_exist(email):
     user = User.query.filter_by(email).first()
-    if user is not None
-    return False
+    if user is not None:
+        return False
 
 
 #------ This section contains the unused cose ------------------
@@ -92,9 +90,9 @@ def index():
     return "Hello world!"
 '''
 
-if __name__ == '__main__':
-    app.secret_key = 'secretkey'
-    app.run(debug=True)
+#if __name__ == '__main__':
+#    app.secret_key = 'secretkey'
+#    app.run(debug=True)
 
 '''TODO:
 - authenticated user wanna view user-specific page: see https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-v-user-logins
