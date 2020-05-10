@@ -75,7 +75,7 @@ def register():
     print("There's an error / User already exists")
     return ("400")
 
-
+#TODO: change login to sign in 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     #if(current_user.is_authenticated):
@@ -97,7 +97,7 @@ def login():
     
     #login_user(user)
     print("succesful login")
-    return "200"
+    return "200" #TODO: pass user id so react can access api
 
 @app.route('/logout')
 def logout():
@@ -110,10 +110,9 @@ def logout():
 # id is a string (as stored in the database)
 #@login.user_loader
 #def load_user(id):
-#    return User.objects(pk=id).first()
+#    return user['_id']
 
 ''' end of login backend '''
-
 
 if __name__ == '__main__':
     app.run(debug=True)
