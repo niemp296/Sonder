@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, url_for, request, session, redirect
 from database.db import initialize_db
 from flask_restful import Api
@@ -6,6 +7,7 @@ from resources.routes import initialize_routes
 from flask_cors import CORS, cross_origin
 import json
 from pymongo import MongoClient
+
 
 with open("config.json", "r") as f:
     config = json.load(f)
@@ -25,7 +27,7 @@ app.config['MONGODB_SETTINGS'] = {
 initialize_db(app)
 initialize_routes(api)
 
-''' or some reason the login backend doesn't work if
+''' for some reason the login backend doesn't work if
 it is in another file.
 So I'm putting it here momentarily (weird CORS issue)
 '''
