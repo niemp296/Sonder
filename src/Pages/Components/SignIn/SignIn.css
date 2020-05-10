@@ -8,7 +8,8 @@
 }
 
 .registrationForm{
-    width: 30%;
+    min-width: 450px;
+    max-width: 60%;
     height: 60%;
     display: flex;
     flex-direction: column;
