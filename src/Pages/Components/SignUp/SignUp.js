@@ -195,15 +195,15 @@ class SignUp extends Component {
                 <div className="password">
                 <label htmlFor="password">Password</label>
                 <input
-                    className={formErrors.confirmPassword.length > 0 ? "error" : null}
+                    className={formErrors.password.length > 0 ? "error" : null}
                     placeholder="Password"
                     type="password"
-                    name="confirmPassword"
+                    name="password"
                     noValidate
                     onChange={this.handleChange}
                 />
-                {formErrors.confirmPassword.length > 0 && (
-                    <span className="errorMessage">{formErrors.confirmPassword}</span>
+                {formErrors.password.length > 0 && (
+                    <span className="errorMessage">{formErrors.password}</span>
                 )}
                 </div>
                 <div className="password">
