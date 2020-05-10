@@ -39,7 +39,8 @@ class SignUp extends Component {
         firstName: "",
         lastName: "",
         email: "",
-        password: ""
+        password: "",
+        confirmPassword: ""
       }
     };
   }
@@ -106,6 +107,10 @@ class SignUp extends Component {
       case "password":
         formErrors.password =
           value.length < 6 ? "minimum 6 characaters required" : "";
+        break;
+      case "confirmPassword":	
+        formErrors.confirmPassword =	
+          (value !== this.state.password) ? "password does not match" : "";	
         break;
       default:
         break;
@@ -189,15 +194,15 @@ class SignUp extends Component {
                 <div className="password">
                 <label htmlFor="password">Password</label>
                 <input
-                    className={formErrors.password.length > 0 ? "error" : null}
+                    className={formErrors.confirmPassword.length > 0 ? "error" : null}
                     placeholder="Password"
                     type="password"
-                    name="password"
+                    name="confirmPassword"
                     noValidate
                     onChange={this.handleChange}
                 />
-                {formErrors.password.length > 0 && (
-                    <span className="errorMessage">{formErrors.password}</span>
+                {formErrors.confirmPassword.length > 0 && (
+                    <span className="errorMessage">{formErrors.confirmPassword}</span>
                 )}
                 </div>
                 <div className="password">
@@ -216,7 +221,7 @@ class SignUp extends Component {
                 </div>
                 <div className="createAccount">
                 <button type="submit">Create Account</button>
-                <Link href="/log-in" variant="body">
+                <Link href="/sign-in" variant="body">
                     <small>  {"Already have an account? Sign in"} </small>
                 </Link>
                 </div>
