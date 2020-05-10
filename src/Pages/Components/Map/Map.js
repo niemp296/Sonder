@@ -1,10 +1,35 @@
-import React from 'react';
+import React from "react";
+import L from 'leaflet';
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import './Map.css';
 
-//todo:replace this whole thing with a class
-function Main() {
+
+L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";
+
+class Maps extends React.Component {
+
+  state = {
+    lat: 35.28275, 
+    lng: -120.65962,
+    zoom: 10
+  };
+
+  render() {
+    var location = [this.state.lat, this.state.lng];
+
     return (
-      <h1>Map placeholder</h1>
+      <Map className="map" zoom={this.state.zoom} center={location}>
+        <TileLayer
+          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+
+        <Marker position={location}>
+          <Popup>Location</Popup>
+        </Marker>
+      </Map>
     );
   }
-  
-  export default Main;
+};
+
+export default Maps;
