@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./SignUp.css";
 import Link from '@material-ui/core/Link';
 import Header from '../Header/Header';
+import axios from 'axios';
 
 const checkEmailFormat = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -49,8 +50,6 @@ class SignUp extends Component {
     e.preventDefault();
 
     if (formValid(this.state)) {
-      //TODO: check if email or username already exists, 
-      //else push new info to server and direct to home page
       console.log(`
         --SUBMITTING--
         First Name: ${this.state.firstName}
@@ -59,8 +58,28 @@ class SignUp extends Component {
         Advertiser: ${this.state.advertiser} 
         Email: ${this.state.email}
         Password: ${this.state.password}
-      `);
+      `
+      );
+      if (this.state.firstName !== "") {
+        axios.post('http://localhost:5000/signup', this.state)
+        .then(function(response){
+          if(response.data === 400){
+              console.log("User already exists");
+            }
+          else if(response.data === 200){
+            console.log("You are succesfully registered");
+          } 
+        })
+        .catch(function(error){
+          console.log("There's an error passing in data to the back-end")
+          console.log(error);
+        });
     } else {
+        alert("The search query cannot be empty")
+    }
+
+    } 
+    else {
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
     }
   };
@@ -90,9 +109,9 @@ class SignUp extends Component {
         formErrors.password =
           value.length < 6 ? "minimum 6 characaters required" : "";
         break;
-      case "confirmPassword":
-        formErrors.confirmPassword =
-          (value !== this.state.password) ? "password does not match" : "";
+      case "confirmPassword":	
+        formErrors.confirmPassword =	
+          (value !== this.state.password) ? "password does not match" : "";	
         break;
       default:
         break;
@@ -112,7 +131,7 @@ class SignUp extends Component {
                 <h1 className="title">
                     Sign Up
                 </h1>
-            <form onSubmit={this.handleSubmit} noValidate>
+            <form action ="http://127.0.0.1:5000/signup" method ="post" onSubmit={this.handleSubmit} noValidate>
                 <div className="firstName">
                 <label htmlFor="firstName">First Name</label>
                 <input
@@ -144,19 +163,19 @@ class SignUp extends Component {
                 <div>
                 {/* TODO: connect state varible traveler and advertiser here  */}
                 <label className="areyou">Are you: </label>
-                    <label class="container"> Traveler
+                    <label className="container"> Traveler
                         <input 
                             type="radio" 
                             checked="checked" 
                             name="radio"/>
-                        <span class="checkmark"></span>
+                        <span className="checkmark"></span>
                     </label>
-                    <label class="container"> Advertiser
+                    <label className="container"> Advertiser
                         <input 
                             type="radio" 
                             checked="checked"
                             name="radio"/>
-                        <span class="checkmark"></span>
+                        <span className="checkmark"></span>
                     </label>
                 </div>
                 <div className="email">
