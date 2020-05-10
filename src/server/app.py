@@ -71,9 +71,8 @@ def register():
     print("There's an error / User already exists")
     return ("400")
 
-#TODO: change sign-in to sign in 
-@app.route('/sign-in', methods=['GET', 'POST'])
-def sign-in():
+@app.route('/sign_in', methods=['GET', 'POST'])
+def sign_in():
     #if(current_user.is_authenticated):
     #    return "User is authenticated. Redirect to index.html"
     data = request.json
@@ -92,7 +91,7 @@ def sign-in():
         return("400")
     
     #login_user(user)
-    print("succesful sign-in")
+    print("succesful sign_in")
     return "200" #TODO: pass user id so react can access api
 
 @app.route('/logout')

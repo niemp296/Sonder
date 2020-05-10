@@ -51,7 +51,7 @@ class SignIn extends Component {
       `);
 
       if (this.state.firstName !== "") {
-        axios.post('http://localhost:5000/sign-in', this.state)
+        axios.post('http://localhost:5000/sign_in', this.state)
             .then(function(response){
                 console.log(response);
 
@@ -62,7 +62,7 @@ class SignIn extends Component {
                 console.log("Wrong password")
               }
               if(response.data === 200){
-                console.log("sign-in is succesful");
+                console.log("sign_in is succesful");
               }
         })
         .catch(function(error){
@@ -106,7 +106,7 @@ class SignIn extends Component {
                 <h1 className="title">
                     Welcome back!
                 </h1>
-            <form action ="http://127.0.0.1:5000/sign-in" method ="post" onSubmit={this.handleSubmit} noValidate>
+            <form action ="http://127.0.0.1:5000/sign_in" method ="post" onSubmit={this.handleSubmit} noValidate>
                 <div className="email">
                 <label htmlFor="email">Email</label>
                 <input
