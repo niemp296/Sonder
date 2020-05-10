@@ -35,6 +35,7 @@ class SignUp extends Component {
       advertiser: false,
       email: null,
       password: null,
+      confirmPassword: null,
       formErrors: {
         firstName: "",
         lastName: "",
@@ -208,15 +209,15 @@ class SignUp extends Component {
                 <div className="password">
                 <label htmlFor="password">Confirm Password</label>
                 <input
-                    className={formErrors.password.length > 0 ? "error" : null}
+                    className={formErrors.confirmPassword.length > 0 ? "error" : null}
                     placeholder="Confirm Password"
                     type="password"
-                    name="password"
+                    name="confirmPassword"
                     noValidate
                     onChange={this.handleChange}
                 />
-                {formErrors.password.length > 0 && (
-                    <span className="errorMessage">{formErrors.password}</span>
+                {formErrors.confirmPassword.length > 0 && (
+                    <span className="errorMessage">{formErrors.confirmPassword}</span>
                 )}
                 </div>
                 <div className="createAccount">
