@@ -49,12 +49,6 @@ records = user_db.user
 def register():
     print(str(request.args))
     data = request.json
-    print(data['firstName'])
-    print(data['lastName'])
-    print(data['traveler'])
-    print(data['advertiser'])
-    print(data['email'])
-    print(data['password'])
     firstName = data['firstName']
     lastName =data['lastName']
     email = data['email']
@@ -77,9 +71,9 @@ def register():
     print("There's an error / User already exists")
     return ("400")
 
-#TODO: change login to sign in 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+#TODO: change sign-in to sign in 
+@app.route('/sign-in', methods=['GET', 'POST'])
+def sign-in():
     #if(current_user.is_authenticated):
     #    return "User is authenticated. Redirect to index.html"
     data = request.json
@@ -98,7 +92,7 @@ def login():
         return("400")
     
     #login_user(user)
-    print("succesful login")
+    print("succesful sign-in")
     return "200" #TODO: pass user id so react can access api
 
 @app.route('/logout')
