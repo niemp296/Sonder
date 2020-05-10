@@ -4,7 +4,6 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-
 import SignUp from './Pages/Components/SignUp/SignUp';
 import SignIn from './Pages/Components/SignIn/SignIn';
 import Home from './Pages/Home';
