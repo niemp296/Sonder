@@ -33,14 +33,19 @@ def register():
     if existing_user is None:
         password = generate_password_hash(data['password'])
         print("no existing user. Password: ", password)
-        records.insert_one({
-            'budget' : 0,
-            'email': email,
-            'password': password,
-            'firstname': firstName,
-            'lastName' : lastName,
-            'userType': 'traveler'
-        })
+
+        try:
+            records.insert_one({
+                'plan': ['this', 'that']
+                'budget' : 0,
+                'email': email,
+                'password': password,
+                'firstname': firstName,
+                'lastName' : lastName,
+                'userType': 'traveler'
+            })
+        except pymongo.errors.DuplicateKeyError as e:
+            print("duplicate key error")
         print("succesful sign up")
         return("200")
 
