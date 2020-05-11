@@ -8,14 +8,8 @@ import SignUp from './Pages/Components/SignUp/SignUp';
 import SignIn from './Pages/Components/SignIn/SignIn';
 import Home from './Pages/Home';
 import Planner from './Pages/Planner';
-import Stay from './Pages/Components/Planner/Planner-Stay/Stay';
-/*
-import Flight from './Pages/Components/Planner/Planner-Flight/Flight';
-import Stay from './Pages/Components/Planner/Planner-Stay/Stay';
-import Main from './Pages/Components/Planner/Planner-Main/Main';
-*/
+import Account from './Pages/Account';
 
-//TODO: put home back to router
 ReactDOM.render(
   <Router>
       <div>
@@ -23,7 +17,7 @@ ReactDOM.render(
           <Route path="/sign-up" component={SignUp} />
           <Route path="/sign-in" component={SignIn} />
           <Route exact path="/plan-trip" component={Planner} />
-          <Route exact path="/stay" component={Stay} />
+          <Route path ="/Account:id" component = {Account}/>
       </div>
   </Router>, document.getElementById('root')
   );

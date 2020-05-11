@@ -61,7 +61,7 @@ class SignUp extends Component {
       `
       );
       if (this.state.firstName !== "") {
-        axios.post('http://localhost:5000/signup', this.state)
+        axios.post('http://localhost:5000/api/signUp', this.state)
         .then(function(response){
           if(response.data === 400){
               console.log("User already exists");
@@ -131,7 +131,7 @@ class SignUp extends Component {
                 <h1 className="title">
                     Sign Up
                 </h1>
-            <form action ="http://127.0.0.1:5000/signup" method ="post" onSubmit={this.handleSubmit} noValidate>
+            <form action ="http://127.0.0.1:5000/api/signUp" method ="post" onSubmit={this.handleSubmit} noValidate>
                 <div className="firstName">
                 <label htmlFor="firstName">First Name</label>
                 <input

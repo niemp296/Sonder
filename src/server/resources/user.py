@@ -27,5 +27,8 @@ class UserApi(Resource):
         return '', 200
 
     def get(self, id):
+        #TODO: figure out how to get user based on id
+        print("getting user based on id")
+        print("id: ", id)
         user = User.objects.get(id=id).to_json()
         return Response(user, mimetype="application/json", status=200)
