@@ -15,6 +15,7 @@ class Plan(db.Document):
     name = db.StringField()
     locations = db.ListField(db.ObjectIdField(), required=True)
     budget = db.DecimalField(min_value=0)
+    author = db.StringField()
 
 class Location(db.Document):
     name = db.StringField(required=True)
