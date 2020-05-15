@@ -12,6 +12,9 @@ export default class Activity extends React.Component {
 
     //todo: change to react fragment instead?
     render() {
+        if(typeof this.props.activity === 'undefined'){
+            return null;
+        }
         return (
             <div className="card bg-light border-dark mb-3 planner-activity-cards">   
                 <img className="card-img planner-activity-background" src="https://picsum.photos/300" alt="background" />  
@@ -22,7 +25,5 @@ export default class Activity extends React.Component {
                 </div>
             </div>
         );
-    }
-
-    //TODO for defensive coding:make a function to handle no name, handle no cost  
+    } 
 }

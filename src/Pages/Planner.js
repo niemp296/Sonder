@@ -28,12 +28,6 @@ export default class Planner extends React.Component {
         this.getPlannerInfo();
     }
 
-    selectComponent = (comp) => {
-        this.setState({
-            selectedComponent: comp
-        })
-    }
-
     // this function retrieve plan data from the database
     // if user != the plan author, we create a duplicate plan
     // and post it to user's database
@@ -58,15 +52,15 @@ export default class Planner extends React.Component {
                         author: plan_author
                     })
                 }
-                console.log(this.state);
-                
             })
             .catch(function (error) {
                 // handle error
                 console.log(error);
             })
     }
-
+    // we call this when user see a plan that they like from map
+    // but that plan belongs to other user
+    // we duplicare that plan & let them edit the new duplicated plan
     createDuplicatePlan = (user_id, plan_info) => {
         console.log(plan_info);
         const dup_plan = {
@@ -85,16 +79,30 @@ export default class Planner extends React.Component {
                 this.setState({
                     new_plan_id: newId
                 })
+                //TODO: delete old plan in user API, post new plan
             })
             .catch(function(error){
                 console.log(error);
             })
     }
     
+    selectComponent = (comp, day) => {
+        this.setState({
+            selectedComponent: comp,
+            selectedDay: day
+        })
+    }
     //this method renders Flight, Stays, or Activity based on users' choice
     renderSelectedComponent(selectedComponent){
         //default option to stay
         const Com = (!selectedComponent) ? PlannerComponents["Stay"]: PlannerComponents[selectedComponent];
+        if(selectedComponent === "Activity"){
+            console.log("activity")
+            return <Com 
+            locations = {this.state.locations}
+            day = {this.state.selectedDay}
+            />
+        }
         return <Com />
 
     }
