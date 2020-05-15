@@ -4,6 +4,8 @@ import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import HotelIcon from '@material-ui/icons/Hotel';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 
+//TODO: update database whenever the + or - is clicked
+
 export default class SideBar extends React.Component {
 
     static propTypes = {
@@ -22,8 +24,11 @@ export default class SideBar extends React.Component {
 
     renderPlannerDayButton(){
         const buttons =[];
-        for(var i = 1; i<= this.state.numDays; i++){
-            buttons.push(React.createElement('button', { class: "btn btn-light btn-outline-dark planner-day-icon mb-2"}, i));
+        for(let i = 1; i<= this.state.numDays; i++){
+            buttons.push(React.createElement('button', { 
+                className: "btn btn-light btn-outline-dark planner-day-icon mb-2",
+                onClick: () => this.props.handleClick("Activity", i - 1)
+            }, i));
         }
         return buttons;
     }
@@ -55,8 +60,7 @@ export default class SideBar extends React.Component {
                 </button>
                 <div id= "planner-date-range">
                     <button 
-                    className="mb-2 btn-outline-dark"
-                    onClick = {() => this.props.handleClick("Activity")}>
+                    className="mb-2 btn-outline-dark">
                         <DateRangeIcon fontSize="large"/>
                     </button>
                     <button className="mb-2 btn-outline-dark" data-toggle="collapse" data-target="#planner-days-icons" aria-expanded="false" aria-controls="planner-days-icons">
