@@ -75,31 +75,36 @@ export default class Planner extends React.Component {
             .then((response) => {
                 // handle success
                 let user_data = response.data[0];
-                const old_id_index = user_data.plans.indexOf(plan_info.$oid);
-                delete user_data.plans[old_id_index];
-
+                const old_id_index = user_data.plans.indexOf(plan_info._id.$oid);
+                if(user_data.plans.length > 1)
+                    delete user_data.plans[old_id_index];
+                else
+                    user_data.plans=[];
+                delete user_data["_id"];
                 //update user data
                 axios.put('http://localhost:5000/api/users/' + user_id, user_data)
                     .then((response) =>{
                         console.log("success removing old plan id");
                         console.log(response);
+                        //post new plan to database
+                        axios.post('http://localhost:5000/api/plans/', dup_plan)
+                        .then((response) =>{
+                            //handle success
+                            console.log(response);
+                            const newId = response.data.id;
+                            console.log("new id = ", newId);
+                            this.updatePlanArray(user_id, user_data, newId);
+                            this.setState({
+                                new_plan_id: newId
+                            })
+                        })
+                        .catch(function(error){
+                            console.log(error);
+                        })
                     })
-
-                //post new plan to database
-                axios.post('http://localhost:5000/api/plans/', dup_plan)
-                .then((response) =>{
-                    //handle success
-                    console.log(response);
-                    const newId = response.data.id;
-                    console.log("new id = ", newId);
-                    this.updatePlanArray(user_id, user_data, newId);
-                    this.setState({
-                        new_plan_id: newId
+                    .catch ((error) =>{
+                        console.log("error removing old plan", error)
                     })
-                })
-                .catch(function(error){
-                    console.log(error);
-                })
             })
             .catch(function (error) {
                 // handle error
@@ -109,7 +114,8 @@ export default class Planner extends React.Component {
     }
     
     updatePlanArray = (user_id, user_data, new_plan_id) =>{
-        user_data.plans = user_data.plans.push(new_plan_id);
+        user_data.plans.push(new_plan_id);
+        delete user_data["_id"];
         console.log("updating.. user_data = ", user_data);
         //get user info
         axios.put('http://localhost:5000/api/users/' + user_id, user_data)

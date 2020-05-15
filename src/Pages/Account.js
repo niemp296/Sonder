@@ -37,7 +37,7 @@ export default class Account extends React.Component {
                 let user_data = response.data[0];
                 if(response.status === 200){
                     this.setState({
-                        firstName: user_data.firstname,
+                        firstName: user_data.firstName,
                         lastName: user_data.lastName,
                         email: user_data.email,
                         plans: user_data.plans
