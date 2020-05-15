@@ -21,3 +21,9 @@ div.account-button-group{
 section#account-container{
     padding-top:1rem;
 }
+
+ul#user-plans-group{
+    float: left;
+    display: flex;
+    width: 100%;
+}

@@ -1,0 +1,7 @@
+div.user-plan{
+    height:225px;
+    width:fit-content;
+}
+div.user-plan:hover{
+    opacity:0.6;
+}
