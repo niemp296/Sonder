@@ -30,7 +30,7 @@ class SignUpApi(Resource):
                 'budget' : 0,
                 'email': email,
                 'password': password,
-                'firstname': firstName,
+                'firstName': firstName,
                 'lastName' : lastName,
                 'userType': 'traveler'
             })
