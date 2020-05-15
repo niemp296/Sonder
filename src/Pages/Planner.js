@@ -69,23 +69,60 @@ export default class Planner extends React.Component {
             locations: plan_info.locations,
             name: plan_info.name
         }
-        //post to axios
-        axios.post('http://localhost:5000/api/plans/', dup_plan)
-            .then((response) =>{
-                //handle success
-                console.log(response);
-                const newId = response.data.id;
-                console.log("new id = ", newId);
-                this.setState({
-                    new_plan_id: newId
+
+        //delete old plans from user
+        axios.get('http://localhost:5000/api/users/' + user_id)
+            .then((response) => {
+                // handle success
+                let user_data = response.data[0];
+                const old_id_index = user_data.plans.indexOf(plan_info.$oid);
+                delete user_data.plans[old_id_index];
+
+                //update user data
+                axios.put('http://localhost:5000/api/users/' + user_id, user_data)
+                    .then((response) =>{
+                        console.log("success removing old plan id");
+                        console.log(response);
+                    })
+
+                //post new plan to database
+                axios.post('http://localhost:5000/api/plans/', dup_plan)
+                .then((response) =>{
+                    //handle success
+                    console.log(response);
+                    const newId = response.data.id;
+                    console.log("new id = ", newId);
+                    this.updatePlanArray(user_id, user_data, newId);
+                    this.setState({
+                        new_plan_id: newId
+                    })
                 })
-                //TODO: delete old plan in user API, post new plan
+                .catch(function(error){
+                    console.log(error);
+                })
             })
-            .catch(function(error){
+            .catch(function (error) {
+                // handle error
                 console.log(error);
             })
+
     }
     
+    updatePlanArray = (user_id, user_data, new_plan_id) =>{
+        user_data.plans = user_data.plans.push(new_plan_id);
+        console.log("updating.. user_data = ", user_data);
+        //get user info
+        axios.put('http://localhost:5000/api/users/' + user_id, user_data)
+            .then((response) =>{
+                console.log("success update user plans");
+                console.log("new user_data = ", user_data);
+            })
+            .catch(error =>{
+                console.log("error updating user data", error)
+            })
+
+    }
+
     selectComponent = (comp, day) => {
         this.setState({
             selectedComponent: comp,

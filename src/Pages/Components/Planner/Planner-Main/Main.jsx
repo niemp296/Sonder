@@ -18,7 +18,8 @@ export default class Main extends React.Component {
           console.log("clicked day ", this.props.day);
           this.getEachLocations();
     }
-    
+    //TODO: Planner should pass a funciton that calculates total cost
+    //for each day and then update the total cost in the database
     getEachLocations = () => {
         this.state.time.map(t =>
             this.props.locations[this.props.day][t].map(location => 
