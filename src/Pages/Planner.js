@@ -21,7 +21,7 @@ export default class Planner extends React.Component {
             title: '',
             locations: '',
             length: '',
-            budget:'',
+            budget: 0.0,
             new_plan_id: "" //we use this field if the user edit other user's plan
         }
         console.log(props);
@@ -90,9 +90,7 @@ export default class Planner extends React.Component {
                         axios.post('http://localhost:5000/api/plans/', dup_plan)
                         .then((response) =>{
                             //handle success
-                            console.log(response);
                             const newId = response.data.id;
-                            console.log("new id = ", newId);
                             this.updatePlanArray(user_id, user_data, newId);
                             this.setState({
                                 new_plan_id: newId
@@ -116,19 +114,58 @@ export default class Planner extends React.Component {
     updatePlanArray = (user_id, user_data, new_plan_id) =>{
         user_data.plans.push(new_plan_id);
         delete user_data["_id"];
-        console.log("updating.. user_data = ", user_data);
         //get user info
         axios.put('http://localhost:5000/api/users/' + user_id, user_data)
-            .then((response) =>{
-                console.log("success update user plans");
-                console.log("new user_data = ", user_data);
-            })
             .catch(error =>{
                 console.log("error updating user data", error)
             })
 
     }
 
+    //this function is to be passed to main
+    //when user adds or remove plan from main, 
+    //main will pass the cost difference so we can update this state
+    updateBudget = (priceDifference, location_id, day, day_time) =>{
+        this.setState({
+            budget : this.state.budget + priceDifference
+        })
+
+        //START HERE. Test if removing works with changing state
+
+        // if a location is removed => we remove it from the database
+        if (priceDifference < 0){
+            //delete from location database
+            const index_to_remove = this.state.locations[day][day_time].indexOf(location_id);
+            const updated_locations = this.state.locations[day][day_time].splice(index_to_remove,1)
+            this.setState({
+                locations: updated_locations
+            })
+        } //else, user adds a new location
+        else if(priceDifference > 0){
+            const updated_locations = this.state.locations[day][day_time].push(location_id);
+            this.setState({
+                locations: updated_locations
+            })
+        }
+        /*update the database 
+        const plan_id = this.props.match.params.plan_id.substring(1);
+        const new_plan_data = {
+            name: this.state.title,
+            locations: this.state.locations,
+            budget: this.state.budget,
+            author: this.state.author
+        }
+        axios.put('http://localhost:5000/api/plans/' + plan_id, new_plan_data)
+            .then((response) =>{
+                console.log("success update user plans");
+            })
+            .catch(error =>{
+                console.log("error updating user data", error)
+            })
+        */
+    }
+
+    
     selectComponent = (comp, day) => {
         this.setState({
             selectedComponent: comp,
@@ -140,10 +177,10 @@ export default class Planner extends React.Component {
         //default option to stay
         const Com = (!selectedComponent) ? PlannerComponents["Stay"]: PlannerComponents[selectedComponent];
         if(selectedComponent === "Activity"){
-            console.log(this.state.selectedDay);
             return <Com 
             locations = {this.state.locations}
             day = {this.state.selectedDay}
+            updateBudget = {this.updateBudget}
             />
         }
         return <Com />

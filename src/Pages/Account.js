@@ -59,8 +59,9 @@ export default class Account extends React.Component {
 
     //this method is called when the user clicks on one of the plan
     seePlan = (plan_id) => {
+        console.log(plan_id);
         this.setState({
-            see_plan: plan_id
+            see_plan: plan_id.$oid
         })
     }
 

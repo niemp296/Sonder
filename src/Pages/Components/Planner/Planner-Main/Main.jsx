@@ -18,8 +18,7 @@ export default class Main extends React.Component {
           console.log("clicked day ", this.props.day);
           this.getEachLocations();
     }
-    //TODO: Planner should pass a funciton that calculates total cost
-    //for each day and then update the total cost in the database
+    
     getEachLocations = () => {
         this.state.time.map(t =>
             this.props.locations[this.props.day][t].map(location => 
@@ -44,6 +43,25 @@ export default class Main extends React.Component {
         )
     }
 
+    //TODO: the function add plan adds to the estimated cost
+    //and use props to update the estimated cost in header
+    addLocation = () =>{
+        //user see a list of possible locations
+    }
+
+    //this function is called when user press the remove button
+    //it updates this.state.cost
+    //and uses function props from Planner to update the total budget
+    removeLocation = (day_time, location_id, location_cost) => {
+        //remove id from database
+        console.log(location_id);
+        console.log(location_cost);
+        this.props.updateBudget(-location_cost, location_id, this.props.day, day_time);
+        this.setState({
+            cost: this.state.cost - location_cost
+        })
+    }
+
     componentDidUpdate(prevProps){
         if(prevProps.day !== this.props.day){
             //user wants to see plan for different day
@@ -66,7 +84,11 @@ export default class Main extends React.Component {
                 {this.state.time.map(t =>
                     <div>
                         <h1 id="day-time">{t}</h1>
-                        <Activities activities = {this.state[t]}/>
+                        <Activities 
+                            activities = {this.state[t]}
+                            day_time = {t}
+                            onRemove = {this.removeLocation}
+                            />
                     </div>
                 )}
             </div>

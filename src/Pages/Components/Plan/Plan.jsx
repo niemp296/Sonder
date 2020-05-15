@@ -11,12 +11,12 @@ export default class Plan extends React.Component {
             budget: 0.0,
             author:""
         }
-        {this.getPlanInfo()}
+        this.getPlanInfo()
     }
 
     //this function retrieve plan data from the database
     getPlanInfo = () => {
-        var id = this.props.id;
+        var id = this.props.id.$oid;
         axios.get('http://localhost:5000/api/plans/' + id)
             .then((response) => {
                 // handle success
