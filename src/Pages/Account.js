@@ -62,7 +62,6 @@ export default class Account extends React.Component {
         this.setState({
             see_plan: plan_id
         })
-        console.log(plan_id);
     }
 
     renderPlans(){
@@ -83,8 +82,7 @@ export default class Account extends React.Component {
             return <Redirect to ="/"></Redirect>
         }
         if(this.state.see_plan !== ""){
-            console.log(this.state.see_plan)
-            let path = '/plan-trip:' + this.state.id + ':' + this.state.see_plan;
+            let path = '/plan-trip/:' + this.state.id + '/:' + this.state.see_plan;
             return <Redirect to = {path} />
         }
         return (

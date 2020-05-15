@@ -21,9 +21,9 @@ export default class Header extends React.Component {
     render() {
         return (
             <div id="planner-header">
-                <h1 id="planner-title" className="planner-header">Title placeholder</h1>
-                <h2 id="planner-date" className="planner-header">Date placeholder</h2>
-                <h2 id="planner-total-cost" className="planner-header">Estimated cost placeholder</h2>
+                <h1 id="planner-title" className="planner-header">{this.props.title}</h1>
+                <h2 id="planner-date" className="planner-header">{this.props.length}</h2>
+                <h2 id="planner-total-cost" className="planner-header">${this.props.budget}</h2>
             </div>
         );
     }
