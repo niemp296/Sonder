@@ -97,7 +97,7 @@ export default class Planner extends React.Component {
         //default option to stay
         const Com = (!selectedComponent) ? PlannerComponents["Stay"]: PlannerComponents[selectedComponent];
         if(selectedComponent === "Activity"){
-            console.log("activity")
+            console.log(this.state.selectedDay);
             return <Com 
             locations = {this.state.locations}
             day = {this.state.selectedDay}
