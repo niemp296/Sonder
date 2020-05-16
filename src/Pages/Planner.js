@@ -155,6 +155,7 @@ export default class Planner extends React.Component {
                 this.setState({
                     budget: this.state.budget + priceDifference,
                 })
+                //this.selectComponent("Activity", day);
             })
             .catch(error =>{
                 console.log("error updating user data", error)
@@ -163,6 +164,7 @@ export default class Planner extends React.Component {
 
     
     selectComponent = (comp, day) => {
+        console.log(comp, day);
         this.setState({
             selectedComponent: comp,
             selectedDay: day

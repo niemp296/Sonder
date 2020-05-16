@@ -20,6 +20,7 @@ export default class Main extends React.Component {
     }
     
     getEachLocations = () => {
+        console.log("geteachlocation");
         this.state.time.map(t =>
             this.props.locations[this.props.day][t].map(location => 
                 axios.get('http://localhost:5000/api/locations/' + location)
@@ -55,20 +56,21 @@ export default class Main extends React.Component {
     removeLocation = (day_time, location_id, location_cost) => {
         //remove id from database
         this.props.updateBudget(-location_cost, location_id, this.props.day, day_time);
+        //this.setState({
+        //    cost: this.state.cost - location_cost
+        //})
         this.setState({
-            cost: this.state.cost - location_cost
+            cost : 0,
+            morning:[],
+            afternoon: [],
+            evening: []
         })
+        this.getEachLocations();
+
     }
 
     
-    componentDidUpdate(prevProps, prevState){
-        /*
-        const prevLocations ={
-            morning: prevState.morning,
-            afternoon: prevState.afternoon,
-            evening: prevState.evening
-        }*/
-
+    componentDidUpdate(prevProps){
         if(prevProps.day !== this.props.day){
             //user wants to see plan for different day
             this.setState({
@@ -79,27 +81,7 @@ export default class Main extends React.Component {
             })
             this.getEachLocations();
         }
-        /*
-        console.log(prevLocations);
-        console.log(prevState);
-        console.log(prevProps.locations);
-        console.log(this.props.locations);
-        console.log(this.props.locations[this.props.day]);
-        console.log("did update");*/
     }
-
-    /*when planner has a change of state due to addition
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
-        console.log(this.props);
-        this.setState({
-            cost : 0,
-            morning:[],
-            afternoon: [],
-            evening: []
-        })
-        this.getEachLocations();
-      }*/
 
     render() {
         return (
