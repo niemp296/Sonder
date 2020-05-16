@@ -6,7 +6,7 @@ import './Planner.css';
 import axios from 'axios'
 import {Redirect} from 'react-router-dom'
 
-//todo: make a function to handle total cost: flight (passed by sidebar) + stays (passed by sidebar) + activities (passed by Main)
+//todo: make a function to handle total cost: flight (passed by sidebar) + stays (passed by sidebar) + activities (passed by Main - ok)
 export default class Planner extends React.Component {
 
     static propTypes = {
@@ -22,7 +22,7 @@ export default class Planner extends React.Component {
             locations: '',
             length: '',
             budget: 0.0,
-            new_plan_id: "" //we use this field if the user edit other user's plan
+            new_plan_id: "", //we use this field if the user edit other user's plan
         }
         console.log(props);
         this.getPlannerInfo();
@@ -126,43 +126,39 @@ export default class Planner extends React.Component {
     //when user adds or remove plan from main, 
     //main will pass the cost difference so we can update this state
     updateBudget = (priceDifference, location_id, day, day_time) =>{
-        this.setState({
-            budget : this.state.budget + priceDifference
-        })
-
-        //START HERE. Test if removing works with changing state
-
         // if a location is removed => we remove it from the database
         if (priceDifference < 0){
             //delete from location database
             const index_to_remove = this.state.locations[day][day_time].indexOf(location_id);
-            const updated_locations = this.state.locations[day][day_time].splice(index_to_remove,1)
+            let updated_locations = this.state.locations;
+            updated_locations[day][day_time].splice(index_to_remove,1)
             this.setState({
-                locations: updated_locations
+                locations: updated_locations,
             })
         } //else, user adds a new location
         else if(priceDifference > 0){
             const updated_locations = this.state.locations[day][day_time].push(location_id);
             this.setState({
-                locations: updated_locations
+                locations: updated_locations,
             })
         }
-        /*update the database 
+        //update the database 
         const plan_id = this.props.match.params.plan_id.substring(1);
         const new_plan_data = {
             name: this.state.title,
             locations: this.state.locations,
-            budget: this.state.budget,
+            budget: this.state.budget + priceDifference,
             author: this.state.author
         }
         axios.put('http://localhost:5000/api/plans/' + plan_id, new_plan_data)
             .then((response) =>{
-                console.log("success update user plans");
+                this.setState({
+                    budget: this.state.budget + priceDifference,
+                })
             })
             .catch(error =>{
                 console.log("error updating user data", error)
             })
-        */
     }
 
     
@@ -189,7 +185,6 @@ export default class Planner extends React.Component {
 
     render() {
         if(this.state.new_plan_id !== ""){
-            console.log("redirecting");
             const path = "/plan-trip/" + this.props.match.params.user_id + "/:" + this.state.new_plan_id;
             return <Redirect to = {path} />
         }

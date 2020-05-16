@@ -15,7 +15,7 @@ export default class Main extends React.Component {
             afternoon: [],
             evening: []
           };
-          console.log("clicked day ", this.props.day);
+          console.log("clicked day ", this.props);
           this.getEachLocations();
     }
     
@@ -54,15 +54,21 @@ export default class Main extends React.Component {
     //and uses function props from Planner to update the total budget
     removeLocation = (day_time, location_id, location_cost) => {
         //remove id from database
-        console.log(location_id);
-        console.log(location_cost);
         this.props.updateBudget(-location_cost, location_id, this.props.day, day_time);
         this.setState({
             cost: this.state.cost - location_cost
         })
     }
 
-    componentDidUpdate(prevProps){
+    
+    componentDidUpdate(prevProps, prevState){
+        /*
+        const prevLocations ={
+            morning: prevState.morning,
+            afternoon: prevState.afternoon,
+            evening: prevState.evening
+        }*/
+
         if(prevProps.day !== this.props.day){
             //user wants to see plan for different day
             this.setState({
@@ -73,7 +79,27 @@ export default class Main extends React.Component {
             })
             this.getEachLocations();
         }
+        /*
+        console.log(prevLocations);
+        console.log(prevState);
+        console.log(prevProps.locations);
+        console.log(this.props.locations);
+        console.log(this.props.locations[this.props.day]);
+        console.log("did update");*/
     }
+
+    /*when planner has a change of state due to addition
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
+        console.log(this.props);
+        this.setState({
+            cost : 0,
+            morning:[],
+            afternoon: [],
+            evening: []
+        })
+        this.getEachLocations();
+      }*/
 
     render() {
         return (
