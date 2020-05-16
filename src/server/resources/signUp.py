@@ -7,7 +7,7 @@ from pymongo import MongoClient
 from flask_restful import Resource
 
 #login = LoginManager(app)
-with open("/Users/irennanicole/Desktop/csc307/Sonder/src/server/config.json", "r") as f:
+with open("config.json", "r") as f:
     config = json.load(f)
 client= MongoClient(config['mongodbHost'])
 user_db = client.get_database('test')
