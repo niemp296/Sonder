@@ -58,10 +58,10 @@ class SignIn extends Component {
                 console.log(response);
 
               if(response.data === "404" || response.data === 404){
-                console.log("User does not exists")
+                alert("User does not exists")
               }
-              if(response.data === "400"){
-                console.log("Wrong password")
+              else if(response.data === "400"){
+                alert("Wrong password")
               }
               else {
                 this.setState({user_id: response.data});
@@ -104,7 +104,6 @@ class SignIn extends Component {
     const { formErrors } = this.state;
 
     if(this.state.isSignedIn){
-      console.log("redirecting to account");
       var path_name = '/Account:' + this.state.user_id;
       return <Redirect to = {{pathname: path_name}} />;
     }
