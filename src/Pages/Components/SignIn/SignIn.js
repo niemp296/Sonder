@@ -57,13 +57,13 @@ class SignIn extends Component {
             .then(response => {
                 console.log(response);
 
-              if(response.data === 404){
+              if(response.data === "404" || response.data === 404){
                 console.log("User does not exists")
               }
-              if(response.data === 400){
+              if(response.data === "400"){
                 console.log("Wrong password")
               }
-              else{
+              else {
                 this.setState({user_id: response.data});
                 this.setState({isSignedIn: true});
                 console.log("sign_in is succesful");

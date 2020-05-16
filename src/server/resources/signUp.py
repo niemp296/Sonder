@@ -27,6 +27,7 @@ class SignUpApi(Resource):
             password = generate_password_hash(data['password'])
             print("no existing user. Password: ", password)
             records.insert_one({
+                'plans': [],
                 'budget' : 0,
                 'email': email,
                 'password': password,

@@ -66,14 +66,16 @@ export default class Account extends React.Component {
     }
 
     renderPlans(){
-        if(this.state.plans.length === 0) return; //user has no plans
+        if (this.state.plans.length === 0) return null
 
-        return(<ul id="user-plans-group">{
-            this.state.plans.map(
-                plan => 
-                <li onClick = {() => this.seePlan(plan)}> <Plan id={plan}></Plan>
-                </li>)} 
-                </ul>);
+        else {
+            return(<ul id="user-plans-group">{
+                this.state.plans.map(
+                    plan => 
+                    <li onClick = {() => this.seePlan(plan)}> <Plan id={plan}></Plan>
+                    </li>)} 
+                    </ul>);
+        }
     }
     /*
     TODO: redirect add plans to map
