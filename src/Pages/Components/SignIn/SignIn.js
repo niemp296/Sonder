@@ -35,7 +35,9 @@ class SignIn extends Component {
       formErrors: {
         email: "",
         password: ""
-      }
+      },
+      isSignedIn: false,
+      user_id: 0
     };
   }
 
@@ -51,18 +53,20 @@ class SignIn extends Component {
       `);
 
       if (this.state.firstName !== "") {
-        axios.post('http://localhost:5000/login', this.state)
-            .then(function(response){
+        axios.post('http://localhost:5000/api/signIn', this.state)
+            .then(response => {
                 console.log(response);
 
-              if(response.data === 404){
-                console.log("User does not exists")
+              if(response.data === "404" || response.data === 404){
+                alert("User does not exists")
               }
-              if(response.data === 400){
-                console.log("Wrong password")
+              else if(response.data === "400"){
+                alert("Wrong password")
               }
-              if(response.data === 200){
-                console.log("Login is succesful");
+              else {
+                this.setState({user_id: response.data});
+                this.setState({isSignedIn: true});
+                console.log("sign_in is succesful");
               }
         })
         .catch(function(error){
@@ -73,6 +77,7 @@ class SignIn extends Component {
     } else {
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
     }
+    console.log("end of sign in method")
   };
 
   handleChange = e => {
@@ -98,6 +103,10 @@ class SignIn extends Component {
   render() {
     const { formErrors } = this.state;
 
+    if(this.state.isSignedIn){
+      var path_name = '/Account:' + this.state.user_id;
+      return <Redirect to = {{pathname: path_name}} />;
+    }
     return (
         <div>
             <Header/>     
@@ -106,7 +115,7 @@ class SignIn extends Component {
                 <h1 className="title">
                     Welcome back!
                 </h1>
-            <form action ="http://127.0.0.1:5000/login" method ="post" onSubmit={this.handleSubmit} noValidate>
+            <form action ="http://localHost:5000/api/signIn" method ="post" onSubmit={this.handleSubmit} noValidate>
                 <div className="email">
                 <label htmlFor="email">Email</label>
                 <input

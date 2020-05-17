@@ -3,6 +3,7 @@ import "./SignUp.css";
 import Link from '@material-ui/core/Link';
 import Header from '../Header/Header';
 import axios from 'axios';
+import {Redirect} from "react-router-dom"
 
 const checkEmailFormat = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -42,7 +43,8 @@ class SignUp extends Component {
         email: "",
         password: "",
         confirmPassword: ""
-      }
+      },
+      isRegistered: false
     };
   }
 
@@ -50,24 +52,18 @@ class SignUp extends Component {
     e.preventDefault();
 
     if (formValid(this.state)) {
-      console.log(`
-        --SUBMITTING--
-        First Name: ${this.state.firstName}
-        Last Name: ${this.state.lastName}
-        Traveler: ${this.state.traveler} 
-        Advertiser: ${this.state.advertiser} 
-        Email: ${this.state.email}
-        Password: ${this.state.password}
-      `
-      );
       if (this.state.firstName !== "") {
-        axios.post('http://localhost:5000/signup', this.state)
-        .then(function(response){
-          if(response.data === 400){
-              console.log("User already exists");
+        axios.post('http://localhost:5000/api/signUp', this.state)
+        .then(response => {
+          if(response.data === 400 || response.data === "400"){
+              alert("User Already exist");
+              console.log("user already exists");
             }
-          else if(response.data === 200){
-            console.log("You are succesfully registered");
+          else if(response.data === 200 || response.data === "200"){
+            this.setState({
+              isRegistered: true
+            })
+            alert("You are succesfully registered");
           } 
         })
         .catch(function(error){
@@ -122,7 +118,11 @@ class SignUp extends Component {
 
   render() {
     const { formErrors } = this.state;
-
+    if(this.state.isRegistered){
+      return (
+        <Redirect to ="/sign-in"></Redirect>
+      )
+    }
     return (
         <div>
             <Header/>     
@@ -131,7 +131,7 @@ class SignUp extends Component {
                 <h1 className="title">
                     Sign Up
                 </h1>
-            <form action ="http://127.0.0.1:5000/signup" method ="post" onSubmit={this.handleSubmit} noValidate>
+            <form action ="http://127.0.0.1:5000/api/signUp" method ="post" onSubmit={this.handleSubmit} noValidate>
                 <div className="firstName">
                 <label htmlFor="firstName">First Name</label>
                 <input

@@ -1,44 +1,104 @@
 import React from 'react';
-import list from '../../../../TestData/activities.json'
-import Activities from '../Activities/Activities'
-import "./Main.css"
+import Activities from '../Activities/Activities';
+import "./Main.css";
+import axios from 'axios';
 
 //this class contains the list of all activities and
 //render the time of day + activities
 export default class Main extends React.Component {
-    static propTypes = {
-        //contains prop variables
-    }
     constructor(props) {
         super(props);
         this.state = {
-            list: list.activities,
-            time: ["Morning", "Afternoon", "Evening"]
+            cost: 0.0,
+            time: ["morning", "afternoon", "evening"],
+            morning:[],
+            afternoon: [],
+            evening: []
           };
+          console.log("clicked day ", this.props);
+          this.getEachLocations();
+    }
+    
+    getEachLocations = () => {
+        console.log("geteachlocation");
+        this.state.time.map(t =>
+            this.props.locations[this.props.day][t].map(location => 
+                axios.get('http://localhost:5000/api/locations/' + location)
+                .then((response) =>{
+                    //handle success
+                    const location_data = response.data;
+                    const append_to_array = this.state[t].concat(location_data);
+                    this.setState({
+                        [t]: append_to_array
+                    })
+                    //add to total cost
+                    this.setState({
+                        cost: this.state.cost + location_data.spending
+                    })
+
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            )
+        )
     }
 
-    static defaultProps = {
-        // contains default props
+    //TODO: the function add plan adds to the estimated cost
+    //and use props to update the estimated cost in header
+    addLocation = () =>{
+        //user see a list of possible locations
     }
-    /*
-    renderActivities(){
-        return(
-        <ul>
-            {this.state.list.map(activity => <Activities key = {activity.id}>{activity}</Activities>)} 
-        </ul>
-        );
-    }*/
+
+    //this function is called when user press the remove button
+    //it updates this.state.cost
+    //and uses function props from Planner to update the total budget
+    removeLocation = (day_time, location_id, location_cost) => {
+        //remove id from database
+        this.props.updateBudget(-location_cost, location_id, this.props.day, day_time);
+        //this.setState({
+        //    cost: this.state.cost - location_cost
+        //})
+        this.setState({
+            cost : 0,
+            morning:[],
+            afternoon: [],
+            evening: []
+        })
+        this.getEachLocations();
+
+    }
+
+    
+    componentDidUpdate(prevProps){
+        if(prevProps.day !== this.props.day){
+            //user wants to see plan for different day
+            this.setState({
+                cost : 0,
+                morning:[],
+                afternoon: [],
+                evening: []
+            })
+            this.getEachLocations();
+        }
+    }
 
     render() {
         return (
             <div>
-                <h1 id="day-estimated-cost">Estimated cost: </h1>
-                {this.state.time.map(time =>
+                <h5 id="day-estimated-cost">
+                    Estimated cost for day {this.props.day + 1}: ${this.state.cost}
+                    </h5>
+                {this.state.time.map(t =>
                     <div>
-                        <h1 id="day-time">{time}</h1>
-                        <Activities activities = {this.state.list}/>
+                        <h1 id="day-time">{t}</h1>
+                        <Activities 
+                            activities = {this.state[t]}
+                            day_time = {t}
+                            onRemove = {this.removeLocation}
+                            />
                     </div>
-                    )}
+                )}
             </div>
         );
     }

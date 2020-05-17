@@ -1,0 +1,29 @@
+section#greet_user{
+    display:flex;    
+    justify-content: center;
+}
+h1.greet_user{
+    width:fit-content;
+    margin-right: 0.8rem;
+}
+section#account-divider{
+    display:flex;
+}
+section#account-plan-list{
+    width: 100%;
+    padding: 1rem 1rem;
+    height:73vh;
+}
+div.account-button-group{
+    justify-content: space-evenly;
+}
+
+section#account-container{
+    padding-top:1rem;
+}
+
+ul#user-plans-group{
+    float: left;
+    display: flex;
+    width: 100%;
+}
