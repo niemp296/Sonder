@@ -112,9 +112,23 @@ class SignUp extends Component {
       default:
         break;
     }
-
     this.setState({ formErrors, [name]: value }, () => console.log(this.state));
   };
+
+  handleRadioChange = e =>{
+    const { name, value } = e.target;
+    switch(name){
+      case "traveler":
+          this.setState({traveler: true, advertiser: false}, () => console.log(this.state));
+          break;
+      case "advertiser":
+        this.setState({advertiser: true, traveler:false}, () => console.log(this.state));
+        break;
+      default:
+        break;
+    }
+    
+  }
 
   render() {
     const { formErrors } = this.state;
@@ -166,15 +180,19 @@ class SignUp extends Component {
                     <label className="container"> Traveler
                         <input 
                             type="radio" 
-                            checked="checked" 
-                            name="radio"/>
+                            name="traveler"
+                            onChange={this.handleRadioChange.bind(this)}
+                            checked={this.state.traveler}
+                            />
                         <span className="checkmark"></span>
                     </label>
                     <label className="container"> Advertiser
                         <input 
                             type="radio" 
-                            checked="checked"
-                            name="radio"/>
+                            name="advertiser"
+                            onChange={this.handleRadioChange.bind(this)}
+                            checked={this.state.advertiser}
+                            />
                         <span className="checkmark"></span>
                     </label>
                 </div>
