@@ -12,6 +12,7 @@ export default class Home extends React.Component {
         this.state = {
             //contains state variables
         }
+        console.log(this.props)
     }
 
     static defaultProps = {
@@ -19,6 +20,14 @@ export default class Home extends React.Component {
     }
 
     render() {
+        if(this.props.location.pathname.length > 1){
+            return (
+                <div>
+                <Header isLoggedIn ={this.props.match.params.id.substring(1)}/>
+                <Main/>
+                </div>
+            );
+        }
         return (
             <div>
             <Header/>
