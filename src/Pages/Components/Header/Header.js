@@ -17,7 +17,9 @@ export default class Header extends React.Component {
     _beforeLogIn() {
         return (
             <ul> 
-                <img src={logo} className="Logo" alt="logo" />        
+                <a href="/">
+                    <img src={logo} className="Logo" alt="logo"/> 
+                </a>        
                 <li><a href="/sign-up">Sign Up</a></li> 
                 <li><a href="/sign-in">Sign In</a></li> 
                 <li><a href="#help">Help</a></li>                                      
@@ -28,7 +30,9 @@ export default class Header extends React.Component {
     _afterLogIn() {
         return (
             <ul> 
-                <img src={logo} className="Logo" alt="logo"/>            
+                <a href="/">
+                    <img src={logo} className="Logo" alt="logo"/> 
+                </a>             
                 <li><a href="#myProfile">My Profile</a></li> 
                 <li><a href="#help">Help</a></li>                                     
             </ul>

@@ -12,7 +12,9 @@ class Activities extends Component {
         <div id="planner-activities" className="card-deck">
             {this.props.activities.map(activity => 
             <Activity 
-            activity ={activity}>
+            activity ={activity}
+            day_time = {this.props.day_time}
+            onRemove = {this.props.onRemove}>
             </Activity>)}
             <div className="card bg-light border-dark mb-3 planner-activity-cards">
             <h2 className="card-title text-center planner-activity-text">Add Activity</h2>

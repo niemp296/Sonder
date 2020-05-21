@@ -27,6 +27,7 @@ app.config['MONGODB_SETTINGS'] = {
 initialize_db(app)
 initialize_routes(api)
 
+<<<<<<< HEAD
 ''' for some reason the login backend doesn't work if
 it is in another file.
 So I'm putting it here momentarily (weird CORS issue)
@@ -110,5 +111,7 @@ def logout():
 
 ''' end of login backend '''
 
+=======
+>>>>>>> d6c039c4b3bae95b3aac38862c83e05b8eceefa8
 if __name__ == '__main__':
     app.run(debug=True)

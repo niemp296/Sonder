@@ -3,9 +3,7 @@ from .db import db
 # Structure of each data type is declared here
 
 class User(db.Document):
-
-    plans = db.ListField(db.ObjectIdField())
-
+    plans = db.ListField(db.ObjectIdField(null=True))
     budget = db.DecimalField(min_value=0)
     email = db.EmailField(required=True, unique=True)
     password = db.StringField(required=True, min_length=6)
@@ -15,9 +13,9 @@ class User(db.Document):
 
 class Plan(db.Document):
     name = db.StringField()
-
-    locations = db.ListField(db.ObjectIdField(), required=True)
+    locations = db.ListField(db.DictField(), required=True)
     budget = db.DecimalField(min_value=0)
+    author = db.StringField()
 
 class Location(db.Document):
     name = db.StringField(required=True)

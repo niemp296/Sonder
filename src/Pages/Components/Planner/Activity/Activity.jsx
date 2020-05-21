@@ -12,17 +12,20 @@ export default class Activity extends React.Component {
 
     //todo: change to react fragment instead?
     render() {
+        if(typeof this.props.activity === 'undefined'){
+            return null;
+        }
         return (
-            <div className="card bg-light border-dark mb-3 planner-activity-cards">   
-                <img className="card-img planner-activity-background" src="https://picsum.photos/300" alt="background" />  
-                <div className="card-img-overlay">    
-                    <h2 className="card-title text-center planner-activity-text">{this.props.activity.name}</h2>
-                    <p className="card-title text-center planner-activity-text">{this.props.activity.hours}</p>
-                    <p className="card-text text-center planner-activity-text">${this.props.activity.spending}</p>
-                </div>
+            <div className="card bg-light border-dark mb-3 planner-activity-cards">      
+                <h2 className="card-title text-center planner-activity-text">{this.props.activity.name}</h2>
+                <p className="card-title text-center planner-activity-text">{this.props.activity.hours}</p>
+                <p className="card-text text-center planner-activity-text">${this.props.activity.spending}</p>
+                <button 
+                    className="btn btn-light" 
+                    onClick ={ () => this.props.onRemove(this.props.day_time, this.props.activity._id.$oid, this.props.activity.spending)}>
+                        Remove
+                </button>
             </div>
         );
-    }
-
-    //TODO for defensive coding:make a function to handle no name, handle no cost  
+    } 
 }
