@@ -45,21 +45,9 @@ class SignIn extends Component {
     e.preventDefault();
 
     if (formValid(this.state)) {
-       //TODO: validate info then direct to home page
-      console.log(`
-        --SUBMITTING--
-        Email: ${this.state.email}
-        Password: ${this.state.password}
-      `);
-
       if (this.state.firstName !== "") {
-<<<<<<< HEAD
-        axios.post('http://localhost:5000/sign-in', this.state)
-            .then(function(response){
-=======
         axios.post('http://localhost:5000/api/signIn', this.state)
             .then(response => {
->>>>>>> d6c039c4b3bae95b3aac38862c83e05b8eceefa8
                 console.log(response);
 
               if(response.data === "404" || response.data === 404){
@@ -68,15 +56,10 @@ class SignIn extends Component {
               else if(response.data === "400"){
                 alert("Wrong password")
               }
-<<<<<<< HEAD
-              if(response.data === 200){
-                console.log("sign-in is succesful");
-=======
               else {
                 this.setState({user_id: response.data});
                 this.setState({isSignedIn: true});
                 console.log("sign_in is succesful");
->>>>>>> d6c039c4b3bae95b3aac38862c83e05b8eceefa8
               }
         })
         .catch(function(error){
@@ -119,7 +102,7 @@ class SignIn extends Component {
     }
     return (
         <div>
-            <Header/>     
+            <Header />     
         <div className="outerContainer">
             <div className="registrationForm">
                 <h1 className="title">

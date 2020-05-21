@@ -2,11 +2,18 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user
 from database.models import User
 from flask import Response, request
+from flask import current_app as app
 import json
 from pymongo import MongoClient
 from flask_restful import Resource
 
-#login = LoginManager(app)
+#import sys
+#sys.path.append("..")
+#import app
+
+def initialize_signIn(app):
+    login = LoginManager(app)
+
 with open("config.json", "r") as f:
     config = json.load(f)
 client= MongoClient(config['mongodbHost'])
@@ -32,14 +39,13 @@ class SignInApi(Resource):
             return("404")
         
         input_password = data['password']
-        print(input_password)
-        print(user['password'])
         if not check_password_hash(user['password'], input_password): 
             print("Wrong password")
             return("400")
         
-        #login_user(user)
         print("succesful sign_in")
+        # success = login_user(user, remember=data, force=True)
+        # print(success)
         return str(user['_id'])
 
 '''
@@ -54,6 +60,6 @@ def logout():
 # flask-login knows nothing about database
 # we need this method to keep track of user session
 # id is a string (as stored in the database)
-#@login.user_loader
+#@LoginManager.user_loader
 #def load_user(id):
 #    return user['_id']

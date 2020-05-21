@@ -14,9 +14,10 @@ ReactDOM.render(
   <Router>
       <div>
           <Route exact path="/" component={Home} />
+          <Route exact path="/map:id" component={Home} />
           <Route path="/sign-up" component={SignUp} />
           <Route path="/sign-in" component={SignIn} />
-          <Route exact path="/plan-trip/:user_id/:plan_id" component={Planner} />
+          <Route path="/plan-trip/:user_id/:plan_id" component={Planner} />
           <Route path ="/Account:id" component = {Account}/>
       </div>
   </Router>, document.getElementById('root')
