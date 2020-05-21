@@ -24,6 +24,27 @@ export default class SearchList extends Component {
           filtered: nextProps.items
         });
       }
+    
+    getLocationAPI = () => {
+        axios.get('http://localhost:5000/api/locations/')
+            .then((response) => {
+                // handle success
+                let location = response.data[0];
+                if(response.status === 200){
+                    this.setState({
+                        filtered: {
+                            name: location.name,
+                            type: location.type
+                        },
+                        userHasSearched: true,
+                    })
+                }
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+    }
 
     render() {
         return (
