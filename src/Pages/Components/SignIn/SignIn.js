@@ -45,13 +45,6 @@ class SignIn extends Component {
     e.preventDefault();
 
     if (formValid(this.state)) {
-       //TODO: validate info then direct to home page
-      console.log(`
-        --SUBMITTING--
-        Email: ${this.state.email}
-        Password: ${this.state.password}
-      `);
-
       if (this.state.firstName !== "") {
         axios.post('http://localhost:5000/api/signIn', this.state)
             .then(response => {
@@ -109,7 +102,7 @@ class SignIn extends Component {
     }
     return (
         <div>
-            <Header/>     
+            <Header />     
         <div className="outerContainer">
             <div className="registrationForm">
                 <h1 className="title">

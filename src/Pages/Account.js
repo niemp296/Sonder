@@ -82,7 +82,8 @@ export default class Account extends React.Component {
     */
     render() {
         if(this.state.add_plan){
-            return <Redirect to ="/"></Redirect>
+            let path = "/map:" + this.state.id;
+            return <Redirect to = {path}></Redirect>
         }
         if(this.state.see_plan !== ""){
             let path = '/plan-trip/:' + this.state.id + '/:' + this.state.see_plan;
@@ -90,7 +91,7 @@ export default class Account extends React.Component {
         }
         return (
             <div>
-                <Header />
+                <Header isLoggedIn = {this.state.id}/>
                 <section id="account-container">
                     <section id ="greet_user">
                         <h1 className="greet_user">Hello,</h1>

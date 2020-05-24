@@ -21,6 +21,8 @@ class SignUpApi(Resource):
         firstName = data['firstName']
         lastName =data['lastName']
         email = data['email']
+        userType = "traveler" if data['traveler'] else "advertiser"
+        print(userType)
 
         existing_user = records.find_one({'email': data['email']}) 
         if existing_user is None:
@@ -33,7 +35,7 @@ class SignUpApi(Resource):
                 'password': password,
                 'firstName': firstName,
                 'lastName' : lastName,
-                'userType': 'traveler'
+                'userType': userType 
             })
             print("succesful sign up")
             return("200")

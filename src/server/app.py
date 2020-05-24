@@ -3,6 +3,7 @@ from flask import Flask, render_template, url_for, request, session, redirect
 from database.db import initialize_db
 from flask_restful import Api
 from resources.routes import initialize_routes
+from resources.signIn import initialize_signIn
 #from auth import login
 from flask_cors import CORS, cross_origin
 import json
@@ -26,6 +27,7 @@ app.config['MONGODB_SETTINGS'] = {
 
 initialize_db(app)
 initialize_routes(api)
+initialize_signIn(app)
 
 if __name__ == '__main__':
     app.run(debug=True)
