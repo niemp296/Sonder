@@ -10,8 +10,11 @@ class SearchBar extends Component {
         super(props);
         this.state = {
             data: [],
-            filtered: []
+            filtered: [],
+            search: ""
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
     async componentDidMount() {
         this.setState({
@@ -19,31 +22,30 @@ class SearchBar extends Component {
                     .then((response) => response.data)),
           filtered: []
         });
-        console.log(this.state.data)
       }
-      
-    //   componentWillReceiveProps(nextProps) {
-    //     this.setState({
-    //       filtered: nextProps.items
-    //     });
-    //   }
 
-    handleChange = async(e) => {
-        let currentList = [];
-        let newList = [];
-        
-        let search = e.target.value;
-        if (search !== "") {
-            currentList = this.state.data;
-            newList = currentList.filter(item => {
-                            return item.name.toLowerCase().includes(search.toLowerCase());
-                        })
-        } else {
-            newList = [];
+    handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            let currentList = [];
+            let newList = [];
+            if (this.state.search !== "") {
+                currentList = this.state.data;
+                newList = currentList.filter(item => {
+                                return item.city.toLowerCase().includes(this.state.search.toLowerCase());
+                })
+            } else {
+                newList = [];
+            }
+            this.setState({
+                filtered: newList
+            });
         }
-        this.setState({
-            filtered: newList
-        });
+      }
+
+    handleChange = e => {
+        e.preventDefault();
+        this.setState({search: e.target.value});
     }
 
     render() {
@@ -53,15 +55,14 @@ class SearchBar extends Component {
                     <Grid item xs={3}>
                         <form className="form-inline d-flex justify-content-center md-form form-md mt-0">
                         <input className="form-control form-control-sm w-75" type="text" onChange={this.handleChange} placeholder="Search"
-                            aria-label="Search" />
+                            aria-label="Search" onKeyPress={this.handleKeyPress}/>
                         </form>
                         <SearchList items={this.state.filtered} />
                     </Grid>
                     <Grid item xs={9}>
                         <Map items={this.state.filtered}/> 
                     </Grid>
-                </Grid>
-                
+                </Grid>               
             </div>
         )
     }
