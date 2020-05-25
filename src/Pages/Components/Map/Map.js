@@ -2,12 +2,16 @@ import React from "react";
 import L from 'leaflet';
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import './Map.css';
-import axios from 'axios';
+import PropTypes from 'prop-types';
 
 
 L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";
 
 class Maps extends React.Component {
+
+  static propTypes = {
+    items: PropTypes.array
+  }
 
   constructor(props) {
     super(props);
@@ -18,40 +22,33 @@ class Maps extends React.Component {
       },
       userHasSearched: false,
       zoom: 3,
-      name: ''
+      name: '',
+      filtered: []
     };
   }
 
   componentDidMount() {
-    //TODO: will modify to connect this with search engine 
-    this.getLocationAPI();
+    this.setState({
+      filtered: this.props.items
+    });
+    this.checkUserHasSearch();
   }
 
-  componentWillUnmount(){
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      filtered: nextProps.items
+    });
+    this.checkUserHasSearch();
+  }
+
+  componentWillUnmount() {
     this.setDefault();
   }
 
-  getLocationAPI = () => {
-    axios.get('http://localhost:5000/api/locations/')
-        .then((response) => {
-            // handle success
-            let location = response.data[0];
-            if(response.status === 200){
-                this.setState({
-                  location: {
-                    lat: location.coord[0],
-                    lng: location.coord[1]
-                  },
-                  name: location.name,
-                  userHasSearched: true,
-                  zoom: 13
-                })
-            }
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
+  checkUserHasSearch() {
+    if (this.state.filtered !== []) {
+      this.setState({userHasSearched: true, zoom: 13});
+    }
   }
   
   setDefault() {
@@ -62,16 +59,22 @@ class Maps extends React.Component {
       },
       userHasSearched: false,
       zoom: 3,
-      name: ''
+      name: '',
+      filtered: []
     });
   }
 
   showMarker() {
-    var location = [this.state.location.lat, this.state.location.lng];
     return (
-      <Marker position={location}>
-        <Popup>{this.state.name}</Popup>
-      </Marker>
+      this.state.filtered.map(item => (
+        <Marker position={[item.coord[0], item.coord[1]]}>
+          <Popup>
+            <p><em>{item.name}</em></p>
+            <p><em>{'Open hour: ' + item.openHours}</em></p>
+            <p><em>{item.spending === 0 ? 'Budget: Free' : 'Budget: $' + item.spending}</em></p>          
+          </Popup>
+        </Marker>
+      ))
     );
   }
 
@@ -84,12 +87,11 @@ class Maps extends React.Component {
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        { this.state.userHasSearched ? 
-          this.showMarker() : ''
-        }
+          {this.state.userHasSearched ? this.showMarker() :  ''}
       </Map>
     );
   }
 };
 
 export default Maps;
+
