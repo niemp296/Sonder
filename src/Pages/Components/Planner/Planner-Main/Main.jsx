@@ -20,6 +20,11 @@ export default class Main extends React.Component {
     }
     
     getEachLocations = () => {
+        console.log(this.state.time);
+        console.log(this.props.day);
+        if(this.props.day >= this.props.locations.length){
+            return;
+        }
         console.log("geteachlocation");
         this.state.time.map(t =>
             this.props.locations[this.props.day][t].map(location => 

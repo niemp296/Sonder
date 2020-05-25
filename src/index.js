@@ -9,6 +9,7 @@ import SignIn from './Pages/Components/SignIn/SignIn';
 import Home from './Pages/Home';
 import Planner from './Pages/Planner';
 import Account from './Pages/Account';
+import AddPlan from './Pages/Components/Planner/Add-Plan/add-plan';
 
 ReactDOM.render(
   <Router>
@@ -19,6 +20,7 @@ ReactDOM.render(
           <Route path="/sign-in" component={SignIn} />
           <Route path="/plan-trip/:user_id/:plan_id" component={Planner} />
           <Route path ="/Account:id" component = {Account}/>
+          <Route path = "/add-plan:user_id" component = {AddPlan}></Route>
       </div>
   </Router>, document.getElementById('root')
   );

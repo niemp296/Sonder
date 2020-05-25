@@ -82,7 +82,7 @@ export default class Account extends React.Component {
     */
     render() {
         if(this.state.add_plan){
-            let path = "/map:" + this.state.id;
+            let path = "/add-plan:" + this.state.id;
             return <Redirect to = {path}></Redirect>
         }
         if(this.state.see_plan !== ""){
