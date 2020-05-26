@@ -29,6 +29,7 @@ export default class Plan extends React.Component {
                 */
                 var plan_info = response.data;
                 if(response.status === 200){
+                    console.log(plan_info)
                     this.setState({
                         name: plan_info.name,
                         location_id: plan_info.locations[0].$oid,
