@@ -5,6 +5,7 @@ import HotelIcon from '@material-ui/icons/Hotel';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import axios from 'axios'
 
+
 //TODO: update database whenever the + or - is clicked
 
 export default class SideBar extends React.Component {
@@ -76,9 +77,28 @@ export default class SideBar extends React.Component {
     }
 
     decrementNumDays = () => {
-        /*
-        if(this.state.numDays >0)
-            this.setState({numDays: this.state.numDays - 1});*/
+        let c = window.confirm("Are you sure you want to delete day " + (this.state.locations.length - 1).toString() + "?");
+        if(c === true){
+            const loc = this.state.locations;
+            loc.pop();
+            
+            const new_plan_data = {
+                author: this.state.author,
+                budget: this.state.budget,
+                locations: loc,
+                name: this.state.name
+            }
+            axios.put('http://localhost:5000/api/plans/' + this.props.plan_id, new_plan_data)
+                .then((response) =>{
+                    this.setState({
+                        locations: loc
+                    })
+                    console.log(this.state.locations);
+                })
+                .catch(error =>{
+                    console.log("error updating user data", error)
+                })
+            } 
     }
 
     //TODO: make all symbols clickable, let user add days
