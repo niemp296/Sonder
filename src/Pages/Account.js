@@ -79,7 +79,9 @@ export default class Account extends React.Component {
     addPlan = () =>{
         const new_plan = {
             name : "Untitled Plan",
-            locations: [],
+            locations: [{
+                morning: [], afternoon: [], evening: []
+            }],
             budget: 0.0,
             author: this.state.id
         }
