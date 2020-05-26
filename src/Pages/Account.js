@@ -118,10 +118,18 @@ export default class Account extends React.Component {
                     </ul>);
         }
     }
-    /*
-    TODO: redirect add plans to map
-    */
+
+    signOut = () =>{
+        console.log("signing out..");
+        this.setState({
+            isSignedOut: true
+        })
+    }
+
     render() {
+        if(this.state.isSignedOut === true){
+            return <Redirect to = '/' />
+        }
         if(this.state.see_plan !== ""){
             let path = '/plan-trip/:' + this.state.id + '/:' + this.state.see_plan;
             return <Redirect to = {path} />
@@ -146,7 +154,7 @@ export default class Account extends React.Component {
                     </section>
                     <div className="btn-toolbar account-button-group" role="group" aria-label="account-btn-settings">
                         <button type="button" className="btn btn-outline-dark">Update Profile</button>
-                        <button type="button" className="btn btn-outline-dark">Log Out</button>
+                        <button type="button" className="btn btn-outline-dark" onClick = {this.signOut}>Log Out</button>
                         <button type="button" className="btn btn-outline-danger">Delete Account</button>
                     </div>
                 </section>
