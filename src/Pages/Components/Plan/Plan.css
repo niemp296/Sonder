@@ -1,6 +1,6 @@
 div.user-plan{
-    height:225px;
-    width:fit-content;
+    height:250px;
+    width:200px;
 }
 div.user-plan:hover{
     opacity:0.6;
