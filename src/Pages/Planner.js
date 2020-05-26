@@ -5,6 +5,7 @@ import * as PlannerComponents from './Components/Planner/Planner-Router/Router';
 import './Planner.css';
 import axios from 'axios'
 import {Redirect} from 'react-router-dom'
+import Header from './Components/Header/Header';
 
 //todo: make a function to handle total cost: flight (passed by sidebar) + stays (passed by sidebar) + activities (passed by Main - ok)
 export default class Planner extends React.Component {
@@ -32,7 +33,7 @@ export default class Planner extends React.Component {
     // if user != the plan author, we create a duplicate plan
     // and post it to user's database
     getPlannerInfo = () => {
-        let user_id = this.props.match.params.user_id.substring(1, this.props.match.params.user_id.length); 
+        let user_id = this.props.match.params.user_id.substring(1); 
         let plan_id = this.props.match.params.plan_id;
         axios.get('http://localhost:5000/api/plans/' + plan_id.substring(1, plan_id.length))
             .then((response) => {
@@ -192,13 +193,15 @@ export default class Planner extends React.Component {
         }
         return (
             <div>
+            <Header isLoggedIn = {this.props.match.params.user_id.substring(1)} />
             <PlannerHeader
                 title = {this.state.title}
                 length = {this.state.length}
                 budget = {this.state.budget}
             />
             <div id ="Planner-container">
-                <PlannerSideBar handleClick = {this.selectComponent}/>
+                <PlannerSideBar handleClick = {this.selectComponent} 
+                    plan_id = {this.props.match.params.plan_id.substring(1)}/>
                 <div id="planner-main">
                 {this.renderSelectedComponent(this.state.selectedComponent)}
                 </div>
