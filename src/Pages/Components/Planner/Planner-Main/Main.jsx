@@ -53,7 +53,6 @@ export default class Main extends React.Component {
     //TODO: the function add plan adds to the estimated cost
     //and use props to update the estimated cost in header
     addLocation = () =>{
-        console.log("call add location")
         this.setState({
             addLocation: true
         })
