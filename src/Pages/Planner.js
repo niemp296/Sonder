@@ -162,6 +162,25 @@ export default class Planner extends React.Component {
             })
     }
 
+    updatePlanName = (newTitle) =>{
+        const updated_plan = {
+            name: newTitle,
+            locations: this.state.locations,
+            budget: this.state.budget,
+            author: this.state.author
+        }
+        console.log(updated_plan);
+
+        axios.put('http://localhost:5000/api/plans/' + this.props.match.params.plan_id.substring(1), updated_plan)
+            .then((response) =>{
+                this.setState({
+                    name: newTitle,
+                })
+            })
+            .catch(error =>{
+                console.log("error updating user data", error)
+            })
+    }
     
     selectComponent = (comp, day) => {
         console.log(comp, day);
@@ -198,6 +217,7 @@ export default class Planner extends React.Component {
                 title = {this.state.title}
                 length = {this.state.length}
                 budget = {this.state.budget}
+                updatePlanName = {this.updatePlanName}
             />
             <div id ="Planner-container">
                 <PlannerSideBar handleClick = {this.selectComponent} 
