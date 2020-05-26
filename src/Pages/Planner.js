@@ -179,6 +179,7 @@ export default class Planner extends React.Component {
             locations = {this.state.locations}
             day = {this.state.selectedDay}
             updateBudget = {this.updateBudget}
+            user_id = {this.props.match.params.user_id.substring(1)}
             />
         }
         return <Com />
