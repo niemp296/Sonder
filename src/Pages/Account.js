@@ -19,7 +19,7 @@ export default class Account extends React.Component {
         super(props);
         //this.handler = this.handler.bind(this);
         this.state = {
-            id : this.props.match.params.id.substring(1, this.props.match.params.id.length),
+            id : this.props.match.params.id.substring(1),
             firstName: "",
             lastName: "",
             email: "",
@@ -50,16 +50,55 @@ export default class Account extends React.Component {
             })
     }
 
+    updateUserInfo = (new_plan_id) => {
+        //get all id
+        let userplans =[]
+        for (let id in this.state.plans){
+            userplans.push(this.state.plans[id].$oid)
+        }
+        console.log(userplans);
+        userplans.push(new_plan_id);
+        const new_user_info = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            plans: userplans
+        }
+        axios.put('http://localhost:5000/api/users/' + this.state.id, new_user_info)
+        .then((response)=>{
+            console.log("updateUserInfo success");
+            this.setState({
+                see_plan: new_plan_id
+            })
+        })    
+        .catch(error =>{
+                console.log("error updating user data", error)
+            })
+    }
     //this method is called when user clicks the addplan button
     addPlan = () =>{
-        this.setState({
-            add_plan: true
-        })
+        const new_plan = {
+            name : "Untitled Plan",
+            locations: [],
+            budget: 0.0,
+            author: this.state.id
+        }
+        // post to the database
+        axios.post('http://localhost:5000/api/plans/', new_plan)
+                .then((response) =>{
+                    console.log("posted to database");
+                    //then update user database
+                    const new_plan_id = response.data.id;
+                    console.log(new_plan_id);
+                    this.updateUserInfo(new_plan_id);
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
     }
 
     //this method is called when the user clicks on one of the plan
     seePlan = (plan_id) => {
-        console.log(plan_id);
         this.setState({
             see_plan: plan_id.$oid
         })
@@ -81,10 +120,6 @@ export default class Account extends React.Component {
     TODO: redirect add plans to map
     */
     render() {
-        if(this.state.add_plan){
-            let path = "/add-plan:" + this.state.id;
-            return <Redirect to = {path}></Redirect>
-        }
         if(this.state.see_plan !== ""){
             let path = '/plan-trip/:' + this.state.id + '/:' + this.state.see_plan;
             return <Redirect to = {path} />
