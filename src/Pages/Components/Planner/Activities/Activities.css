@@ -7,3 +7,6 @@ div.planner-activity-cards{
     min-height:350px;
     justify-content: center;
 }
+div.planner-activity-cards:hover{
+   opacity:0.7 !important;
+}
