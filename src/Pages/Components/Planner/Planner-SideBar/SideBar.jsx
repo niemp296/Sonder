@@ -105,6 +105,7 @@ export default class SideBar extends React.Component {
     render() {
         return (
             <div className="btn-group-vertical" id="planner-sidebar">
+                {/*}
                 <button 
                 className="mb-2 btn-outline-dark" 
                 onClick = {() => this.props.handleClick("Stay")}
@@ -117,6 +118,7 @@ export default class SideBar extends React.Component {
                 >
                     <FlightTakeoffIcon fontSize="large"/>
                 </button>
+                        */}
                 <div id= "planner-date-range">
                     <button 
                     className="mb-2 btn-outline-dark">
