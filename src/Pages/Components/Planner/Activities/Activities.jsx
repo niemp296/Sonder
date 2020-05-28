@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Activity from "../Activity/Activity.jsx"
 import './Activities.css'
+import {Redirect} from 'react-router-dom'
 
 /*
 this class renders the activities selected by users 
@@ -8,6 +9,7 @@ and another card called add activities
 */
 class Activities extends Component {
     render() { 
+        console.log(this.props);
         return (
         <div id="planner-activities" className="card-deck">
             {this.props.activities.map(activity => 
