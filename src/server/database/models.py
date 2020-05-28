@@ -21,6 +21,7 @@ class Location(db.Document):
     name = db.StringField(required=True)
     coord = db.ListField(db.FloatField(), max_length=2, required=True) # [lat, long]
     spending = db.DecimalField(min_value=0)
+    url = db.StringField()
     type = db.StringField(required=True, choices=('city', 'country', 'outdoor', 'food', 'shopping', 'attraction'))
     openHours = db.ListField(db.StringField(), max_length=2) # [open, close]
     city = db.StringField()

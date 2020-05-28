@@ -89,7 +89,6 @@ export default class Main extends React.Component {
 
     render() {
         if(this.state.addLocation === true){
-            console.log("main addLoc is true");
             const path = "/map:" + this.props.user_id;
             return <Redirect to = {path} />
         }

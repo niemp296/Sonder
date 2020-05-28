@@ -9,7 +9,6 @@ and another card called add activities
 */
 class Activities extends Component {
     render() { 
-        console.log(this.props);
         return (
         <div id="planner-activities" className="card-deck">
             {this.props.activities.map(activity => 
