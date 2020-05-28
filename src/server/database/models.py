@@ -13,7 +13,7 @@ class User(db.Document):
 
 class Plan(db.Document):
     name = db.StringField()
-    locations = db.ListField(db.DictField(), required=True)
+    locations = db.ListField(db.DictField())
     budget = db.DecimalField(min_value=0)
     author = db.StringField()
 

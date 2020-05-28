@@ -3,6 +3,8 @@ import './SideBar.css'
 import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import HotelIcon from '@material-ui/icons/Hotel';
 import DateRangeIcon from '@material-ui/icons/DateRange';
+import axios from 'axios'
+
 
 //TODO: update database whenever the + or - is clicked
 
@@ -14,17 +16,34 @@ export default class SideBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            numDays: 2
+            author: "",
+            budget: 0,
+            locations: [],
+            name: ""
         }
+        this.populateState();
     }
 
     static defaultProps = {
         // contains default props
     }
 
+    populateState = () =>{
+        axios.get("http://localhost:5000/api/plans/" + this.props.plan_id)
+        .then((response) =>{
+            console.log(response);
+            this.setState({
+                author: response.data.author,
+                budget: response.data.budget,
+                locations: response.data.locations,
+                name: response.data.name
+            })
+        })
+    }
+
     renderPlannerDayButton(){
         const buttons =[];
-        for(let i = 1; i<= this.state.numDays; i++){
+        for(let i = 1; i<= this.state.locations.length; i++){
             buttons.push(React.createElement('button', { 
                 className: "btn btn-light btn-outline-dark planner-day-icon mb-2",
                 onClick: () => this.props.handleClick("Activity", i - 1)
@@ -34,18 +53,59 @@ export default class SideBar extends React.Component {
     }
 
     incrementNumDays = () => {
-        this.setState({numDays: this.state.numDays + 1});
+        const loc = this.state.locations;
+        loc.push({
+            morning : [], afternoon : [], evening: []
+        })
+        
+        const new_plan_data = {
+            author: this.state.author,
+            budget: this.state.budget,
+            locations: loc,
+            name: this.state.name
+        }
+        axios.put('http://localhost:5000/api/plans/' + this.props.plan_id, new_plan_data)
+            .then((response) =>{
+                this.setState({
+                    locations: loc
+                })
+                console.log(this.state.locations);
+            })
+            .catch(error =>{
+                console.log("error updating user data", error)
+            })
     }
 
     decrementNumDays = () => {
-        if(this.state.numDays >0)
-            this.setState({numDays: this.state.numDays - 1});
+        let c = window.confirm("Are you sure you want to delete day " + (this.state.locations.length - 1).toString() + "?");
+        if(c === true){
+            const loc = this.state.locations;
+            loc.pop();
+            
+            const new_plan_data = {
+                author: this.state.author,
+                budget: this.state.budget,
+                locations: loc,
+                name: this.state.name
+            }
+            axios.put('http://localhost:5000/api/plans/' + this.props.plan_id, new_plan_data)
+                .then((response) =>{
+                    this.setState({
+                        locations: loc
+                    })
+                    console.log(this.state.locations);
+                })
+                .catch(error =>{
+                    console.log("error updating user data", error)
+                })
+            } 
     }
 
     //TODO: make all symbols clickable, let user add days
     render() {
         return (
             <div className="btn-group-vertical" id="planner-sidebar">
+                {/*}
                 <button 
                 className="mb-2 btn-outline-dark" 
                 onClick = {() => this.props.handleClick("Stay")}
@@ -58,6 +118,7 @@ export default class SideBar extends React.Component {
                 >
                     <FlightTakeoffIcon fontSize="large"/>
                 </button>
+                        */}
                 <div id= "planner-date-range">
                     <button 
                     className="mb-2 btn-outline-dark">

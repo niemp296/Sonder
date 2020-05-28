@@ -2,6 +2,7 @@ import React from 'react';
 import Activities from '../Activities/Activities';
 import "./Main.css";
 import axios from 'axios';
+import {Redirect} from 'react-router-dom'
 
 //this class contains the list of all activities and
 //render the time of day + activities
@@ -13,13 +14,18 @@ export default class Main extends React.Component {
             time: ["morning", "afternoon", "evening"],
             morning:[],
             afternoon: [],
-            evening: []
+            evening: [],
+            addLocation: false
           };
-          console.log("clicked day ", this.props);
           this.getEachLocations();
     }
     
     getEachLocations = () => {
+        console.log(this.state.time);
+        console.log(this.props.day);
+        if(this.props.day >= this.props.locations.length){
+            return;
+        }
         console.log("geteachlocation");
         this.state.time.map(t =>
             this.props.locations[this.props.day][t].map(location => 
@@ -47,7 +53,9 @@ export default class Main extends React.Component {
     //TODO: the function add plan adds to the estimated cost
     //and use props to update the estimated cost in header
     addLocation = () =>{
-        //user see a list of possible locations
+        this.setState({
+            addLocation: true
+        })
     }
 
     //this function is called when user press the remove button
@@ -56,9 +64,6 @@ export default class Main extends React.Component {
     removeLocation = (day_time, location_id, location_cost) => {
         //remove id from database
         this.props.updateBudget(-location_cost, location_id, this.props.day, day_time);
-        //this.setState({
-        //    cost: this.state.cost - location_cost
-        //})
         this.setState({
             cost : 0,
             morning:[],
@@ -68,7 +73,6 @@ export default class Main extends React.Component {
         this.getEachLocations();
 
     }
-
     
     componentDidUpdate(prevProps){
         if(prevProps.day !== this.props.day){
@@ -84,6 +88,11 @@ export default class Main extends React.Component {
     }
 
     render() {
+        if(this.state.addLocation === true){
+            console.log("main addLoc is true");
+            const path = "/map:" + this.props.user_id;
+            return <Redirect to = {path} />
+        }
         return (
             <div>
                 <h5 id="day-estimated-cost">
@@ -96,6 +105,7 @@ export default class Main extends React.Component {
                             activities = {this.state[t]}
                             day_time = {t}
                             onRemove = {this.removeLocation}
+                            addLocation = {this.addLocation}
                             />
                     </div>
                 )}
