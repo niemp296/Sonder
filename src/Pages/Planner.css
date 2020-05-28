@@ -7,6 +7,5 @@
 #planner-main{
     width: 100%;
     padding: 1rem 1rem;
-    border-left: 2px solid black;
     height: -webkit-fill-available;
 }

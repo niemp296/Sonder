@@ -23,6 +23,10 @@ class SearchBar extends Component {
           filtered: []
         });
       }
+    
+    componentWillUnmount() {
+        this.setState({filtered: []});
+    }
 
     handleKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -52,14 +56,14 @@ class SearchBar extends Component {
         return (
             <div>
                 <Grid container spacing={3}>
-                    <Grid item xs={3}>
+                    <Grid item xs={5}>
                         <form className="form-inline d-flex justify-content-center md-form form-md mt-0">
                         <input className="form-control form-control-sm w-75" type="text" onChange={this.handleChange} placeholder="Search"
                             aria-label="Search" onKeyPress={this.handleKeyPress}/>
                         </form>
                         <SearchList items={this.state.filtered} />
                     </Grid>
-                    <Grid item xs={9}>
+                    <Grid item md={3}>
                         <Map items={this.state.filtered}/> 
                     </Grid>
                 </Grid>               

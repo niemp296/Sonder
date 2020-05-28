@@ -5,6 +5,7 @@ import * as PlannerComponents from './Components/Planner/Planner-Router/Router';
 import './Planner.css';
 import axios from 'axios'
 import {Redirect} from 'react-router-dom'
+import Header from './Components/Header/Header';
 
 //todo: make a function to handle total cost: flight (passed by sidebar) + stays (passed by sidebar) + activities (passed by Main - ok)
 export default class Planner extends React.Component {
@@ -32,7 +33,7 @@ export default class Planner extends React.Component {
     // if user != the plan author, we create a duplicate plan
     // and post it to user's database
     getPlannerInfo = () => {
-        let user_id = this.props.match.params.user_id.substring(1, this.props.match.params.user_id.length); 
+        let user_id = this.props.match.params.user_id.substring(1); 
         let plan_id = this.props.match.params.plan_id;
         axios.get('http://localhost:5000/api/plans/' + plan_id.substring(1, plan_id.length))
             .then((response) => {
@@ -73,7 +74,6 @@ export default class Planner extends React.Component {
         //delete old plans from user
         axios.get('http://localhost:5000/api/users/' + user_id)
             .then((response) => {
-                // handle success
                 let user_data = response.data[0];
                 const old_id_index = user_data.plans.indexOf(plan_info._id.$oid);
                 if(user_data.plans.length > 1)
@@ -114,7 +114,7 @@ export default class Planner extends React.Component {
     updatePlanArray = (user_id, user_data, new_plan_id) =>{
         user_data.plans.push(new_plan_id);
         delete user_data["_id"];
-        //get user info
+        //update user info
         axios.put('http://localhost:5000/api/users/' + user_id, user_data)
             .catch(error =>{
                 console.log("error updating user data", error)
@@ -162,6 +162,25 @@ export default class Planner extends React.Component {
             })
     }
 
+    updatePlanName = (newTitle) =>{
+        const updated_plan = {
+            name: newTitle,
+            locations: this.state.locations,
+            budget: this.state.budget,
+            author: this.state.author
+        }
+        console.log(updated_plan);
+
+        axios.put('http://localhost:5000/api/plans/' + this.props.match.params.plan_id.substring(1), updated_plan)
+            .then((response) =>{
+                this.setState({
+                    name: newTitle,
+                })
+            })
+            .catch(error =>{
+                console.log("error updating user data", error)
+            })
+    }
     
     selectComponent = (comp, day) => {
         console.log(comp, day);
@@ -179,6 +198,7 @@ export default class Planner extends React.Component {
             locations = {this.state.locations}
             day = {this.state.selectedDay}
             updateBudget = {this.updateBudget}
+            user_id = {this.props.match.params.user_id.substring(1)}
             />
         }
         return <Com />
@@ -192,13 +212,16 @@ export default class Planner extends React.Component {
         }
         return (
             <div>
+            <Header isLoggedIn = {this.props.match.params.user_id.substring(1)} />
             <PlannerHeader
                 title = {this.state.title}
                 length = {this.state.length}
                 budget = {this.state.budget}
+                updatePlanName = {this.updatePlanName}
             />
             <div id ="Planner-container">
-                <PlannerSideBar handleClick = {this.selectComponent}/>
+                <PlannerSideBar handleClick = {this.selectComponent} 
+                    plan_id = {this.props.match.params.plan_id.substring(1)}/>
                 <div id="planner-main">
                 {this.renderSelectedComponent(this.state.selectedComponent)}
                 </div>
