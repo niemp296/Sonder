@@ -1,0 +1,42 @@
+.SmallResourceBox {
+    height: fit-content;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    margin: 10%;
+    border-style: solid;
+    border-color: #e0dfdf;
+    border-width: 0.1rem;
+}
+
+
+
+h1 {
+    font-weight: 600;
+    font-size: 15px;
+    color: #0D2020;
+    padding: 0 20px;
+}
+
+p {
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.Image {
+    width: 30%;
+    border-radius: 5px 0 0 8px;
+}
+
+.Info {
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 10px;
+    margin-top: 2%;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+}
