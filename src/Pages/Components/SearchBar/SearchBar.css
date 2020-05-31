@@ -1,0 +1,16 @@
+.filter {
+    flex-direction: row;
+    font-size: 13px;
+    margin: 5%;
+    margin-top: 10px;
+    margin-left: 25%;
+}
+
+.filterItem {
+    margin: 2%;
+}
+
+.active {
+    margin: 2%;
+    border-color: rgb(0, 110, 255);
+}
