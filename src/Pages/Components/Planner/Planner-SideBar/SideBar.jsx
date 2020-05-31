@@ -1,7 +1,7 @@
 import React from 'react';
 import './SideBar.css'
-import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
-import HotelIcon from '@material-ui/icons/Hotel';
+//import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
+//import HotelIcon from '@material-ui/icons/Hotel';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import axios from 'axios'
 

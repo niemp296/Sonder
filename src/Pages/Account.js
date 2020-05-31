@@ -64,6 +64,7 @@ export default class Account extends React.Component {
             email: this.state.email,
             plans: userplans
         }
+        console.log(new_user_info)
         axios.put('http://localhost:5000/api/users/' + this.state.id, new_user_info)
         .then((response)=>{
             console.log("updateUserInfo success");
@@ -72,7 +73,7 @@ export default class Account extends React.Component {
             })
         })    
         .catch(error =>{
-                console.log("error updating user data", error)
+                alert("Error: New plan was created, but fail to push to user's database")
             })
     }
     //this method is called when user clicks the addplan button

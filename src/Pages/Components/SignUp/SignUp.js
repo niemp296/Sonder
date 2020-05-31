@@ -116,7 +116,7 @@ class SignUp extends Component {
   };
 
   handleRadioChange = e =>{
-    const { name, value } = e.target;
+    const { name } = e.target;
     switch(name){
       case "traveler":
           this.setState({traveler: true, advertiser: false}, () => console.log(this.state));
