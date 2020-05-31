@@ -15,7 +15,8 @@ class SearchBar extends Component {
             search: "",
             filterCity: true,
             filterPlace: false,
-            filterCountry: false
+            filterCountry: false,
+            userHasSearched: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -29,7 +30,7 @@ class SearchBar extends Component {
       }
     
     componentWillUnmount() {
-        this.setState({filtered: []});
+        this.setState({filtered: [], userHasSearched: false});
     }
 
     handleKeyPress = (e) => {
@@ -39,6 +40,9 @@ class SearchBar extends Component {
             let newList = [];
             if (this.state.search !== "") {
                 currentList = this.state.data;
+                this.setState({
+                    userHasSearched: true
+                });
                 if (this.state.filterCity) {
                     newList = currentList.filter(item => {
                                     return item.city.toLowerCase().includes(this.state.search.toLowerCase());
@@ -107,7 +111,8 @@ class SearchBar extends Component {
                         <SearchList items={this.state.filtered} 
                                     filterCity={this.state.filterCity}
                                     filterCountry={this.state.filterCountry}
-                                    filterPlace={this.state.filterPlace}/>
+                                    filterPlace={this.state.filterPlace}
+                                    userHasSearched={this.state.userHasSearched}/>
                     </Grid>
                     <Grid item md={3}>
                         <Map items={this.state.filtered}/> 

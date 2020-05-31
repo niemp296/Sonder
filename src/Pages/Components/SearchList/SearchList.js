@@ -9,7 +9,8 @@ export default class SearchList extends Component {
     static propTypes = {
         filterCity: PropTypes.bool,
         filterPlace: PropTypes.bool,
-        filterCountry: PropTypes.bool
+        filterCountry: PropTypes.bool,
+        userHasSearched: PropTypes.bool
     }
 
     constructor(props) {
@@ -81,7 +82,7 @@ export default class SearchList extends Component {
             <div>
                 {this.state.filtered[0] !== undefined ? 
                 this.renderResultsMessage() 
-                : <Name title={{text: "No results found"}}/>             
+                : this.props.userHasSearched ? <Name title={{text: "No results found"}}/> : ''        
                 }
                 {this.state.filtered.map(item => (
                     <BoxComponent items={item}/>
