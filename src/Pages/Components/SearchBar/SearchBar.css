@@ -1,9 +1,9 @@
 .filter {
-    padding-top: 3%;
-    padding-left: 3%;
     flex-direction: row;
-    margin-left: 15%;
     font-size: 13px;
+    margin: 5%;
+    margin-top: 10px;
+    margin-left: 25%;
 }
 
 .filterItem {
