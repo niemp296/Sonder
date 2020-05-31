@@ -1,15 +1,4 @@
-matrix:
-   include:
-      - language: node_js
-         node_js: 
-            - node
-         cache: yarn
-         install:
-            - yarn install
-      - language: python
-         python: 
-            - 3.7
-            - 3.6
-            - 3.5
-         install:
-            - pip3 install -r requirements.txt
+language: node_js
+node_js: 
+   - node
+
