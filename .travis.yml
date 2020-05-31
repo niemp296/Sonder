@@ -1,9 +1,19 @@
-language: node_js
-node_js: node
-cache: yarn
-install:
-   - yarn install
- 
-script:
-   - yarn test
-   - yarn run built
+matrix:
+   include:
+   - language: node_js
+      node_js: node
+      cache: yarn
+      install:
+         - yarn install
+      
+      script:
+         - yarn test
+         - yarn run built
+   - language: python
+      python: 
+         - 3.7
+         - 2.7
+      script: pytest
+      install: 
+      - pip3 install -r requirements.txt
+      
