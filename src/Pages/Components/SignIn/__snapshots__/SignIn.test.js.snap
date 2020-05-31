@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test case for SignIn layout should render initial layout 1`] = `
+Array [
+  <div>
+    <Header />
+    <div
+      className="outerContainer"
+    >
+      <div
+        className="registrationForm"
+      >
+        <h1
+          className="title"
+        >
+          Welcome back!
+        </h1>
+        <form
+          action="http://localHost:5000/api/signIn"
+          method="post"
+          noValidate={true}
+          onSubmit={[Function]}
+        >
+          <div
+            className="email"
+          >
+            <label
+              htmlFor="email"
+            >
+              Email
+            </label>
+            <input
+              className={null}
+              name="email"
+              noValidate={true}
+              onChange={[Function]}
+              placeholder="Email"
+              type="email"
+            />
+          </div>
+          <div
+            className="password"
+          >
+            <label
+              htmlFor="password"
+            >
+              Password
+            </label>
+            <input
+              className={null}
+              name="password"
+              noValidate={true}
+              onChange={[Function]}
+              placeholder="Password"
+              type="password"
+            />
+          </div>
+          <div
+            className="signIn"
+          >
+            <button
+              type="submit"
+            >
+              Sign In
+            </button>
+            <ForwardRef(WithStyles)
+              href="/sign-up"
+              variant="body"
+            >
+              <small>
+                  
+                Don't have your account? Sign Up
+                 
+              </small>
+            </ForwardRef(WithStyles)>
+            <ForwardRef(WithStyles)
+              href="/forgot-password"
+              variant="body"
+            >
+              <small>
+                  
+                Forgot your password?
+                 
+              </small>
+            </ForwardRef(WithStyles)>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>,
+]
+`;
