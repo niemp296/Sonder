@@ -153,9 +153,9 @@ export default class Account extends React.Component {
                         {this.renderPlans()}
                     </section>
                     <div className="btn-toolbar account-button-group" role="group" aria-label="account-btn-settings">
-                        <button type="button" className="btn btn-outline-dark">Update Profile</button>
                         <button type="button" className="btn btn-outline-dark" onClick = {this.signOut}>Log Out</button>
-                        <button type="button" className="btn btn-outline-danger">Delete Account</button>
+                        {/*<button type="button" className="btn btn-outline-dark">Update Profile</button>
+                        <button type="button" className="btn btn-outline-danger">Delete Account</button>*/}
                     </div>
                 </section>
             </div>
