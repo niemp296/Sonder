@@ -10,7 +10,7 @@ L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";
 class Maps extends React.Component {
 
   static propTypes = {
-    items: PropTypes.array
+    items: PropTypes.array,
   }
 
   constructor(props) {
@@ -20,47 +20,21 @@ class Maps extends React.Component {
         lat: 35.28275, 
         lng: -120.65962,
       },
-      userHasSearched: false,
       zoom: 3,
       name: '',
       filtered: []
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.setState({
       filtered: this.props.items
     });
-    this.checkUserHasSearch();
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       filtered: nextProps.items
-    });
-    this.checkUserHasSearch();
-  }
-
-  componentWillUnmount() {
-    this.setDefault();
-  }
-
-  checkUserHasSearch() {
-    if (this.state.filtered !== []) {
-      this.setState({userHasSearched: true, zoom: 13});
-    }
-  }
-  
-  setDefault() {
-    this.setState({
-      location: {
-        lat: 35.28275, 
-        lng: -120.65962,
-      },
-      userHasSearched: false,
-      zoom: 3,
-      name: '',
-      filtered: []
     });
   }
 
@@ -78,7 +52,7 @@ class Maps extends React.Component {
     );
   }
 
-  render() {
+  renderDefault() {
     var location = [this.state.location.lat, this.state.location.lng];
 
     return (
@@ -87,8 +61,26 @@ class Maps extends React.Component {
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-          {this.state.userHasSearched ? this.showMarker() :  ''}
+        {this.showMarker()}
       </Map>
+    );
+  }
+
+  renderLocation() {
+    return (
+      <Map className="map" zoom={10} center={[this.state.filtered[0].coord[0],this.state.filtered[0].coord[1]]}>
+        <TileLayer
+          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {this.showMarker()}
+      </Map>
+    );
+  }
+
+  render() {
+    return (
+      this.state.filtered[0] === undefined ? this.renderDefault() : this.renderLocation()        
     );
   }
 };

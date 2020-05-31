@@ -1,7 +1,7 @@
 import React from 'react';
 import './SideBar.css'
-import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
-import HotelIcon from '@material-ui/icons/Hotel';
+//import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
+//import HotelIcon from '@material-ui/icons/Hotel';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import axios from 'axios'
 
@@ -77,8 +77,9 @@ export default class SideBar extends React.Component {
     }
 
     decrementNumDays = () => {
-        let c = window.confirm("Are you sure you want to delete day " + (this.state.locations.length - 1).toString() + "?");
+        let c = window.confirm("Are you sure you want to delete day " + (this.state.locations.length).toString() + "?");
         if(c === true){
+            this.props.handleClick("Activity", this.state.locations.length -2)
             const loc = this.state.locations;
             loc.pop();
             
@@ -121,16 +122,12 @@ export default class SideBar extends React.Component {
                         */}
                 <div id= "planner-date-range">
                     <button 
-                    className="mb-2 btn-outline-dark">
+                    className="mb-2 btn-outline-dark" 
+                    onClick={() => this.props.handleClick("Stay")}>
                         <DateRangeIcon fontSize="large"/>
                     </button>
-                    <button className="mb-2 btn-outline-dark" data-toggle="collapse" data-target="#planner-days-icons" aria-expanded="false" aria-controls="planner-days-icons">
-                        <svg className="bi bi-caret-down-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 01.753 1.659l-4.796 5.48a1 1 0 01-1.506 0z"/>
-                        </svg>
-                    </button>
                 </div>
-                <div className="collapse" id="planner-days-icons">
+                <div id="planner-days-icons">
                     {this.renderPlannerDayButton()}
                     <button 
                     className="btn btn-light btn-outline-dark planner-day-icon mb-2"

@@ -64,6 +64,7 @@ export default class Account extends React.Component {
             email: this.state.email,
             plans: userplans
         }
+        console.log(new_user_info)
         axios.put('http://localhost:5000/api/users/' + this.state.id, new_user_info)
         .then((response)=>{
             console.log("updateUserInfo success");
@@ -72,7 +73,7 @@ export default class Account extends React.Component {
             })
         })    
         .catch(error =>{
-                console.log("error updating user data", error)
+                alert("Error: New plan was created, but fail to push to user's database")
             })
     }
     //this method is called when user clicks the addplan button
@@ -153,9 +154,9 @@ export default class Account extends React.Component {
                         {this.renderPlans()}
                     </section>
                     <div className="btn-toolbar account-button-group" role="group" aria-label="account-btn-settings">
-                        <button type="button" className="btn btn-outline-dark">Update Profile</button>
                         <button type="button" className="btn btn-outline-dark" onClick = {this.signOut}>Log Out</button>
-                        <button type="button" className="btn btn-outline-danger">Delete Account</button>
+                        {/*<button type="button" className="btn btn-outline-dark">Update Profile</button>
+                        <button type="button" className="btn btn-outline-danger">Delete Account</button>*/}
                     </div>
                 </section>
             </div>
