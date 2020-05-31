@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
-import "./SearchList.css"
-import axios from 'axios'
+import "./SearchList.css";
+import axios from 'axios';
+import BoxComponent from "./BoxComponent";
+import PropTypes from 'prop-types';
 
 export default class SearchList extends Component {
+
+    static propTypes = {
+        filterCity: PropTypes.bool,
+        filterPlace: PropTypes.bool,
+        filterCountry: PropTypes.bool,
+        userHasSearched: PropTypes.bool
+    }
+
     constructor(props) {
         super(props);
         this.state = {
-            filtered: []
+            filtered: [],
         }
     }
     componentDidMount() {
@@ -24,6 +30,12 @@ export default class SearchList extends Component {
           filtered: nextProps.items
         });
       }
+    
+    componentWillUnmount() {
+        this.setState({
+            filtered: []
+          });
+    }
     
     getLocationAPI = () => {
         axios.get('http://localhost:5000/api/locations/')
@@ -46,21 +58,36 @@ export default class SearchList extends Component {
             })
     }
 
+    renderResultsMessage () {
+        const Name = ({title}) => <div className="result"><h1>{title.text}</h1></div>;
+        if (this.props.filterCity) {
+            return (
+                <Name title={{text: "Showing you results for " + this.state.filtered[0].city + ", " + this.state.filtered[0].country}}/>
+            );
+        } else if (this.props.filterCountry) {
+            return (
+                <Name title={{text: "Showing you results for " + this.state.filtered[0].country}}/>
+            );
+        } else {
+            return (
+                <Name title={{text: "Showing you results for " + this.state.filtered[0].name}}/>
+            );
+        }
+
+    }
+
     render() {
+        const Name = ({title}) => <div className="result"><h1>{title.text}</h1></div>;
         return (
-        <List className="Capitalize">
-            {this.state.filtered.map(item => (
-                <React.Fragment>
-                    <ListItem alignItems="flex-start">
-                    <ListItemText 
-                        primary={item.name}
-                        secondary={item.type}
-                    />
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
-                </React.Fragment>
-            ))}
-        </List>
+            <div>
+                {this.state.filtered[0] !== undefined ? 
+                this.renderResultsMessage() 
+                : this.props.userHasSearched ? <Name title={{text: "No results found"}}/> : ''        
+                }
+                {this.state.filtered.map(item => (
+                    <BoxComponent items={item}/>
+                ))}
+            </div>
         );
     }
 }

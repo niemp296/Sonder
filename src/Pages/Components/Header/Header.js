@@ -22,7 +22,7 @@ export default class Header extends React.Component {
                     <img src={logo} className="Logo" alt="logo"/> 
                 </a>        
                 <li><a href="/sign-up">Sign Up</a></li> 
-                <li><a href="/sign-in">Sign In</a></li>                                  
+                <li><a href="/sign-in">Sign In</a></li>                                   
             </ul>
         );
     }
@@ -35,7 +35,7 @@ export default class Header extends React.Component {
                 <a href={map}>
                     <img src={logo} className="Logo" alt="logo"/> 
                 </a>             
-                <li><a href={path}>My Profile</a></li>                                
+                <li><a href={path}>My Profile</a></li>                                    
             </ul>
         );
     }
