@@ -89,7 +89,6 @@ export default class Main extends React.Component {
 
     render() {
         if(this.state.addLocation === true){
-            console.log("main addLoc is true");
             const path = "/map:" + this.props.user_id;
             return <Redirect to = {path} />
         }
@@ -100,7 +99,7 @@ export default class Main extends React.Component {
                     </h5>
                 {this.state.time.map(t =>
                     <div>
-                        <h1 id="day-time">{t}</h1>
+                        <h2 className="display-2 text-center mb-3" id="day-time">{t}</h2>
                         <Activities 
                             activities = {this.state[t]}
                             day_time = {t}
