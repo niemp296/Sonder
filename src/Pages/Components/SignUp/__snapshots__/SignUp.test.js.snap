@@ -1,0 +1,168 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test case for SignIn layout should render initial layout 1`] = `
+Array [
+  <div>
+    <Header />
+    <div
+      className="outerContainer"
+    >
+      <div
+        className="registrationForm"
+      >
+        <h1
+          className="title"
+        >
+          Sign Up
+        </h1>
+        <form
+          action="http://127.0.0.1:5000/api/signUp"
+          method="post"
+          noValidate={true}
+          onSubmit={[Function]}
+        >
+          <div
+            className="firstName"
+          >
+            <label
+              htmlFor="firstName"
+            >
+              First Name
+            </label>
+            <input
+              className={null}
+              name="firstName"
+              noValidate={true}
+              onChange={[Function]}
+              placeholder="First Name"
+              type="text"
+            />
+          </div>
+          <div
+            className="lastName"
+          >
+            <label
+              htmlFor="lastName"
+            >
+              Last Name
+            </label>
+            <input
+              className={null}
+              name="lastName"
+              noValidate={true}
+              onChange={[Function]}
+              placeholder="Last Name"
+              type="text"
+            />
+          </div>
+          <div>
+            <label
+              className="areyou"
+            >
+              Are you: 
+            </label>
+            <label
+              className="container"
+            >
+               Traveler
+              <input
+                checked={false}
+                name="traveler"
+                onChange={[Function]}
+                type="radio"
+              />
+              <span
+                className="checkmark"
+              />
+            </label>
+            <label
+              className="container"
+            >
+               Advertiser
+              <input
+                checked={false}
+                name="advertiser"
+                onChange={[Function]}
+                type="radio"
+              />
+              <span
+                className="checkmark"
+              />
+            </label>
+          </div>
+          <div
+            className="email"
+          >
+            <label
+              htmlFor="email"
+            >
+              Email
+            </label>
+            <input
+              className={null}
+              name="email"
+              noValidate={true}
+              onChange={[Function]}
+              placeholder="Email"
+              type="email"
+            />
+          </div>
+          <div
+            className="password"
+          >
+            <label
+              htmlFor="password"
+            >
+              Password
+            </label>
+            <input
+              className={null}
+              name="password"
+              noValidate={true}
+              onChange={[Function]}
+              placeholder="Password"
+              type="password"
+            />
+          </div>
+          <div
+            className="password"
+          >
+            <label
+              htmlFor="password"
+            >
+              Confirm Password
+            </label>
+            <input
+              className={null}
+              name="confirmPassword"
+              noValidate={true}
+              onChange={[Function]}
+              placeholder="Confirm Password"
+              type="password"
+            />
+          </div>
+          <div
+            className="createAccount"
+          >
+            <button
+              type="submit"
+            >
+              Create Account
+            </button>
+            <ForwardRef(WithStyles)
+              href="/sign-in"
+              variant="body"
+            >
+              <small>
+                  
+                Already have an account? Sign in
+                 
+              </small>
+            </ForwardRef(WithStyles)>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>,
+]
+`;
