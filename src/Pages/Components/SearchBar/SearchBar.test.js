@@ -9,7 +9,7 @@ describe("Test case for SearchBar layout", () => {
     it("should render 5 text inpubox, 2 radio input box, 1 button", () => {
         const wrapper = shallow(<SearchBar />);
         expect(wrapper.find('input[type="text"]').length).toEqual(1);
-        expect(wrapper.find('button').length).toEqual(3);
+        expect(wrapper.find('Button').length).toEqual(3);
     });
 });
 
@@ -23,7 +23,7 @@ describe('Input box Test', () =>{
     })
 })
 describe('Filter buttons Test', () =>{
-    let wrapper = mount(<SearchBar />);
+    let wrapper = shallow(<SearchBar />);
     const preventDefault = jest.fn();
 
     it('filter buttons default state', () =>{
@@ -32,13 +32,13 @@ describe('Filter buttons Test', () =>{
         expect(wrapper.state('filterCountry')).toEqual(false);
     })
     it('filter buttons click place', () =>{
-        wrapper.find('button[name="place"]').simulate('click');
+        wrapper.find('Button').at(1).simulate('click', {preventDefault});
         expect(wrapper.state('filterCity')).toEqual(false);
         expect(wrapper.state('filterPlace')).toEqual(true);
         expect(wrapper.state('filterCountry')).toEqual(false);
     })
     it('filter buttons click country', () =>{
-        wrapper.find('button[name="country"]').simulate('click');
+        wrapper.find('Button').at(2).simulate('click', {preventDefault});
         expect(wrapper.state('filterCity')).toEqual(false);
         expect(wrapper.state('filterPlace')).toEqual(false);
         expect(wrapper.state('filterCountry')).toEqual(true);
