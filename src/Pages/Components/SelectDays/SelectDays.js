@@ -21,6 +21,9 @@ const useStyles = theme => ({
       selectEmpty: {
         marginTop: theme.spacing(2),
       },
+      selectDaysContainer: {
+        marginLeft: "10%",
+      }
   });
 
 class SelectDays extends Component {
@@ -77,7 +80,7 @@ class SelectDays extends Component {
         const { classes } = this.props;
         return (
           
-            <div>
+            <div className={classes.selectDaysContainer}>
               
                   <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="age-native-simple">Plan</InputLabel>
