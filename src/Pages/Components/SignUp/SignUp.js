@@ -112,17 +112,17 @@ class SignUp extends Component {
       default:
         break;
     }
-    this.setState({ formErrors, [name]: value }, () => console.log(this.state));
+    this.setState({ formErrors, [name]: value });
   };
 
   handleRadioChange = e =>{
     const { name } = e.target;
     switch(name){
       case "traveler":
-          this.setState({traveler: true, advertiser: false}, () => console.log(this.state));
+          this.setState({traveler: true, advertiser: false});
           break;
       case "advertiser":
-        this.setState({advertiser: true, traveler:false}, () => console.log(this.state));
+        this.setState({advertiser: true, traveler:false});
         break;
       default:
         break;
