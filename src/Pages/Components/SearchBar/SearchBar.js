@@ -16,7 +16,8 @@ class SearchBar extends Component {
             filterCity: true,
             filterPlace: false,
             filterCountry: false,
-            userHasSearched: false
+            userHasSearched: false,
+            isLoggedIn: this.props.isLoggedIn,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -112,7 +113,8 @@ class SearchBar extends Component {
                                     filterCity={this.state.filterCity}
                                     filterCountry={this.state.filterCountry}
                                     filterPlace={this.state.filterPlace}
-                                    userHasSearched={this.state.userHasSearched}/>
+                                    userHasSearched={this.state.userHasSearched}
+                                    isLoggedIn ={this.state.isLoggedIn}/>
                     </Grid>
                     <Grid item md={3}>
                         <Map items={this.state.filtered}/> 

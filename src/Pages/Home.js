@@ -24,7 +24,7 @@ export default class Home extends React.Component {
             return (
                 <div>
                 <Header isLoggedIn ={this.props.match.params.id.substring(1)}/>
-                <Main/>
+                <Main isLoggedIn ={this.props.match.params.id.substring(1)}/>
                 </div>
             );
         }

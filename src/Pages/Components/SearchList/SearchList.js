@@ -3,6 +3,7 @@ import "./SearchList.css";
 import axios from 'axios';
 import BoxComponent from "./BoxComponent";
 import PropTypes from 'prop-types';
+import SelectDays from '../SelectDays/SelectDays';
 
 export default class SearchList extends Component {
 
@@ -17,17 +18,29 @@ export default class SearchList extends Component {
         super(props);
         this.state = {
             filtered: [],
+            isLoggedIn : this.props["isLoggedIn"] !== undefined? true : false,
+            userId: this.props["isLoggedIn"] !== undefined ? this.props.isLoggedIn : "",
+            plans: null,
         }
     }
-    componentDidMount() {
+
+    async componentDidMount() {
         this.setState({
           filtered: this.props.items
         });
+        if (this.state.isLoggedIn == true) {
+            var lol = await axios.get('http://localhost:5000/api/userplans/'+this.state.userId)
+                    .then((response) => response.data);
+            this.setState({
+                plans: lol,
+            })          
+        }
+        console.log(this.state.plans)
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-          filtered: nextProps.items
+          filtered: nextProps.items,
         });
       }
     
@@ -80,6 +93,7 @@ export default class SearchList extends Component {
         const Name = ({title}) => <div className="result"><h1>{title.text}</h1></div>;
         return (
             <div>
+                {this.state.plans!=null && this.state.isLoggedIn ? <SelectDays plans={this.state.plans}/> : ''}
                 {this.state.filtered[0] !== undefined ? 
                 this.renderResultsMessage() 
                 : this.props.userHasSearched ? <Name title={{text: "No results found"}}/> : ''        
