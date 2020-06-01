@@ -29,40 +29,38 @@ const useStyles = theme => ({
 class SelectDays extends Component {
 
     constructor(props) {
-        super(props);
-        this.state = {
-            filtered: [],
-            selectedPlan: '',
-            day: '',
-            time: '',
-            plans: {},
-        }
+      super(props);
+      this.state = {
+          filtered: [],
+          selectedPlan: '',
+          day: '',
+          time: '',
+          plans: {},
+      }
     }
     componentDidMount() {
-        this.setState({
-          plans: this.props.plans
-        });
-        console.log(this.state.plans)
+      this.setState({
+        plans: this.props.plans
+      });
+      console.log(this.state.plans)
     }
 
-      componentWillReceiveProps(nextProps) {
-        this.setState({ plans: nextProps.plans });  
-        console.log(this.state.plans)
-      }
+    componentWillReceiveProps(nextProps) {
+      this.setState({ plans: nextProps.plans });  
+      console.log(this.state.plans)
+    }
     
     componentWillUnmount() {
-        this.setState({
-            filtered: []
-          });
+      this.setState({
+          filtered: []
+        });
     }
 
     componentWillUpdate(nextProps) {
       console.log("asdfsa")
       return this.state.plans != this.props.plans
     }
-    
-
-
+  
     handleChange = (event) => {
         const name = event.target.name;
         this.setState({
