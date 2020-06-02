@@ -3,7 +3,7 @@ import "./SearchList.css";
 import axios from 'axios';
 import BoxComponent from "./BoxComponent";
 import PropTypes from 'prop-types';
-import SelectDays from '../SelectDays/SelectDays';
+import SelectPlan from '../SelectPlan/SelectPlan';
 
 export default class SearchList extends Component {
 
@@ -20,7 +20,13 @@ export default class SearchList extends Component {
             filtered: [],
             isLoggedIn : this.props["isLoggedIn"] !== undefined? true : false,
             userId: this.props["isLoggedIn"] !== undefined ? this.props.isLoggedIn : "",
-            plans: null,
+            plans: [],
+            selectedPlan: '',
+            selectedPlanId: '',
+            selectedDay: '',
+            days: [],
+            selectedTime: '',
+            dayTimeDisabled: true,
         }
     }
 
@@ -29,13 +35,11 @@ export default class SearchList extends Component {
           filtered: this.props.items
         });
         if (this.state.isLoggedIn == true) {
-            var lol = await axios.get('http://localhost:5000/api/userplans/'+this.state.userId)
-                    .then((response) => response.data);
             this.setState({
-                plans: lol,
-            })          
+                plans: await axios.get('http://localhost:5000/api/userplans/'+this.state.userId)
+                .then((response) => response.data),
+            })   
         }
-        console.log(this.state.plans)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -49,27 +53,46 @@ export default class SearchList extends Component {
             filtered: []
           });
     }
-    
-    getLocationAPI = () => {
-        axios.get('http://localhost:5000/api/locations/')
-            .then((response) => {
-                // handle success
-                let location = response.data[0];
-                if(response.status === 200){
+
+    selectPlanValues = (event) => {
+        const name = event.target.attributes.name.value;
+        this.setState({
+          [name]: event.target.value,
+        }, () => {
+          if (this.state.dayTimeDisabled && this.state.selectedPlan != '') {
+            this.setState({
+              dayTimeDisabled: false,
+            })
+          }
+          else if (!this.state.dayTimeDisabled && this.state.selectedPlan == '') {
+              this.setState({
+                  dayTimeDisabled: true,
+              })
+          }
+        })
+        if (name == "selectedPlan" && this.state.selectedPlanId != event.target.attributes.id.value) {
+            this.setState({
+                selectedPlanId: event.target.attributes.id.value,
+            })
+            var _days = new Array();
+            for (var i=0; i<this.state.plans.length; i++) {
+                if (this.state.plans[i]["_id"]["$oid"] == event.target.attributes.id.value) {
                     this.setState({
-                        filtered: {
-                            name: location.name,
-                            type: location.type
-                        },
-                        userHasSearched: true,
+                        days: this.state.plans[i]["locations"].length,
                     })
                 }
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
+            }
+        }       
+    };
+
+    isEmpty(obj) {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
     }
+      
 
     renderResultsMessage () {
         const Name = ({title}) => <div className="result"><h1>{title.text}</h1></div>;
@@ -93,7 +116,15 @@ export default class SearchList extends Component {
         const Name = ({title}) => <div className="result"><h1>{title.text}</h1></div>;
         return (
             <div>
-                {this.state.plans!=null && this.state.isLoggedIn ? <SelectDays plans={this.state.plans}/> : ''}
+                {!this.isEmpty(this.state.plans) && this.state.isLoggedIn ? 
+                    <SelectPlan 
+                        plans={this.state.plans} 
+                        selectPlanValues={this.selectPlanValues} 
+                        selectedPlan={this.state.selectedPlan}
+                        dayTimeDisabled={this.state.dayTimeDisabled}
+                        days={this.state.days}
+                        selectedDay={this.state.selectedDay}
+                        selectedTime={this.state.selectedTime}/> : ''}
                 {this.state.filtered[0] !== undefined ? 
                 this.renderResultsMessage() 
                 : this.props.userHasSearched ? <Name title={{text: "No results found"}}/> : ''        
