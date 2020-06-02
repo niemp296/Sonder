@@ -27,6 +27,7 @@ export default class SearchList extends Component {
             days: [],
             selectedTime: '',
             dayTimeDisabled: true,
+            addWithoutPlan: false,
         }
     }
 
@@ -91,6 +92,49 @@ export default class SearchList extends Component {
         }
         return true;
     }
+
+    addToPlan = async(event) => {
+        if (this.state.selectedDay == '' || this.state.selectedPlan == '' || this.state.selectedTime == '') {
+            this.setState({
+                addWithoutPlan: true,
+            })
+        }
+        else {
+            await this.updateDatabase(event.currentTarget.id, event.currentTarget.value)
+            if (this.state.addWithoutPlan) {
+                this.setState({
+                    addWithoutPlan: false,
+                })
+            }
+        }
+    }
+
+    updateDatabase = async(id, spending) => {
+        var planIndex;
+        var _plan;
+        var _plans = [...this.state.plans];
+        _plans.find((o, i) => {
+            if (o["_id"]["$oid"] == this.state.selectedPlanId) {
+                planIndex = i;
+                _plan = _plans[i]
+                return;
+            }
+        });
+        _plan["locations"][this.state.selectedDay][this.state.selectedTime].push(id)
+        _plan["budget"] = parseFloat(_plan["budget"]) + parseFloat(spending)
+        _plans[planIndex] = _plan;
+        this.setState({
+            plans: _plans,
+        })
+        var new_plan = {
+            author: _plan["author"],
+            budget: _plan["budget"],
+            locations: _plan["locations"],
+            name: _plan["name"],
+        }
+        await axios.put('http://localhost:5000/api/plans/'+this.state.selectedPlanId, new_plan)
+                .then((response) => response.data);
+    }
       
 
     renderResultsMessage () {
@@ -124,12 +168,13 @@ export default class SearchList extends Component {
                         days={this.state.days}
                         selectedDay={this.state.selectedDay}
                         selectedTime={this.state.selectedTime}/> : ''}
+                {this.state.addWithoutPlan ? <div>Error</div> : ''}
                 {this.state.filtered[0] !== undefined ? 
                 this.renderResultsMessage() 
                 : this.props.userHasSearched ? <Name title={{text: "No results found"}}/> : ''        
                 }
                 {this.state.filtered.map(item => (
-                    <BoxComponent items={item}/>
+                    <BoxComponent isLoggedIn={this.state.isLoggedIn} addToPlan={this.addToPlan} key={item["_id"]["$oid"]} item={item}/>
                 ))}
             </div>
         );
