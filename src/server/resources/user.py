@@ -39,5 +39,5 @@ class UserApi(Resource):
 
 class UserPlansApi(Resource):
     def get(self, id):
-        plans = plan_db.find({'author': id},{"_id": 1, "name": 1}) 
+        plans = plan_db.find({'author': id},{"_id": 1, "name": 1, "locations": 1}) 
         return Response(dumps(plans), mimetype="application/json", status=200)
