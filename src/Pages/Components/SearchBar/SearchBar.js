@@ -16,7 +16,8 @@ class SearchBar extends Component {
             filterCity: true,
             filterPlace: false,
             filterCountry: false,
-            userHasSearched: false
+            userHasSearched: false,
+            isLoggedIn: this.props.isLoggedIn,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -100,19 +101,20 @@ class SearchBar extends Component {
                 <Grid container spacing={3}>
                     <Grid item xs={5}>
                         <form className="form-inline d-flex justify-content-center md-form form-md mt-0">
-                        <input className="form-control form-control-sm w-75" type="text" onChange={this.handleChange} placeholder="Search"
+                        <input className="form-control form-control-sm w-75" type="text" name="searchbox" onChange={this.handleChange} placeholder="Search"
                             aria-label="Search" onKeyPress={this.handleKeyPress}/>
                         </form>
                         <div className="filter">
-                            <button className ={this.state.filterCity ? "active ":"filterItem"} onClick={() => this.filterCity()}>By City</button>
-                            <button className ={this.state.filterPlace ? "active ":"filterItem"} onClick={() => this.filterPlace()}>By Place</button>
-                            <button className ={this.state.filterCountry ? "active ":"filterItem"} onClick={() => this.filterCountry()}>By Country</button>
+                            <button name="city" className ={this.state.filterCity ? "active ":"filterItem"} onClick={() => this.filterCity()}>By City</button>
+                            <button name="place" className ={this.state.filterPlace ? "active ":"filterItem"} onClick={() => this.filterPlace()}>By Place</button>
+                            <button name="country" className ={this.state.filterCountry ? "active ":"filterItem"} onClick={() => this.filterCountry()}>By Country</button>
                         </div>
                         <SearchList items={this.state.filtered} 
                                     filterCity={this.state.filterCity}
                                     filterCountry={this.state.filterCountry}
                                     filterPlace={this.state.filterPlace}
-                                    userHasSearched={this.state.userHasSearched}/>
+                                    userHasSearched={this.state.userHasSearched}
+                                    isLoggedIn ={this.state.isLoggedIn}/>
                     </Grid>
                     <Grid item md={3}>
                         <Map items={this.state.filtered}/> 
