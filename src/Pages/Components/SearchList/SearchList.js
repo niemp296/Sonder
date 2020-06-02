@@ -74,7 +74,6 @@ export default class SearchList extends Component {
             this.setState({
                 selectedPlanId: event.target.attributes.id.value,
             })
-            var _days = new Array();
             for (var i=0; i<this.state.plans.length; i++) {
                 if (this.state.plans[i]["_id"]["$oid"] == event.target.attributes.id.value) {
                     this.setState({

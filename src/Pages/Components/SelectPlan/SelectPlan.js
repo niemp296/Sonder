@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import Menu from '@material-ui/core/Menu'
 import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import NativeSelect from '@material-ui/core/NativeSelect';
-import axios from 'axios';
-
 
 const useStyles = theme => ({
     formControl: {
