@@ -4,6 +4,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import MenuItem from '@material-ui/core/MenuItem';
+
 
 const useStyles = theme => ({
     formControl: {
@@ -82,43 +84,51 @@ class SelectPlan extends Component {
         return (
           
             <div className={classes.selectDaysContainer}>
-              
+        
                   <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="plan-native-simple">Plan</InputLabel>
+                    <InputLabel id="plan-select-label">Plan</InputLabel>
                     <Select
-                      native
+                      labelId="plan-select-label"
+                      id="plan-select"
                       value={this.state.selectedPlan}
+                      name="selectedPlan"
+                      onChange={this.props.selectPlanValues}
                     >
-                      <option name='selectedPlan' id ="" value="" onClick={this.props.selectPlanValues}/>
                       {this.state.plans.map(item => (
-                          <option name='selectedPlan' id ={item["_id"]["$oid"]} value={item.name} onClick={this.props.selectPlanValues}>{item.name}</option>
+                          <MenuItem name='selectedPlan' id ={item["_id"]["$oid"]} value={item.name}>{item.name}</MenuItem>
                       ))}
                     </Select>
                   </FormControl>
+
                   <FormControl className={classes.formControl} disabled={this.state.dayTimeDisabled}>
-                    <InputLabel htmlFor="day-native-disabled">Day</InputLabel>
-                    <NativeSelect
-                      native
+                    <InputLabel id="day-select-label">Day</InputLabel>
+                    <Select
+                      labelId="day-select-label"
+                      id="day-select"
                       value={this.state.selectedDay}
+                      name="selectedDay"
+                      onChange={this.props.selectPlanValues}
                     >
-                      <option name="selectedDay" aria-label="None" value="" onClick={this.props.selectPlanValues}/>
                       {Array.from(Array(this.state.days), (e,i) => {
-                        return <option name="selectedDay" id={i} value={i} onClick={this.props.selectPlanValues}>Day {i+1}</option>
+                        return <MenuItem name="selectedDay" id={i} value={i}>Day {i+1}</MenuItem>
                       })}
-                    </NativeSelect>
+                    </Select>
                   </FormControl>
+
                   <FormControl className={classes.formControl} disabled={this.state.dayTimeDisabled}>
-                    <InputLabel htmlFor="time-native-disabled">Time</InputLabel>
-                    <NativeSelect
-                      native
-                      value={this.state.selectedName}
+                    <InputLabel id="time-select-label">Time</InputLabel>
+                    <Select
+                      labelId="time-select-label"
+                      id="time-select"
+                      value={this.state.selectedTime}
+                      name="selectedTime"
+                      onChange={this.props.selectPlanValues}
                     >
-                      <option aria-label="None" name="selectedTime" onClick={this.props.selectPlanValues} value=""/>
-                      <option name="selectedTime" onClick={this.props.selectPlanValues} value={'morning'}>Morning</option>
-                      <option name="selectedTime" onClick={this.props.selectPlanValues} value={'afternoon'}>Afternoon</option>
-                      <option name="selectedTime" onClick={this.props.selectPlanValues} value={'evening'}>Evening</option>
-                    </NativeSelect>
-                  </FormControl>  
+                      <MenuItem name="selectedTime" value={'morning'}>Morning</MenuItem>
+                      <MenuItem name="selectedTime" value={'afternoon'}>Afternoon</MenuItem>
+                      <MenuItem name="selectedTime" value={'evening'}>Evening</MenuItem>
+                    </Select>
+                  </FormControl>
                
             </div>
         );
