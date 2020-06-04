@@ -105,6 +105,7 @@ export default class SearchList extends Component {
                     addWithoutPlan: false,
                 })
             }
+            alert("Succesfully added to plan! You can continue browsing for locations.");
             await this.updateDatabase(event.currentTarget.id, event.currentTarget.value)
         }
     }
