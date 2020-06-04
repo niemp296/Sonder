@@ -1,4 +1,4 @@
-ul {
+.headerUl {
     list-style-type: none;
     margin: 0;
     padding: 2%;
@@ -8,12 +8,12 @@ ul {
     padding-right: 6%;
 }
 
-li {
+.headerUl li {
     float: right;
     padding-left: 3%;
 }
 
-li a {
+.headerUl a {
     display: block;
     color: #1B1725;
     text-align: center;

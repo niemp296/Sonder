@@ -56,7 +56,7 @@ export default class SearchList extends Component {
     }
 
     selectPlanValues = (event) => {
-        const name = event.target.attributes.name.value;
+        const name = event.target.name;
         this.setState({
           [name]: event.target.value,
         }, () => {
@@ -71,12 +71,12 @@ export default class SearchList extends Component {
               })
           }
         })
-        if (name == "selectedPlan" && this.state.selectedPlanId != event.target.attributes.id.value) {
+        if (name == "selectedPlan" && this.state.selectedPlanId != event.currentTarget.id) {
             this.setState({
-                selectedPlanId: event.target.attributes.id.value,
+                selectedPlanId: event.currentTarget.id,
             })
             for (var i=0; i<this.state.plans.length; i++) {
-                if (this.state.plans[i]["_id"]["$oid"] == event.target.attributes.id.value) {
+                if (this.state.plans[i]["_id"]["$oid"] == event.currentTarget.id) {
                     this.setState({
                         days: this.state.plans[i]["locations"].length,
                     })
@@ -94,18 +94,18 @@ export default class SearchList extends Component {
     }
 
     addToPlan = async(event) => {
-        if (this.state.selectedDay == '' || this.state.selectedPlan == '' || this.state.selectedTime == '') {
+        if (this.state.selectedDay === '' || this.state.selectedPlan == '' || this.state.selectedTime == '') {
             this.setState({
                 addWithoutPlan: true,
             })
         }
         else {
-            await this.updateDatabase(event.currentTarget.id, event.currentTarget.value)
             if (this.state.addWithoutPlan) {
                 this.setState({
                     addWithoutPlan: false,
                 })
             }
+            await this.updateDatabase(event.currentTarget.id, event.currentTarget.value)
         }
     }
 

@@ -17,7 +17,7 @@ export default class Header extends React.Component {
 
     _beforeLogIn() {
         return (
-            <ul> 
+            <ul className="headerUl"> 
                 <a href="/">
                     <img src={logo} className="Logo" alt="logo"/> 
                 </a>        
@@ -31,7 +31,7 @@ export default class Header extends React.Component {
         let path = "/Account:" + this.state.userId;
         let map = "/map:" + this.state.userId;
         return (
-            <ul> 
+            <ul className="headerUl"> 
                 <a href={map}>
                     <img src={logo} className="Logo" alt="logo"/> 
                 </a>             
