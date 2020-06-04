@@ -28,4 +28,6 @@ ul#user-plans-group{
     float: left;
     display: flex;
     width: 100%;
+    list-style: None;
+    margin: 1rem 0;
 }

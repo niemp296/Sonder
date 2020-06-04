@@ -56,7 +56,6 @@ export default class Account extends React.Component {
         for (let id in this.state.plans){
             userplans.push(this.state.plans[id].$oid)
         }
-        console.log(userplans);
         userplans.push(new_plan_id);
         const new_user_info = {
             firstName: this.state.firstName,
@@ -64,7 +63,6 @@ export default class Account extends React.Component {
             email: this.state.email,
             plans: userplans
         }
-        console.log(new_user_info)
         axios.put('http://localhost:5000/api/users/' + this.state.id, new_user_info)
         .then((response)=>{
             console.log("updateUserInfo success");
@@ -103,7 +101,7 @@ export default class Account extends React.Component {
     //this method is called when the user clicks on one of the plan
     seePlan = (plan_id) => {
         this.setState({
-            see_plan: plan_id.$oid
+            see_plan: plan_id
         })
     }
 
@@ -114,14 +112,53 @@ export default class Account extends React.Component {
             return(<ul id="user-plans-group">{
                 this.state.plans.map(
                     plan => 
-                    <li onClick = {() => this.seePlan(plan)}> <Plan id={plan}></Plan>
+                    <li> <Plan id={plan} 
+                    seePlan = {this.seePlan}
+                    deletePlan = {this.deletePlan}></Plan>
                     </li>)} 
                     </ul>);
         }
     }
 
+    deletePlan = (plan_id, name) =>{
+        let c = window.confirm("Are you sure you want to delete '" +  name + "'?");
+        if (c){
+            axios.delete('http://localhost:5000/api/plans/'+ plan_id.$oid)
+            .catch(function(error){
+                console.log(error);
+            })
+            let curPlan = this.state.plans;
+            const indexDelete = this.state.plans.indexOf(plan_id);
+            delete curPlan[indexDelete];
+            console.log(curPlan);
+
+            let userplans =[]
+            for (let id in curPlan){
+                userplans.push(this.state.plans[id].$oid)
+            }
+            const new_user_info = {
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                email: this.state.email,
+                plans: userplans
+            }
+
+            console.log("to put: ", new_user_info);
+            
+            axios.put('http://localhost:5000/api/users/' + this.state.id, new_user_info)
+            .then((response)=>{
+                window.location.reload(true);
+                //load account page again
+            })    
+            .catch(error =>{
+                    alert("Error: Fail to remove plan from users' database")
+                    console.log(error);
+                })
+        }
+            
+    }
+
     signOut = () =>{
-        console.log("signing out..");
         this.setState({
             isSignedOut: true
         })
