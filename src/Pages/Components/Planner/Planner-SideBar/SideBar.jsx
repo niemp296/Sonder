@@ -79,27 +79,33 @@ export default class SideBar extends React.Component {
     decrementNumDays = () => {
         let c = window.confirm("Are you sure you want to delete day " + (this.state.locations.length).toString() + "?");
         if(c === true){
-            this.props.handleClick("Activity", this.state.locations.length -2)
-            const loc = this.state.locations;
-            loc.pop();
-            
-            const new_plan_data = {
-                author: this.state.author,
-                budget: this.state.budget,
-                locations: loc,
-                name: this.state.name
-            }
-            axios.put('http://localhost:5000/api/plans/' + this.props.plan_id, new_plan_data)
-                .then((response) =>{
-                    this.setState({
-                        locations: loc
+            if(this.state.locations > 1){
+                this.props.handleClick("Activity", this.state.locations.length - 2)
+                const loc = this.state.locations;
+                loc.pop();
+                
+                const new_plan_data = {
+                    author: this.state.author,
+                    budget: this.state.budget,
+                    locations: loc,
+                    name: this.state.name
+                }
+                axios.put('http://localhost:5000/api/plans/' + this.props.plan_id, new_plan_data)
+                    .then((response) =>{
+                        this.setState({
+                            locations: loc
+                        })
+                        console.log(this.state.locations);
                     })
-                    console.log(this.state.locations);
-                })
-                .catch(error =>{
-                    console.log("error updating user data", error)
-                })
-            } 
+                    .catch(error =>{
+                        console.log("error updating user data", error)
+                    })
+                } 
+                else{
+                    alert("Can't delete day 1. Need at least one day in a plan");
+                }
+            }
+            
     }
 
     //TODO: make all symbols clickable, let user add days

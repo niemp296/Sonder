@@ -54,29 +54,3 @@ describe('Input box is working', () =>{
         expect(wrapper.state('advertiser')).toEqual(true);
     })
 })
-/*
-describe('Test case for testing SignUp',() =>{
-    let wrapper = mount(<SignUp />)
-    const preventDefault = jest.fn();
-    
-    it('email check',()=>
-    {
-        wrapper = mount(<SignUp/>);
-        wrapper.find('input[type="email"]').simulate('change', {target: {name: 'email', value: 'irennanicole1@gmail.com'}});
-        expect(wrapper.state('email')).toEqual('irennanicole1@gmail.com');
-    })
-    it('password check',()=>{
-        wrapper = mount(<SignUp/>);
-        wrapper.find('input[type="password"]').simulate('change', {target: {name: 'password', value: '111111'}});
-        expect(wrapper.state('password')).toEqual('111111');
-    })
-    it('login check with data',()=>{
-        wrapper = mount(<SignUp/>);
-        wrapper.find('input[type="email"]').simulate('change', {target: {name: 'email', value: 'irennanicole1@gmail.com'}});
-        wrapper.find('input[type="password"]').simulate('change', {target: {name: 'password', value: 'phuongn123'}});
-        wrapper.find('button').simulate('click', { preventDefault });
-        wrapper.find('form').simulate('submit', { preventDefault });
-        expect(wrapper.state('isSignedIn')).toBe(false);
-    })
-})
-*/
