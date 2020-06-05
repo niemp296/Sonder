@@ -41,7 +41,7 @@ export default class Account extends React.Component {
                         lastName: user_data.lastName,
                         email: user_data.email,
                         plans: user_data.plans
-                    })
+                    });
                 }
             })
             .catch(function (error) {
@@ -183,7 +183,7 @@ export default class Account extends React.Component {
                     <section id="account-plan-list">
                         <h1>Your travel plans</h1>
                         <button 
-                        className="btn btn-lg btn-block btn-outline-dark"
+                        className="btn btn-lg btn-block btn-outline-dark btn-add-plan"
                         onClick = {this.addPlan
                         }>
                             Add a plan
@@ -191,7 +191,7 @@ export default class Account extends React.Component {
                         {this.renderPlans()}
                     </section>
                     <div className="btn-toolbar account-button-group" role="group" aria-label="account-btn-settings">
-                        <button type="button" className="btn btn-outline-dark" onClick = {this.signOut}>Log Out</button>
+                        <button type="button" className="btn btn-outline-dark btn-sign-out" onClick = {this.signOut}>Log Out</button>
                         {/*<button type="button" className="btn btn-outline-dark">Update Profile</button>
                         <button type="button" className="btn btn-outline-danger">Delete Account</button>*/}
                     </div>
