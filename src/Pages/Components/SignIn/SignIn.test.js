@@ -44,4 +44,18 @@ describe('Test case for testing SignIn',() =>{
     })
 })
 
+describe('test form errors', () =>{
+    let wrapper = mount(<SignIn />);
+    const preventDefault = jest.fn();
+
+    it('error email', () =>{
+        wrapper.find('input[name="email"]').simulate('change', {target: {name: 'email', value: '..'}});
+        expect(wrapper.state('formErrors').email).toEqual("invalid email address");
+    })
+    it('error password', () =>{
+        wrapper.find('input[name="password"]').simulate('change', {target: {name: 'password', value: 'x'}});
+        expect(wrapper.state('formErrors').password).toEqual("minimum 6 characaters required");
+    })
+})
+
 
