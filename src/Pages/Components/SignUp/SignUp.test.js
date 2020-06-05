@@ -29,7 +29,7 @@ describe('Input box is working', () =>{
     })
     it('input email', () =>{
         let email= "arandomemail@randomdomain.com";
-        wrapper.find('input[name="password"]').simulate('change', {target: {name: 'email', value: email}});
+        wrapper.find('input[name="email"]').simulate('change', {target: {name: 'email', value: email}});
         expect(wrapper.state('email')).toEqual(email);
     })
     it('input password', () =>{
@@ -52,5 +52,17 @@ describe('Input box is working', () =>{
         wrapper.find('input[name="advertiser"]').simulate('change');
         expect(wrapper.state('traveler')).toEqual(false);
         expect(wrapper.state('advertiser')).toEqual(true);
+    })
+    it('sign up check with data',()=>{
+        wrapper = mount(<SignUp/>);
+        wrapper.find('input[name="firstName"]').simulate('change', {target: {name: 'firstName', value: 'arandomfirstname'}});
+        wrapper.find('input[name="lastName"]').simulate('change', {target: {name: 'lastName', value: 'aaaaa'}});
+        wrapper.find('input[name="email"]').simulate('change', {target: {name: 'email', value: 'p@gmail.com'}});
+        wrapper.find('input[name="password"]').simulate('change', {target: {name: 'password', value: 'aaaaaaa'}});
+        wrapper.find('input[name="confirmPassword"]').simulate('change', {target: {name: 'confirmPassword', value: 'aaaaaaa'}});
+        wrapper.find('input[name="traveler"]').simulate('change');
+        wrapper.find('button').simulate('click', { preventDefault });
+        wrapper.find('form').simulate('submit', { preventDefault });
+        expect(wrapper.state('traveler')).toEqual(true);
     })
 })
