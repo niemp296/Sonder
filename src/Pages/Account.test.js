@@ -30,7 +30,7 @@ const resp = Promise.resolve({
 axios.get.mockResolvedValue(resp);
 axios.put.mockResolvedValue();
 
-describe("should render account layout", () => {
+describe("Test for Account", () => {
     const match = {
         params : {
             id: ":user_id"
