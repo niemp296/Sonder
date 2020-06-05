@@ -3,10 +3,10 @@ import React from 'react';
 import SearchBar from '../SearchBar/SearchBar'
 import './Main.css'
 
-function Main() {
+function Main(props) {
     return (
       <div className="Main">
-        <SearchBar/>
+        <SearchBar isLoggedIn ={props.isLoggedIn}/>
       </div>
     );
   }
