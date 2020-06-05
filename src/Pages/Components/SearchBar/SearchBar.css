@@ -1,9 +1,8 @@
 .filter {
-    flex-direction: row;
     font-size: 13px;
-    margin: 5%;
-    margin-top: 10px;
-    margin-left: 25%;
+    margin: auto;
+    width: 50%;
+    text-align: center;
 }
 
 .filterItem {
@@ -13,4 +12,8 @@
 .active {
     margin: 2%;
     border-color: rgb(0, 110, 255);
+}
+
+.w-70 {
+    width: 70% !important;
 }
