@@ -27,37 +27,29 @@ describe('Filter buttons Test', () =>{
         expect(wrapper.state('selectedTime')).toEqual('');
         expect(wrapper.state('dayTimeDisabled')).toEqual(true);
         expect(wrapper.state('addWithoutPlan')).toEqual(false);
+        wrapper = mount(<SearchList items={[{country: "US"}]}
+            filterCity={false}
+            filterCountry={true}
+            filterPlace={false}
+            userHasSearched={true}
+            isLoggedIn ={true} />);
+        expect(wrapper.find('Name').length).toEqual(1);
+        expect(wrapper.find('Name').props()).toEqual({title: {text: "Showing you results for US"}});
+        wrapper = mount(<SearchList items={[{city: "SLO"}]}
+            filterCity={true}
+            filterCountry={false}
+            filterPlace={false}
+            userHasSearched={true}
+            isLoggedIn ={true} />);
+        expect(wrapper.find('Name').length).toEqual(1);
+        expect(wrapper.find('Name').props()).toEqual({title: {text: "Showing you results for SLO"}});
+        wrapper = mount(<SearchList items={[{name: "LA"}]}
+            filterCity={false}
+            filterCountry={false}
+            filterPlace={true}
+            userHasSearched={true}
+            isLoggedIn ={true} />);
+        expect(wrapper.find('Name').length).toEqual(1);
+        expect(wrapper.find('Name').props()).toEqual({title: {text: "Showing you results for LA"}});
     }) 
 })
-
-// describe('Input box Test', () =>{
-//     let wrapper = mount(<SearchBar />);
-//     const preventDefault = jest.fn();
-
-//     it('input searchbox input', () =>{
-//         wrapper.find('input[name="searchbox"]').simulate('change', {target: {name: 'searchbox', value: 'randomString'}});
-//         expect(wrapper.state('search')).toEqual('randomString');
-//     })
-// })
-// describe('Filter buttons Test', () =>{
-//     let wrapper = shallow(<SearchBar />);
-//     const preventDefault = jest.fn();
-
-//     it('filter buttons default state', () =>{
-//         expect(wrapper.state('filterCity')).toEqual(true);
-//         expect(wrapper.state('filterPlace')).toEqual(false);
-//         expect(wrapper.state('filterCountry')).toEqual(false);
-//     })
-//     it('filter buttons click place', () =>{
-//         wrapper.find('Button').at(1).simulate('click', {preventDefault});
-//         expect(wrapper.state('filterCity')).toEqual(false);
-//         expect(wrapper.state('filterPlace')).toEqual(true);
-//         expect(wrapper.state('filterCountry')).toEqual(false);
-//     })
-//     it('filter buttons click country', () =>{
-//         wrapper.find('Button').at(2).simulate('click', {preventDefault});
-//         expect(wrapper.state('filterCity')).toEqual(false);
-//         expect(wrapper.state('filterPlace')).toEqual(false);
-//         expect(wrapper.state('filterCountry')).toEqual(true);
-//     })
-// })
