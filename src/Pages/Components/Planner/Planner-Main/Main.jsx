@@ -26,7 +26,6 @@ export default class Main extends React.Component {
         if(this.props.day >= this.props.locations.length){
             return;
         }
-        console.log("geteachlocation");
         this.state.time.map(t =>
             this.props.locations[this.props.day][t].map(location => 
                 axios.get('http://localhost:5000/api/locations/' + location)

@@ -106,6 +106,7 @@ export default class SearchList extends Component {
                 })
             }
             await this.updateDatabase(event.currentTarget.id, event.currentTarget.value)
+                        .then((response) => alert("Succesfully added to plan! You can continue browsing for locations."))
         }
     }
 
