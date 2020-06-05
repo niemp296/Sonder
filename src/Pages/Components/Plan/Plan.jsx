@@ -29,7 +29,6 @@ export default class Plan extends React.Component {
                 */
                 var plan_info = response.data;
                 if(response.status === 200){
-                    console.log(plan_info)
                     this.setState({
                         name: plan_info.name,
                         location_id: plan_info.locations[0].$oid,
@@ -50,9 +49,15 @@ export default class Plan extends React.Component {
         return (
             <section>
             <div className="card bg-light border-dark mb-3 user-plan"> 
-                <div className="card-body">
+                <div className="card-body" 
+                    onClick = {() => this.props.seePlan(this.props.id.$oid)}>
                     <h2 className="card-title text-center planner-activity-text">{this.state.name}</h2>
                     <h2 className="card-title text-center planner-activity-text">${this.state.budget}</h2>
+                </div>
+                <div className="card-footer border-danger footer-delete-plan"> 
+                <button type="button" 
+                className="btn btn-lg btn-block"
+                onClick = {() => this.props.deletePlan(this.props.id, this.state.name)}>Delete Plan</button>
                 </div>
             </div>
             </section>
