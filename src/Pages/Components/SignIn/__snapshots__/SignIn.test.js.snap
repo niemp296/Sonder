@@ -73,16 +73,6 @@ Array [
                  
               </small>
             </ForwardRef(WithStyles)>
-            <ForwardRef(WithStyles)
-              href="/forgot-password"
-              variant="body"
-            >
-              <small>
-                  
-                Forgot your password?
-                 
-              </small>
-            </ForwardRef(WithStyles)>
           </div>
         </form>
       </div>
