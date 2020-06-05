@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleOutlineTwoToneIcon from '@material-ui/icons/AddCircleOutlineTwoTone';
 import "./BoxComponent.css";
-<<<<<<< HEAD
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-=======
-import { withStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
->>>>>>> master
 
 
 const useStyles = makeStyles({
