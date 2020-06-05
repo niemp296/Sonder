@@ -32,6 +32,7 @@ function BoxComponent(props) {
         const Name = ({title}) => <div className="item"><h1 className="Name">{title.text}</h1></div>;
         const Info = ({title}) => <div className="item"><p>{title.text}</p></div>;
         const classes = useStyles();
+        console.log(props);
         return (
             <div className="SmallResourceBox">
                 <img src={props.item.url} className="Image" alt="headShot"/>
