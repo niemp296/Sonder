@@ -1,3 +1,5 @@
+# Sonder
+
 ## Brief Description of Project
 
 A website where users can see locations in a map and how much they cost, and then plan a trip.
@@ -30,3 +32,9 @@ Good for testing out API before you actually write front-end code to manually te
 
 ## Task Flow
 ![task flow](https://user-images.githubusercontent.com/36400660/83861974-27d98380-a6d6-11ea-8392-60ff1ad5b884.png)
+
+## To run the app
+- `yarn install` to install frontend dependencies
+- `pip3 -r requirements.txt` to install backend dependencies
+- `yarn start` to start a live webpage
+- `python3 src/server/app.py` to run the backend server
