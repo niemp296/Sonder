@@ -16,40 +16,61 @@ describe('Filter buttons Test', () =>{
     let wrapper = shallow(<SearchList />);
     const preventDefault = jest.fn();
 
-    it('filter buttons default state', () =>{
+    it('searchlist default state', () =>{
         expect(wrapper.state('isLoggedIn')).toEqual(false);
         expect(wrapper.state('userId')).toEqual("");
         expect(wrapper.state('plans')).toEqual([]);
         expect(wrapper.state('selectedPlan')).toEqual('');
         expect(wrapper.state('selectedPlanId')).toEqual('');
         expect(wrapper.state('selectedDay')).toEqual('');
-        expect(wrapper.state('days')).toEqual([]);
+        expect(wrapper.state('days')).toEqual(1);
         expect(wrapper.state('selectedTime')).toEqual('');
         expect(wrapper.state('dayTimeDisabled')).toEqual(true);
         expect(wrapper.state('addWithoutPlan')).toEqual(false);
-        wrapper = mount(<SearchList items={[{country: "US"}]}
-            filterCity={false}
-            filterCountry={true}
-            filterPlace={false}
-            userHasSearched={true}
-            isLoggedIn ={true} />);
-        expect(wrapper.find('Name').length).toEqual(1);
-        expect(wrapper.find('Name').props()).toEqual({title: {text: "Showing you results for US"}});
-        wrapper = mount(<SearchList items={[{city: "SLO"}]}
+        expect(wrapper.find("BoxComponent").length).toEqual(0)
+        const item =[{
+            _id:{
+                $oid: "item_id"
+            },
+            name: "Boba",
+            city: "SLO",
+            type: "city",
+            country: "US",
+            spending: 1,
+            addToPlan: jest.fn(),
+            url: "image-url"
+        }];
+        wrapper.setState({filtered: item})
+        wrapper = shallow(<SearchList items={item} 
             filterCity={true}
             filterCountry={false}
             filterPlace={false}
             userHasSearched={true}
-            isLoggedIn ={true} />);
-        expect(wrapper.find('Name').length).toEqual(1);
-        expect(wrapper.find('Name').props()).toEqual({title: {text: "Showing you results for SLO"}});
-        wrapper = mount(<SearchList items={[{name: "LA"}]}
+            isLoggedIn ={true} />)
+        expect(wrapper.state('filtered').length).toEqual(1);
+        expect(wrapper.find("BoxComponent").length).toEqual(1)
+        expect(wrapper.find("Name").props().title.text).toEqual("Showing you results for SLO, US")
+
+        wrapper = shallow(<SearchList items={item} 
+            filterCity={false}
+            filterCountry={true}
+            filterPlace={false}
+            userHasSearched={true}
+            isLoggedIn ={true} />)
+        expect(wrapper.state('filtered').length).toEqual(1);
+        expect(wrapper.find("BoxComponent").length).toEqual(1)
+        expect(wrapper.find("Name").props().title.text).toEqual("Showing you results for US")
+
+        wrapper = shallow(<SearchList items={item} 
             filterCity={false}
             filterCountry={false}
             filterPlace={true}
             userHasSearched={true}
-            isLoggedIn ={true} />);
-        expect(wrapper.find('Name').length).toEqual(1);
-        expect(wrapper.find('Name').props()).toEqual({title: {text: "Showing you results for LA"}});
-    }) 
+            isLoggedIn ={true} />)
+        expect(wrapper.state('filtered').length).toEqual(1);
+        expect(wrapper.find("BoxComponent").length).toEqual(1)
+        expect(wrapper.find("Name").props().title.text).toEqual("Showing you results for Boba")
+        wrapper.setState({days: 3});
+        expect(wrapper.state('days')).toEqual(3);
+    });
 })
