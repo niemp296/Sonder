@@ -142,9 +142,6 @@ class SignIn extends Component {
                     <Link href="/sign-up" variant="body">
                     <small>  {"Don't have your account? Sign Up"} </small>
                     </Link>
-                    <Link href="/forgot-password" variant="body">
-                        <small>  {"Forgot your password?"} </small>
-                    </Link>
                 </div>
             </form>
             </div>
