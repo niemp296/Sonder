@@ -93,7 +93,7 @@ export default class SearchList extends Component {
         const Name = ({title}) => <div className="result"><h1>{title.text}</h1></div>;
         return (
             <div>
-                {this.state.plans!=null && this.state.isLoggedIn ? <SelectDays plans={this.state.plans}/> : ''}
+                {(this.state.plans!=null && this.state.isLoggedIn) ? <SelectDays plans={this.state.plans}/> : ''}
                 {this.state.filtered[0] !== undefined ? 
                 this.renderResultsMessage() 
                 : this.props.userHasSearched ? <Name title={{text: "No results found"}}/> : ''        
