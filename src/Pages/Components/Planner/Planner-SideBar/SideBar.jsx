@@ -79,7 +79,7 @@ export default class SideBar extends React.Component {
     decrementNumDays = () => {
         let c = window.confirm("Are you sure you want to delete day " + (this.state.locations.length).toString() + "?");
         if(c === true){
-            if(this.state.locations > 1){
+            if(this.state.locations.length > 1){
                 this.props.handleClick("Activity", this.state.locations.length - 2)
                 const loc = this.state.locations;
                 loc.pop();
