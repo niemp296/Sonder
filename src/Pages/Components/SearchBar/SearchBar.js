@@ -5,6 +5,7 @@ import Map from '../Map/Map'
 import axios from 'axios';
 import './SearchBar.css';
 import { withStyles } from '@material-ui/core/styles';
+import { Button } from 'react-bootstrap';
 
 const styles = {
     item: {
@@ -12,6 +13,7 @@ const styles = {
         "overflow-y": "auto",
     }
   };
+
 
 class SearchBar extends Component {
 
@@ -114,9 +116,9 @@ class SearchBar extends Component {
                             aria-label="Search" onKeyPress={this.handleKeyPress}/>
                         </form>
                         <div className="filter">
-                            <button name="city" className ={this.state.filterCity ? "active ":"filterItem"} onClick={() => this.filterCity()}>By City</button>
-                            <button name="place" className ={this.state.filterPlace ? "active ":"filterItem"} onClick={() => this.filterPlace()}>By Place</button>
-                            <button name="country" className ={this.state.filterCountry ? "active ":"filterItem"} onClick={() => this.filterCountry()}>By Country</button>
+                            <Button variant="outline-secondary" className ={this.state.filterCity ? "active ":"filterItem"} onClick={() => this.filterCity()}>By City</Button>
+                            <Button variant="outline-secondary" className ={this.state.filterPlace ? "active ":"filterItem"} onClick={() => this.filterPlace()}>By Place</Button>
+                            <Button variant="outline-secondary" className ={this.state.filterCountry ? "active ":"filterItem"} onClick={() => this.filterCountry()}>By Country</Button>
                         </div>
                         <SearchList items={this.state.filtered} 
                                     filterCity={this.state.filterCity}
