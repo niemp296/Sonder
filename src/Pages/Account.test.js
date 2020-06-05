@@ -28,7 +28,7 @@ const resp = Promise.resolve({
     data: [user, "succesful"]
 });
 axios.get.mockResolvedValue(resp);
-axios.post.mockResolvedValue();
+axios.put.mockResolvedValue();
 
 describe("should render account layout", () => {
     const match = {
@@ -44,6 +44,7 @@ describe("should render account layout", () => {
         expect(wrapper.find('button.btn-sign-out').length).toEqual(1);
         expect(wrapper.find('section#account-plan-list').length).toEqual(1);
     });
+
     it("change state when user signs out", () =>{
         wrapper.find('button.btn-sign-out').simulate('click');
         expect(wrapper.state('isSignedOut')).toEqual(true);
@@ -57,5 +58,19 @@ describe("should render account layout", () => {
         expect(wrapper.state('lastName')).toEqual('Doe');
         expect(wrapper.state('email')).toEqual('jane-doe@email.com');
         expect(wrapper.state('plans').length).toEqual(2);
+    })
+
+    it('should update plan array on updateUserInfo', async() =>{
+        let instance2= wrapper.instance();
+        await instance2.updateUserInfo("new_plan_id");
+        instance2.forceUpdate();
+        expect(wrapper.state('see_plan')).toEqual('new_plan_id');
+    })
+    it('should renders plans', async() =>{
+        let instance = wrapper.instance();
+        await instance.getUserInfo();
+        const res = instance.renderPlans();
+        expect(res.type).toBe('ul');
+        expect(res.props.children.length).toEqual(2);  
     })
 });
