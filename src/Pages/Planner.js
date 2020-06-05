@@ -56,7 +56,7 @@ export default class Planner extends React.Component {
             })
             .catch(function (error) {
                 // handle error
-                console.log(error);
+                alert("An error has occured. Check your network and reload the page.")
             })
     }
     // we call this when user see a plan that they like from map
@@ -98,15 +98,18 @@ export default class Planner extends React.Component {
                         })
                         .catch(function(error){
                             console.log(error);
+                            alert("An error has occured. Check your network and reload the page.")
                         })
                     })
                     .catch ((error) =>{
                         console.log("error removing old plan", error)
+                        alert("An error has occured. Check your network and reload the page.")
                     })
             })
             .catch(function (error) {
                 // handle error
                 console.log(error);
+                alert("An error has occured. Check your network and reload the page.")
             })
 
     }
@@ -117,7 +120,7 @@ export default class Planner extends React.Component {
         //update user info
         axios.put('http://localhost:5000/api/users/' + user_id, user_data)
             .catch(error =>{
-                console.log("error updating user data", error)
+                alert("An error has occured. Check your network and reload the page.")
             })
 
     }
@@ -159,6 +162,7 @@ export default class Planner extends React.Component {
             })
             .catch(error =>{
                 console.log("error updating user data", error)
+                alert("An error has occured. Check your network and reload the page.")
             })
     }
 
@@ -179,6 +183,7 @@ export default class Planner extends React.Component {
             })
             .catch(error =>{
                 console.log("error updating user data", error)
+                alert("An error has occured. Check your network and reload the page.")
             })
     }
     

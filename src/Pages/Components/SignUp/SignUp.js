@@ -67,16 +67,17 @@ class SignUp extends Component {
           } 
         })
         .catch(function(error){
-          console.log("There's an error passing in data to the back-end")
           console.log(error);
+          alert("An error has occured. Check your network and reload the page.")
         });
     } else {
-        alert("The search query cannot be empty")
+      alert("An error has occured. Check your network and reload the page.")
     }
 
     } 
     else {
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+      alert("An error has occured. Check your network and reload the page.")
     }
   };
 

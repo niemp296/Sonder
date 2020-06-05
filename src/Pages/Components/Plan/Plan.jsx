@@ -41,6 +41,7 @@ export default class Plan extends React.Component {
             .catch(function (error) {
                 // handle error
                 console.log(error);
+                alert("An error has occured. Check your network and reload the page.")
             })
     }
 
