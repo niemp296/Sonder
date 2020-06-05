@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleOutlineTwoToneIcon from '@material-ui/icons/AddCircleOutlineTwoTone';
-import "./BoxComponent.css";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
 
