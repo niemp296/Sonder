@@ -1,68 +1,32 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Brief Description of Project
 
-## Available Scripts
+A website where users can see locations in a map and how much they cost, and then plan a trip.
+## Our Tech Stack and Language
 
-In the project directory, you can run:
+We used Flask (python) for back-end and reactJS for front end. We found that it's easier to use a cloud database than a local one, so we chose to use MongoDB.
 
-### `yarn start`
+## 5 Most Helpful Resources for Getting Started
+1. [React Tutorial - Learn React - React Crash Course](https://youtu.be/Ke90Tje7VS0)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The is one of the shortest react tutorial out there in the internet. It helps us learn the basic of state vs props, what are components, and the lifecycle of components.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+2. [JavaScript Tutorial for Beginners: Learn JavaScript in 1 Hour](https://youtu.be/W6NZfCO5SIk)
 
-### `yarn test`
+React is a javascript framework so it's great to understand javascript syntax. Another great thing about this video is that it's fairly new (posted in 2020). Javascript loves to deprecate their function, so even videos that were posted in 2018 are sometimes outdated.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. [Learn ES6 in this free 28-part Scrimba course](https://www.freecodecamp.org/news/learn-modern-javascript-in-this-free-28-part-course-7ec8d353eb/)
 
-### `yarn build`
+We treat this more like a cheatsheet than an actual tutorial. React uses ES6, which is a modified version of javascript. Good to know, but we don't use it as much. 
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. [Build a Python CRUD REST API in Flask and MongoDB Using Flask-PyMongo Library](https://youtu.be/HyDACIfdPs0)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+5. [Postman Tutorial for Beginners: API Testing using Postman](https://www.softwaretestingmaterial.com/postman-tutorial/)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Good for testing out API before you actually write front-end code to manually test it. We didn't know it exists before and found it really difficult to know whether our back-end code was correct.
 
-### `yarn eject`
+## UML Diagram
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<img width="672" alt="Screen Shot 2020-06-05 at 2 07 04 AM" src="https://user-images.githubusercontent.com/28214466/83858682-b5ff3b00-a6d1-11ea-8994-554a0e9acda3.png">
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Task Flow
+![task flow](https://user-images.githubusercontent.com/36400660/83861974-27d98380-a6d6-11ea-8392-60ff1ad5b884.png)
