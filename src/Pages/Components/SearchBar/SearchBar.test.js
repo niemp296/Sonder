@@ -17,10 +17,24 @@ describe('Input box Test', () =>{
     let wrapper = mount(<SearchBar />);
     const preventDefault = jest.fn();
 
-    it('input searchbox input', () =>{
-        wrapper.find('input[name="searchbox"]').simulate('change', {target: {name: 'searchbox', value: 'randomString'}});
-        expect(wrapper.state('search')).toEqual('randomString');
+    it('input searchbox input for place', () =>{
+        wrapper.find('input[name="searchbox"]').simulate('change', {target: {name: 'searchbox', value: 'San Luis Obispo'}});
+        wrapper.find('Button').at(1).simulate('click', {preventDefault});
+        wrapper.find('input').simulate('keypress', {key: 'Enter'})
+        expect(wrapper.state('search')).toEqual('San Luis Obispo');
     })
+    it('input searchbox input for city', () =>{
+        wrapper.find('input[name="searchbox"]').simulate('change', {target: {name: 'searchbox', value: 'San Luis Obispo'}});
+        wrapper.find('input').simulate('keypress', {key: 'Enter'})
+        expect(wrapper.state('search')).toEqual('San Luis Obispo');
+    })
+    it('input searchbox input for country', () =>{
+        wrapper.find('input[name="searchbox"]').simulate('change', {target: {name: 'searchbox', value: 'San Luis Obispo'}});
+        wrapper.find('Button').at(2).simulate('click', {preventDefault});
+        wrapper.find('input').simulate('keypress', {key: 'Enter'})
+        expect(wrapper.state('search')).toEqual('San Luis Obispo');
+    })
+    
 })
 describe('Filter buttons Test', () =>{
     let wrapper = shallow(<SearchBar />);
@@ -43,4 +57,19 @@ describe('Filter buttons Test', () =>{
         expect(wrapper.state('filterPlace')).toEqual(false);
         expect(wrapper.state('filterCountry')).toEqual(true);
     })
+    it('filter buttons default city', () =>{
+        wrapper.find('Button').at(0).simulate('click', {preventDefault});
+        expect(wrapper.state('filterCity')).toEqual(true);
+        expect(wrapper.state('filterPlace')).toEqual(false);
+        expect(wrapper.state('filterCountry')).toEqual(false);
+    })
 })
+
+describe("Test case for componentWillUnmount", () => {
+    it('componentWillUnmount should be called on unmount', () => {
+        const component = shallow(<SearchBar />);
+        const componentWillUnmount = jest.spyOn(component.instance(), 'componentWillUnmount');
+        component.unmount();
+        expect(componentWillUnmount).toHaveBeenCalled();
+    });
+});
