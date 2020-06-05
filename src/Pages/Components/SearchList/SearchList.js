@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./SearchList.css";
 import axios from 'axios';
-import BoxComponent from "./BoxComponent";
+import BoxComponent from "../BoxComponent/BoxComponent";
 import PropTypes from 'prop-types';
 import SelectPlan from '../SelectPlan/SelectPlan';
 
@@ -105,8 +105,8 @@ export default class SearchList extends Component {
                     addWithoutPlan: false,
                 })
             }
-            alert("Succesfully added to plan! You can continue browsing for locations.");
             await this.updateDatabase(event.currentTarget.id, event.currentTarget.value)
+                        .then((response) => alert("Succesfully added to plan! You can continue browsing for locations."))
         }
     }
 
@@ -169,14 +169,17 @@ export default class SearchList extends Component {
                         days={this.state.days}
                         selectedDay={this.state.selectedDay}
                         selectedTime={this.state.selectedTime}/> : ''}
-                {this.state.addWithoutPlan ? <div>Error</div> : ''}
+                {this.state.addWithoutPlan ? <div className="error"><h1>Please select plan, day, and time to add locations to plan.</h1></div> : ''}
                 {this.state.filtered[0] !== undefined ? 
                 this.renderResultsMessage() 
                 : this.props.userHasSearched ? <Name title={{text: "No results found"}}/> : ''        
                 }
+                <div>
                 {this.state.filtered.map(item => (
                     <BoxComponent isLoggedIn={this.state.isLoggedIn} addToPlan={this.addToPlan} key={item["_id"]["$oid"]} item={item}/>
                 ))}
+                </div>
+                
             </div>
         );
     }

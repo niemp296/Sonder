@@ -1,7 +1,5 @@
 @import url("~leaflet/dist/leaflet.css");
 
 .map {
-    height: 80vh;
-    width: 45vw;
-    margin-left: 30%;
+    height: 76vh;
 }
