@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import Map from '../Map/Map'
 import axios from 'axios';
 import './SearchBar.css';
-import { withStyles } from '@material-ui/core/styles';
 import { Button } from 'react-bootstrap';
 
 const styles = {
@@ -109,8 +108,8 @@ class SearchBar extends Component {
         const { classes } = this.props;
         return (
             <div>
-                <Grid container spacing={2} classes={{item: classes.item}}>
-                    <Grid item xs={6} classes={{item: classes.item}}>
+                <Grid container spacing={2} className="gridItem">
+                    <Grid item xs={6} className="gridItem">
                         <form className="form-inline d-flex justify-content-center md-form form-md mt-1">
                         <input className="form-control form-control-sm w-70" type="text" name="searchbox" onChange={this.handleChange} placeholder="Search"
                             aria-label="Search" onKeyPress={this.handleKeyPress}/>
@@ -136,4 +135,4 @@ class SearchBar extends Component {
     }
 }
 
- export default withStyles(styles)(SearchBar);
+ export default SearchBar;

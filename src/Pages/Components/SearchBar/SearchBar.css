@@ -17,3 +17,8 @@
 .w-70 {
     width: 70% !important;
 }
+
+.gridItem {
+    height: 78vh;
+    overflow-y: auto;
+}
