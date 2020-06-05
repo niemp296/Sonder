@@ -4,6 +4,15 @@ import Grid from '@material-ui/core/Grid';
 import Map from '../Map/Map'
 import axios from 'axios';
 import './SearchBar.css';
+import { Button } from 'react-bootstrap';
+
+const styles = {
+    item: {
+        height: "78vh",
+        "overflow-y": "auto",
+    }
+  };
+
 
 class SearchBar extends Component {
 
@@ -96,18 +105,19 @@ class SearchBar extends Component {
     }
 
     render() {
+        const { classes } = this.props;
         return (
             <div>
-                <Grid container spacing={3}>
-                    <Grid item xs={5}>
-                        <form className="form-inline d-flex justify-content-center md-form form-md mt-0">
-                        <input className="form-control form-control-sm w-75" type="text" name="searchbox" onChange={this.handleChange} placeholder="Search"
+                <Grid container spacing={2} className="gridItem">
+                    <Grid item xs={6} className="gridItem">
+                        <form className="form-inline d-flex justify-content-center md-form form-md mt-1">
+                        <input className="form-control form-control-sm w-70" type="text" name="searchbox" onChange={this.handleChange} placeholder="Search"
                             aria-label="Search" onKeyPress={this.handleKeyPress}/>
                         </form>
                         <div className="filter">
-                            <button name="city" className ={this.state.filterCity ? "active ":"filterItem"} onClick={() => this.filterCity()}>By City</button>
-                            <button name="place" className ={this.state.filterPlace ? "active ":"filterItem"} onClick={() => this.filterPlace()}>By Place</button>
-                            <button name="country" className ={this.state.filterCountry ? "active ":"filterItem"} onClick={() => this.filterCountry()}>By Country</button>
+                            <Button variant="outline-secondary" className ={this.state.filterCity ? "active ":"filterItem"} onClick={() => this.filterCity()}>By City</Button>
+                            <Button variant="outline-secondary" className ={this.state.filterPlace ? "active ":"filterItem"} onClick={() => this.filterPlace()}>By Place</Button>
+                            <Button variant="outline-secondary" className ={this.state.filterCountry ? "active ":"filterItem"} onClick={() => this.filterCountry()}>By Country</Button>
                         </div>
                         <SearchList items={this.state.filtered} 
                                     filterCity={this.state.filterCity}
@@ -116,7 +126,7 @@ class SearchBar extends Component {
                                     userHasSearched={this.state.userHasSearched}
                                     isLoggedIn ={this.state.isLoggedIn}/>
                     </Grid>
-                    <Grid item md={3}>
+                    <Grid item xs={6}>
                         <Map items={this.state.filtered}/> 
                     </Grid>
                 </Grid>               
@@ -125,5 +135,4 @@ class SearchBar extends Component {
     }
 }
 
- 
-export default SearchBar;
+ export default SearchBar;
