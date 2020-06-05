@@ -1,34 +1,15 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import './SelectPlan.css'
 
-
-const useStyles = theme => ({
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,          
-        "flex-direction": "column",
-      },
-      selectEmpty: {
-        marginTop: theme.spacing(2),
-      },
-      selectDaysContainer: {
-        margin: "auto",
-        "text-align": "center",
-        marginTop: "10px"
-      }
-  });
-
 class SelectPlan extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            filtered: [],
             selectedPlan: '',
             selectedDay: '',
             days: 1,
@@ -60,34 +41,12 @@ class SelectPlan extends Component {
       return this.state.plans != this.props.plans
     }
 
-    renderDays (days) {
-      for (var i=0; i<days; i++) {
-        return 
-      }
-      const Name = ({title}) => <div className="result"><h1>{title.text}</h1></div>;
-      if (this.props.filterCity) {
-          return (
-              <Name title={{text: "Showing you results for " + this.state.filtered[0].city + ", " + this.state.filtered[0].country}}/>
-          );
-      } else if (this.props.filterCountry) {
-          return (
-              <Name title={{text: "Showing you results for " + this.state.filtered[0].country}}/>
-          );
-      } else {
-          return (
-              <Name title={{text: "Showing you results for " + this.state.filtered[0].name}}/>
-          );
-      }
-
-  }
-
     render() {
-        const { classes } = this.props;
         return (
           
-            <div className={classes.selectDaysContainer}>
+            <div className="selectDaysContainer">
         
-                  <FormControl className={classes.formControl}>
+                  <FormControl className="formControl">
                     <InputLabel id="plan-select-label">Plan</InputLabel>
                     <Select
                       labelId="plan-select-label"
@@ -96,13 +55,13 @@ class SelectPlan extends Component {
                       name="selectedPlan"
                       onChange={this.props.selectPlanValues}
                     >
-                      {this.state.plans.map(item => (
-                          <MenuItem name='selectedPlan' id ={item["_id"]["$oid"]} value={item.name}>{item.name}</MenuItem>
-                      ))}
+                      {this.state.plans!=null ? this.state.plans.map(item => (
+                          <MenuItem name='selectedPlan' key={item["_id"]["$oid"]} id ={item["_id"]["$oid"]} value={item.name}>{item.name}</MenuItem>
+                      )) : ''}
                     </Select>
                   </FormControl>
 
-                  <FormControl className={classes.formControl} disabled={this.state.dayTimeDisabled}>
+                  <FormControl className="formControl" disabled={this.state.dayTimeDisabled}>
                     <InputLabel id="day-select-label">Day</InputLabel>
                     <Select
                       labelId="day-select-label"
@@ -112,12 +71,12 @@ class SelectPlan extends Component {
                       onChange={this.props.selectPlanValues}
                     >
                       {Array.from(Array(this.state.days), (e,i) => {
-                        return <MenuItem name="selectedDay" id={i} value={i}>Day {i+1}</MenuItem>
+                        return <MenuItem key={i} name="selectedDay" id={i} value={i}>Day {i+1}</MenuItem>
                       })}
                     </Select>
                   </FormControl>
 
-                  <FormControl className={classes.formControl} disabled={this.state.dayTimeDisabled}>
+                  <FormControl className="formControl" disabled={this.state.dayTimeDisabled}>
                     <InputLabel id="time-select-label">Time</InputLabel>
                     <Select
                       labelId="time-select-label"
@@ -126,9 +85,9 @@ class SelectPlan extends Component {
                       name="selectedTime"
                       onChange={this.props.selectPlanValues}
                     >
-                      <MenuItem name="selectedTime" value={'morning'}>Morning</MenuItem>
-                      <MenuItem name="selectedTime" value={'afternoon'}>Afternoon</MenuItem>
-                      <MenuItem name="selectedTime" value={'evening'}>Evening</MenuItem>
+                      <MenuItem key="morning" name="selectedTime" value={'morning'}>Morning</MenuItem>
+                      <MenuItem key="afternoon" name="selectedTime" value={'afternoon'}>Afternoon</MenuItem>
+                      <MenuItem key="evening" name="selectedTime" value={'evening'}>Evening</MenuItem>
                     </Select>
                   </FormControl>
                
@@ -137,4 +96,4 @@ class SelectPlan extends Component {
     }
 }
 
-export default withStyles(useStyles)(SelectPlan);
+export default SelectPlan;
