@@ -125,7 +125,7 @@ export default class Account extends React.Component {
         if (c){
             axios.delete('http://localhost:5000/api/plans/'+ plan_id.$oid)
             .catch(function(error){
-                console.log(error);
+                alert("An error has occured. Check your network and reload the page.")
             })
             let curPlan = this.state.plans;
             const indexDelete = this.state.plans.indexOf(plan_id);
@@ -142,8 +142,6 @@ export default class Account extends React.Component {
                 email: this.state.email,
                 plans: userplans
             }
-
-            console.log("to put: ", new_user_info);
             
             axios.put('http://localhost:5000/api/users/' + this.state.id, new_user_info)
             .then((response)=>{

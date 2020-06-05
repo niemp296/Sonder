@@ -38,7 +38,7 @@ export default class SideBar extends React.Component {
                 locations: response.data.locations,
                 name: response.data.name
             })
-        })
+        }).catch(() => alert("An error has occured. Check your network and reload the page."))
     }
 
     renderPlannerDayButton(){

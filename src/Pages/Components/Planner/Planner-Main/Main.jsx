@@ -21,8 +21,6 @@ export default class Main extends React.Component {
     }
     
     getEachLocations = () => {
-        console.log(this.state.time);
-        console.log(this.props.day);
         if(this.props.day >= this.props.locations.length){
             return;
         }
@@ -43,7 +41,7 @@ export default class Main extends React.Component {
 
                 })
                 .catch(function(error){
-                    console.log(error);
+                    alert("An error has occured. Check your network and reload the page.")
                 })
             )
         )

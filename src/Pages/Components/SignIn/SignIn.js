@@ -65,6 +65,7 @@ class SignIn extends Component {
         .catch(function(error){
           //Perform action based on error
             console.log(error);
+            alert("An error has occured. Check your network and reload the page.")
         });
       }
     } else {

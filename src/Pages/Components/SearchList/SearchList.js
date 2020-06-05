@@ -38,7 +38,8 @@ export default class SearchList extends Component {
         if (this.state.isLoggedIn == true) {
             this.setState({
                 plans: await axios.get('http://localhost:5000/api/userplans/'+this.state.userId)
-                .then((response) => response.data),
+                .then((response) => response.data)
+                .catch(() => alert("An error has occured. Check your network and reload the page.")),
             })   
         }
     }
@@ -107,6 +108,7 @@ export default class SearchList extends Component {
             }
             await this.updateDatabase(event.currentTarget.id, event.currentTarget.value)
                         .then((response) => alert("Succesfully added to plan! You can continue browsing for locations."))
+                        .catch(() => alert("An error has occured. Check your network and reload the page."))
         }
     }
 
@@ -134,7 +136,8 @@ export default class SearchList extends Component {
             name: _plan["name"],
         }
         await axios.put('http://localhost:5000/api/plans/'+this.state.selectedPlanId, new_plan)
-                .then((response) => response.data);
+                .then((response) => response.data)
+                .catch(() => alert("An error has occured. Check your network and reload the page."));
     }
       
 
