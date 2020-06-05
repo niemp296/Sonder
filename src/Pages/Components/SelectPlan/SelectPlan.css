@@ -2,3 +2,15 @@
     margin-top: 6%;
     margin-bottom: -3%;
 }
+
+.formControl {
+    margin: 8px !important;
+    min-width: 120px !important;
+    flex-direction: column;       
+}
+
+.selectDaysContainer {
+    margin: auto;
+    text-align: center;
+    margin-top: 10px;
+  }

@@ -24,7 +24,7 @@ export default class SearchList extends Component {
             selectedPlan: '',
             selectedPlanId: '',
             selectedDay: '',
-            days: [],
+            days: 1,
             selectedTime: '',
             dayTimeDisabled: true,
             addWithoutPlan: false,
