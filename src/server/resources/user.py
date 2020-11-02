@@ -3,13 +3,14 @@ from database.models import User
 from flask_restful import Resource
 from pymongo import MongoClient
 from bson.json_util import dumps
+import ssl
 import json
 
 # Since Python doesn't support overloads, two different methods need to be
 # created to support perform CRUD on a list of users and a single user location.
 with open("config.json", "r") as f:
     config = json.load(f)
-client= MongoClient(config['mongodbHost'])
+client= MongoClient(config['mongodbHost'], ssl_cert_reqs=ssl.CERT_NONE)
 plan_db = client.get_database('test').plan
 
 class UsersApi(Resource):

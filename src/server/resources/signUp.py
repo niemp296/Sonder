@@ -3,13 +3,14 @@ from flask_login import LoginManager, UserMixin, current_user, login_user, logou
 from database.models import User
 from flask import Response, request
 import json
+import ssl
 from pymongo import MongoClient
 from flask_restful import Resource
 
 #login = LoginManager(app)
 with open("config.json", "r") as f:
     config = json.load(f)
-client= MongoClient(config['mongodbHost'])
+client= MongoClient(config['mongodbHost'], ssl_cert_reqs=ssl.CERT_NONE)
 user_db = client.get_database('test')
 
 records = user_db.user
