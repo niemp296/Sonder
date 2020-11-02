@@ -4,19 +4,17 @@ from database.models import User
 from flask import Response, request
 from flask import current_app as app
 import json
+import ssl
 from pymongo import MongoClient
 from flask_restful import Resource
 
-#import sys
-#sys.path.append("..")
-#import app
 
 def initialize_signIn(app):
     login = LoginManager(app)
 
 with open("config.json", "r") as f:
     config = json.load(f)
-client= MongoClient(config['mongodbHost'])
+client= MongoClient(config['mongodbHost'], ssl_cert_reqs=ssl.CERT_NONE)
 user_db = client.get_database('test')
 
 records = user_db.user
@@ -28,8 +26,6 @@ records = user_db.user
 # return user is on succesful sign in
 class SignInApi(Resource):
     def post(self):
-        #if(current_user.is_authenticated):
-        #    return "User is authenticated. Redirect to index.html"
         data = request.json
         email = data['email']
 
@@ -44,8 +40,6 @@ class SignInApi(Resource):
             return("400")
         
         print("succesful sign_in")
-        # success = login_user(user, remember=data, force=True)
-        # print(success)
         return str(user['_id'])
 
 '''
